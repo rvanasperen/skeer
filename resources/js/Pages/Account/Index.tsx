@@ -1,11 +1,6 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout';
+import Account from '@/Models/Account';
 import { Head } from '@inertiajs/react';
-
-type Account = {
-    id: number;
-    name: string;
-    number: number;
-};
 
 export default function Index({ accounts }: { accounts: Account[] }) {
     return (
