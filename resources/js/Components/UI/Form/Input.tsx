@@ -1,13 +1,14 @@
-import { InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 
-export default function Input({
-    className = '',
-    ...props
-}: InputHTMLAttributes<HTMLInputElement>) {
+export default forwardRef<
+    HTMLInputElement,
+    InputHTMLAttributes<HTMLInputElement>
+>(function Input({ className = '', ...props }, ref) {
     return (
         <input
             {...props}
             className={`rounded-md border-gray-700 bg-gray-900 ${className}`}
+            ref={ref}
         />
     );
-}
+});
