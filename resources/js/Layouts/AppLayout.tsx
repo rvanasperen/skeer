@@ -25,7 +25,7 @@ function NavItem({
 
 function Sidebar() {
     return (
-        <div className="w-80 space-y-4 bg-gray-900 p-4">
+        <div className="w-80 space-y-4 bg-gray-900 p-8">
             <div className="text-lg font-bold">Skeer</div>
 
             <div className="space-y-2">
@@ -64,7 +64,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
         <div className="flex min-h-screen bg-gray-800 text-gray-100">
             <Sidebar />
 
-            <div className="p-4">{children}</div>
+            <div className="p-8">{children}</div>
         </div>
     );
 }
