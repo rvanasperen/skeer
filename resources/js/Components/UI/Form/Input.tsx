@@ -7,7 +7,7 @@ export default function Input({
     return (
         <input
             {...props}
-            className={`rounded border-gray-700 bg-gray-900 ${className}`}
+            className={`rounded-md border-gray-700 bg-gray-900 ${className}`}
         />
     );
 }

@@ -13,7 +13,7 @@ function NavItem({
     return (
         <Link
             className={
-                'block rounded px-4 py-2 hover:bg-gray-700 ' +
+                'block rounded-md px-4 py-2 hover:bg-gray-700 ' +
                 (isActive ? 'bg-gray-800' : '')
             }
             href={href}
@@ -48,7 +48,7 @@ function Sidebar() {
                 />
 
                 <Link
-                    className="block w-full rounded px-4 py-2 text-start hover:bg-gray-700"
+                    className="block w-full rounded-md px-4 py-2 text-start hover:bg-gray-700"
                     href={route('logout')}
                     method="post"
                 >
