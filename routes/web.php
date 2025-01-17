@@ -4,7 +4,8 @@ use App\Http\Controllers;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', static fn () => redirect()->route('dashboard'));
+Route::get('/', Controllers\IndexController::class)
+    ->name('index');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', Controllers\DashboardController::class)
