@@ -1,10 +1,10 @@
-import Authenticated from '@/Layouts/AuthenticatedLayout';
+import AppLayout from '@/Layouts/AppLayout';
 import Account from '@/Models/Account';
 import { Head } from '@inertiajs/react';
 
 export default function Index({ accounts }: { accounts: Account[] }) {
     return (
-        <Authenticated
+        <AppLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                     Accounts
@@ -29,6 +29,6 @@ export default function Index({ accounts }: { accounts: Account[] }) {
                     </div>
                 </div>
             </div>
-        </Authenticated>
+        </AppLayout>
     );
 }

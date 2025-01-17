@@ -39,7 +39,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                         Resend Verification Email
                     </Button>
 
-                    <Link href={route('logout')} method="post" as="button">
+                    <Link href={route('logout')} method="post">
                         Log Out
                     </Link>
                 </div>

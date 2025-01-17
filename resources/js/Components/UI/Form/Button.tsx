@@ -19,7 +19,7 @@ export default function Button({
     return (
         <button
             {...props}
-            className={`rounded-md px-4 py-2 ${themeClasses} ${className}`}
+            className={`rounded px-4 py-2 ${themeClasses} ${className}`}
         >
             {children}
         </button>
