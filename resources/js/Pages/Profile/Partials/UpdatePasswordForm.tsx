@@ -19,7 +19,11 @@ export default function UpdatePasswordForm({
         reset,
         processing,
         recentlySuccessful,
-    } = useForm({
+    } = useForm<{
+        current_password: string;
+        password: string;
+        password_confirmation: string;
+    }>({
         current_password: '',
         password: '',
         password_confirmation: '',
