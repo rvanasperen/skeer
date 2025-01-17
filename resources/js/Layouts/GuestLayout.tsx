@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react';
 
 function TopNav({ user }: { user?: User }) {
     return (
-        <div className="dark:bg-gray-950">
+        <div className="bg-gray-900">
             <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
                 <Link href={route('index')} className="text-lg font-bold">
                     Skeer
@@ -29,7 +29,7 @@ export default function GuestLayout({ children }: PropsWithChildren) {
     const user = usePage().props.auth.user;
 
     return (
-        <div className="min-h-screen bg-gray-800 dark:text-gray-100">
+        <div className="min-h-screen bg-gray-800 text-gray-100">
             <TopNav user={user} />
 
             <div className="mx-auto max-w-7xl p-4">{children}</div>
