@@ -64,7 +64,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
         <div className="flex min-h-screen bg-gray-800 text-gray-100">
             <Sidebar />
 
-            <div className="p-8">{children}</div>
+            <div className="grow p-8">{children}</div>
         </div>
     );
 }
