@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Controllers\IndexController::class)
     ->name('index');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', Controllers\DashboardController::class)
         ->name('dashboard');
 
