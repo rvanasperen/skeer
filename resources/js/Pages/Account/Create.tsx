@@ -13,7 +13,7 @@ export default function Create({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const bankSelectRef = useRef<HTMLSelectElement>(null);
+    const nameInput = useRef<HTMLInputElement>(null);
 
     const {
         data,
@@ -45,8 +45,8 @@ export default function Create({
         post(route('accounts.store'), {
             preserveScroll: true,
             onSuccess: () => {
-                reset();
-                bankSelectRef.current?.focus();
+                reset('name', 'number', 'type', 'balance');
+                nameInput.current?.focus();
             },
         });
     };
@@ -69,7 +69,6 @@ export default function Create({
                                 onChange={(e) =>
                                     setData('bank_id', parseInt(e.target.value))
                                 }
-                                ref={bankSelectRef}
                                 required={true}
                                 value={data.bank_id}
                             >
@@ -126,6 +125,7 @@ export default function Create({
                                     setData('name', e.target.value)
                                 }
                                 placeholder="Primary Checking"
+                                ref={nameInput}
                                 required={true}
                                 type="text"
                                 value={data.name}
