@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString;
 
-class IBAN implements ValidationRule
+class IBANRule implements ValidationRule
 {
     /**
      * Run the validation rule.
