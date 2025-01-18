@@ -9,9 +9,10 @@ class Currency extends Model
 {
     #region Eloquent Properties
 
-    protected $fillable = [
-        'code',
-        'name',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
 
     #endregion

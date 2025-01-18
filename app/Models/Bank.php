@@ -9,9 +9,10 @@ class Bank extends Model
 {
     #region Eloquent Properties
 
-    protected $fillable = [
-        'name',
-        'bic',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
 
     #endregion

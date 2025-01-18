@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AccountType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -9,9 +10,10 @@ class Account extends Model
 {
     #region Eloquent Properties
 
-    protected $fillable = [
-        'name',
-        'number',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
 
     #endregion
@@ -34,4 +36,11 @@ class Account extends Model
     }
 
     #endregion
+
+    protected function casts(): array
+    {
+        return [
+            'type' => AccountType::class,
+        ];
+    }
 }

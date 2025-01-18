@@ -11,7 +11,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', Controllers\DashboardController::class)
         ->name('dashboard');
 
-    Route::resource('accounts', Controllers\AccountController::class);
+    Route::resource('accounts', Controllers\AccountController::class)
+        ->only(['index', 'create', 'store']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');

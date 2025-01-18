@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bank_id')->constrained();
+            $table->foreignId('currency_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('number');
             $table->string('type');
-            $table->string('currency');
             $table->timestamps();
         });
     }
