@@ -23,6 +23,11 @@ class Account extends Model
         return $this->belongsTo(Bank::class);
     }
 
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Bank;
+use App\Models\Currency;
 use Illuminate\Database\Seeder;
 
 class CoreDataSeeder extends Seeder
@@ -13,6 +14,7 @@ class CoreDataSeeder extends Seeder
     public function run(): void
     {
         $this->createBanks();
+        $this->createCurrencies();
     }
 
     private function createBanks(): void
@@ -23,6 +25,17 @@ class CoreDataSeeder extends Seeder
 
         foreach ($banks as $data) {
             Bank::create($data);
+        }
+    }
+
+    private function createCurrencies(): void
+    {
+        $currencies = [
+            ['code' => 'EUR', 'name' => 'Euro'],
+        ];
+
+        foreach ($currencies as $data) {
+            Currency::create($data);
         }
     }
 }
