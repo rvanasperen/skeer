@@ -7,6 +7,7 @@ use App\Models\Bank;
 use App\Models\Currency;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -44,7 +45,11 @@ class AccountController
             'balance' => ['required', 'numeric'],
         ]);
 
-        $request->user()->accounts()->create($validated);
+        DB::transaction(static function () use ($request, $validated) {
+            $request->user()->accounts()->create($validated);
+
+            // todo: create transaction for initial balance
+        });
 
         return back();
     }
