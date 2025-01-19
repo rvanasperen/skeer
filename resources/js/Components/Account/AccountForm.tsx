@@ -14,20 +14,19 @@ export default function AccountForm({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const { data, errors, post, put, processing, setData } =
-        useForm<{
-            bank_id: number | '';
-            currency_id: number | '';
-            name: string;
-            number: string;
-            type: string;
-        }>({
-            bank_id: account?.bank_id || '',
-            currency_id: account?.currency_id || '',
-            name: account?.name || '',
-            number: account?.number || '',
-            type: account?.type || '',
-        });
+    const { data, errors, post, put, processing, setData } = useForm<{
+        bank_id: number | '';
+        currency_id: number | '';
+        name: string;
+        number: string;
+        type: string;
+    }>({
+        bank_id: account?.bank_id || '',
+        currency_id: account?.currency_id || '',
+        name: account?.name || '',
+        number: account?.number || '',
+        type: account?.type || '',
+    });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
