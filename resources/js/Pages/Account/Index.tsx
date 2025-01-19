@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import Account from '@/Models/Account';
 import { Head, Link } from '@inertiajs/react';
 import { Card } from '@/Components/UI';
+import AccountCard from "@/Components/Account/AccountCard";
 
 export default function Index({ accounts }: { accounts: Account[] }) {
     return (
@@ -17,38 +18,7 @@ export default function Index({ accounts }: { accounts: Account[] }) {
                 ) : (
                     <div className="grid grid-cols-2 gap-8">
                         {accounts.map((account) => (
-                            <Card key={account.id}>
-                                <div>Name: {account.name}</div>
-                                <div>Number: {account.number}</div>
-                                <div>Bank: {account.bank?.name}</div>
-                                <div>
-                                    Currency: {account.currency?.name} (
-                                    {account.currency?.code})
-                                </div>
-
-                                <div className="mt-4 flex gap-4">
-                                    <Link
-                                        className="block"
-                                        href={route(
-                                            'accounts.edit',
-                                            account.id,
-                                        )}
-                                    >
-                                        <Button>Edit</Button>
-                                    </Link>
-
-                                    <Link
-                                        className="block"
-                                        href={route(
-                                            'accounts.destroy',
-                                            account.id,
-                                        )}
-                                        method="delete"
-                                    >
-                                        <Button theme="danger">Delete</Button>
-                                    </Link>
-                                </div>
-                            </Card>
+                            <AccountCard account={account} key={account.id} />
                         ))}
                     </div>
                 )}
