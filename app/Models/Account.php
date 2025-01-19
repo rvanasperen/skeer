@@ -49,9 +49,13 @@ class Account extends Model
 
     #region Accessors
 
-    public function getBalanceAttribute(): float
+    public function getBalanceAttribute(): ?float
     {
-        return $this->transactions->sum('amount');
+        if ($this->relationLoaded('transactions')) {
+            return $this->transactions->sum('amount');
+        }
+
+        return null;
     }
 
     #endregion
