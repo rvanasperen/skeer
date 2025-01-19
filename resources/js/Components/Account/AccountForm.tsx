@@ -20,18 +20,20 @@ export default function AccountForm({
         name: string;
         number: string;
         type: string;
+        current_balance: number;
     }>({
         bank_id: account?.bank_id || '',
         currency_id: account?.currency_id || '',
         name: account?.name || '',
         number: account?.number || '',
         type: account?.type || '',
+        current_balance: 0,
     });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        if (account && account.id) {
+        if (account) {
             put(route('accounts.update', account.id));
         } else {
             post(route('accounts.store'));
@@ -132,6 +134,29 @@ export default function AccountForm({
                 </Select>
                 <InputError className="mt-2" message={errors.type} />
             </div>
+
+            {account && (
+                <div>
+                    <Label htmlFor="current_balance" value="Current Balance" />
+                    <Input
+                        autoComplete="off"
+                        className="mt-1 block w-full"
+                        id="current_balance"
+                        onChange={(e) =>
+                            setData(
+                                'current_balance',
+                                parseFloat(e.target.value),
+                            )
+                        }
+                        placeholder="1000"
+                        required={true}
+                        step="0.01"
+                        type="number"
+                        value={data.current_balance}
+                    />
+                    <InputError className="mt-2" message={errors.current_balance} />
+                </div>
+            )}
 
             <Button disabled={processing}>
                 {account ? 'Update Account' : 'Create Account'}

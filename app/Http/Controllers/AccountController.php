@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AccountType;
+use App\Enums\TransactionType;
 use App\Models\Account;
 use App\Models\Bank;
+use App\Models\Category;
 use App\Models\Currency;
 use App\Rules\IBANRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -85,12 +89,59 @@ class AccountController
             'name' => ['required', 'string'],
             'number' => ['required', 'string', 'unique:accounts,number,'.$accountId, new IBANRule()],
             'type' => ['required', Rule::enum(AccountType::class)],
+            'current_balance' => ['required', 'numeric'],
         ]);
 
-        $request->user()
-            ->accounts()
-            ->where('id', $accountId)
-            ->update($validated);
+        DB::transaction(function () use ($request, $accountId, $validated) {
+            $user = $request->user();
+
+            $user->accounts()
+                ->where('id', $accountId)
+                ->update(Arr::except($validated, ['current_balance']));
+
+            /** @var Account $account */
+            $account = $user->accounts()->findOrFail($accountId);
+
+            $earliestTransaction = $account->transactions()
+                ->whereNot('name', 'Starting Balance')
+                ->orderBy('transaction_date')
+                ->first();
+
+            if ($earliestTransaction === null) {
+                return;
+            }
+
+            $startingBalanceDate = $earliestTransaction->transaction_date->subDay();
+            $startingBalanceAmount = $validated['current_balance'] - DB::table('transactions')
+                ->selectRaw('SUM(CASE WHEN type = ? THEN -amount ELSE amount END) AS balance', [TransactionType::Expense])
+                ->where('account_id', $account->id)
+                ->first()
+                ->balance ?? 0.0;
+            $startingBalanceCategory = Category::where('name', 'Starting Balance')->firstOrFail(); // todo: refactor
+
+            $startingBalanceTransaction = $account->transactions()
+                ->where([
+                    'account_id' => $account->id,
+                    'name' => 'Starting Balance',
+                ])
+                ->first();
+
+            if ($startingBalanceTransaction !== null) {
+                $startingBalanceTransaction->update([
+                    'amount' => $startingBalanceAmount,
+                    'transaction_date' => $startingBalanceDate,
+                ]);
+            } else {
+                $user->transactions()->create([
+                    'account_id' => $accountId,
+                    'category_id' => $startingBalanceCategory->id,
+                    'type' => TransactionType::Income,
+                    'amount' => $startingBalanceAmount,
+                    'name' => 'Starting Balance',
+                    'transaction_date' => $startingBalanceDate,
+                ]);
+            }
+        });
 
         return to_route('accounts.index');
     }
