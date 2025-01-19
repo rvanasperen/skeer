@@ -9,12 +9,17 @@ import { useState } from 'react';
 
 export default function Dashboard({
     accounts,
+    netWorthData,
     transactionData,
     startDate,
     endDate,
     groupBy,
 }: {
     accounts: Account[];
+    netWorthData: {
+        total: { date: string; amount: number }[];
+        account: { date: string; amount: number }[][];
+    };
     transactionData: { date: string; amount: number }[];
     startDate: string;
     endDate: string;
@@ -85,7 +90,7 @@ export default function Dashboard({
                         />
                     </div>
                     <div className="col-span-6">
-                        <NetWorthChartCard netWorthData={[]} />
+                        <NetWorthChartCard netWorthData={netWorthData} />
                     </div>
 
                     <div className="col-span-6">table</div>

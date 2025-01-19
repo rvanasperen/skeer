@@ -35,7 +35,11 @@ export default function TransactionsChartCard({
                         stroke="#e2e8f0"
                         tick={{ fill: '#e2e8f0' }}
                     />
-                    <YAxis stroke="#e2e8f0" tick={{ fill: '#e2e8f0' }} />
+                    <YAxis
+                        dataKey="amount"
+                        stroke="#e2e8f0"
+                        tick={{ fill: '#e2e8f0' }}
+                    />
                     <Tooltip
                         contentStyle={{
                             backgroundColor: '#2d3748',
@@ -52,7 +56,7 @@ export default function TransactionsChartCard({
                         ]}
                         itemStyle={{ color: '#e2e8f0' }}
                     />
-                    <ReferenceLine y={0} stroke="#fc0" />
+                    <ReferenceLine y={0} stroke="#e2e8f0" />
                     <Bar dataKey="amount" barSize={30} />
                 </BarChart>
             </ResponsiveContainer>
