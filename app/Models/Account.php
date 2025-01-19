@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
+    #region Eloquent Properties
+
+    protected $appends = [
+        'balance',
+    ];
+
+    #endregion
+
     #region Eloquent Relationships
 
     public function bank(): BelongsTo
@@ -38,4 +46,13 @@ class Account extends Model
             'type' => AccountType::class,
         ];
     }
+
+    #region Accessors
+
+    public function getBalanceAttribute(): float
+    {
+        return $this->transactions->sum('amount');
+    }
+
+    #endregion
 }

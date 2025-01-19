@@ -1,3 +1,4 @@
+import { AccountType } from '@/Enums';
 import { Bank, Currency } from '@/Models';
 
 export default interface Account {
@@ -7,8 +8,10 @@ export default interface Account {
     currency_id: number;
     name: string;
     number: string;
-    type: string;
+    type: AccountType;
 
     bank?: Bank;
     currency?: Currency;
+
+    balance: number;
 }

@@ -19,7 +19,8 @@ class AccountController
     {
         $accounts = $request->user()
             ->accounts()
-            ->with(['bank', 'currency'])
+            ->with(['bank', 'currency', 'transactions'])
+            ->orderBy('name')
             ->get();
 
         return Inertia::render('Account/Index', [

@@ -128,8 +128,8 @@ export default function AccountForm({
                     value={data.type}
                 >
                     <option value="">Select a type</option>
-                    <option value="checking">Checking</option>
-                    <option value="savings">Savings</option>
+                    <option value="Checking">Checking</option>
+                    <option value="Savings">Savings</option>
                 </Select>
                 <InputError className="mt-2" message={errors.type} />
             </div>
