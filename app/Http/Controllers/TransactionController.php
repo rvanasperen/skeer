@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Transaction\TransactionImporter;
 use App\Models\Bank;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class TransactionController
         ]);
     }
 
-    public function showImportForm(Request $request): Response
+    public function showImportForm(): Response
     {
         $banks = Bank::all();
 
@@ -40,7 +41,12 @@ class TransactionController
             'balance' => ['required', 'numeric'],
         ]);
 
-        dd($request->all(), $request->file('file'));
+        resolve(TransactionImporter::class)
+            ->import(
+                $request->user(),
+                Bank::findOrFail($validated['bank_id']),
+                $validated['file']->getRealPath()
+            );
 
         return to_route('transactions.index');
     }

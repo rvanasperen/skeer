@@ -18,7 +18,9 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->constrained();
             $table->string('type');
             $table->decimal('amount', 15, 2);
-            $table->string('description');
+            $table->string('name')->nullable();
+            $table->string('counterparty')->nullable();
+            $table->string('description')->nullable();
             $table->date('transaction_date');
             $table->timestamp('imported_at')->nullable();
             $table->string('import_hash')->nullable();
