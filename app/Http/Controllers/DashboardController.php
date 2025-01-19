@@ -16,7 +16,7 @@ class DashboardController
 {
     public function __invoke(Request $request): Response
     {
-        $startDate = Carbon::parse($request->input('start_date', now()->subMonths(12)));
+        $startDate = Carbon::parse($request->input('start_date', now()->subMonths(12)->startOfMonth()));
         $endDate = Carbon::parse($request->input('end_date', now()));
         $groupBy = $request->input('group_by', 'month'); // day, week, month, year
 
