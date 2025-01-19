@@ -28,7 +28,7 @@ export default function Index({
                     </div>
                 )}
 
-                <Link className="block" href={route('transactions.create')}>
+                <Link className="block" href={route('transactions.import')}>
                     <Button>Import Transactions</Button>
                 </Link>
             </div>

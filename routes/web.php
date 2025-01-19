@@ -12,6 +12,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard');
 
     Route::resource('accounts', Controllers\AccountController::class);
+
+    Route::get('transactions/import', [Controllers\TransactionController::class, 'showImportForm'])
+        ->name('transactions.import');
+    Route::post('transactions/import', [Controllers\TransactionController::class, 'processImport']);
     Route::resource('transactions', Controllers\TransactionController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])
