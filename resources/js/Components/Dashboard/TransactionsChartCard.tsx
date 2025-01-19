@@ -27,7 +27,7 @@ export default function TransactionsChartCard({
         <Card {...props} className={`space-y-4 ${className}`}>
             <div className="text-xl">Transactions</div>
 
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={processedTransactionData}>
                     <CartesianGrid stroke="#4a5568" strokeDasharray="3 3" />
                     <XAxis

@@ -78,16 +78,19 @@ export default function Dashboard({
                     </div>
                 </div>
 
-                <div className="grid grid-cols-4 gap-8">
-                    <div className="col-span-3 flex flex-col gap-8">
-                        <NetWorthChartCard netWorthData={[]} />
-
+                <div className="grid grid-cols-12 gap-8">
+                    <div className="col-span-6">
                         <TransactionsChartCard
                             transactionData={transactionData}
                         />
                     </div>
+                    <div className="col-span-6">
+                        <NetWorthChartCard netWorthData={[]} />
+                    </div>
 
-                    <div>
+                    <div className="col-span-6">table</div>
+                    <div className="col-span-3">idk</div>
+                    <div className="col-span-3">
                         <NetWorthCard accounts={accounts} />
                     </div>
                 </div>
