@@ -23,9 +23,11 @@ class INGBNL2ATransformer implements Transformer
             default => throw new LogicException("Unsupported transaction type: {$data['Af Bij']}"),
         };
 
+        $amount = (float) str_replace(',', '.', $data['Bedrag (EUR)']);
+
         return new TransactionData(
             type: $type,
-            amount: (float) $data['Bedrag (EUR)'],
+            amount: $amount,
             name: $data['Naam / Omschrijving'],
             counterparty: $data['Tegenrekening'],
             description: $data['Mededelingen'],

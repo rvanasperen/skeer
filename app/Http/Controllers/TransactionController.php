@@ -17,6 +17,7 @@ class TransactionController
         $transactions = $request->user()
             ->transactions()
             ->with(['account', 'category'])
+            ->orderByDesc('transaction_date')
             ->get();
 
         return Inertia::render('Transaction/Index', [

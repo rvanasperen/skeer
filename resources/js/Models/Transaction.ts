@@ -8,6 +8,8 @@ export default interface Transaction {
     category_id?: number;
     type: TransactionType;
     amount: number;
+    name: string;
+    counterparty: string;
     description: string;
     transaction_date: string;
     imported_at: string;
