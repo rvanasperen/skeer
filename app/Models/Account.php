@@ -3,21 +3,10 @@
 namespace App\Models;
 
 use App\Enums\AccountType;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Account extends Model
 {
-    #region Eloquent Properties
-
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
-    ];
-
-    #endregion
-
     #region Eloquent Relationships
 
     public function bank(): BelongsTo
