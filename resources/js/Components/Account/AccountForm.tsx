@@ -32,14 +32,12 @@ export default function AccountForm({
         name: string;
         number: string;
         type: string;
-        balance: number;
     }>({
         bank_id: account?.bank_id || '',
         currency_id: account?.currency_id || '',
         name: account?.name || '',
         number: account?.number || '',
         type: account?.type || '',
-        balance: 0,
     });
 
     const handleSubmit: FormEventHandler = (e) => {
@@ -50,7 +48,7 @@ export default function AccountForm({
         } else {
             post(route('accounts.store'), {
                 onSuccess: () => {
-                    reset('name', 'number', 'type', 'balance');
+                    reset('name', 'number', 'type');
                     nameInput.current?.focus();
                 },
             });
@@ -151,23 +149,6 @@ export default function AccountForm({
                     <option value="savings">Savings</option>
                 </Select>
                 <InputError className="mt-2" message={errors.type} />
-            </div>
-
-            <div>
-                <Label htmlFor="balance" value="Balance" />
-                <Input
-                    className="mt-1 block w-full"
-                    id="balance"
-                    onChange={(e) =>
-                        setData('balance', parseFloat(e.target.value))
-                    }
-                    placeholder="1000"
-                    required={true}
-                    step="0.01"
-                    type="number"
-                    value={data.balance}
-                />
-                <InputError className="mt-2" message={errors.balance} />
             </div>
 
             <div className="flex items-center gap-4">

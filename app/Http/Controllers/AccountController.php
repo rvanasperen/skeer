@@ -49,14 +49,9 @@ class AccountController
             'name' => ['required', 'string'],
             'number' => ['required', 'string', 'unique:accounts', new IBANRule()],
             'type' => ['required', Rule::enum(AccountType::class)],
-            'balance' => ['required', 'numeric'],
         ]);
 
-        DB::transaction(static function () use ($request, $validated) {
-            $request->user()->accounts()->create($validated);
-
-            // todo: create transaction for initial balance
-        });
+        $request->user()->accounts()->create($validated);
 
         return back();
     }
@@ -66,14 +61,38 @@ class AccountController
         dd('show', $account->toArray());
     }
 
-    public function edit(Request $request, Account $account)
+    public function edit(Request $request, int $accountId): Response
     {
-        dd('edit', $account->toArray());
+        $account = $request->user()
+            ->accounts()
+            ->with([
+                'bank',
+                'currency',
+            ])
+            ->findOrFail($accountId);
+        $banks = Bank::all();
+        $currencies = Currency::all();
+
+        return Inertia::render('Account/Edit', [
+            'account' => $account,
+            'banks' => $banks,
+            'currencies' => $currencies,
+        ]);
     }
 
-    public function update(Request $request, Account $account)
+    public function update(Request $request, Account $account): RedirectResponse
     {
-        dd('update', $account->toArray());
+        $validated = $request->validate([
+            'bank_id' => ['required', 'exists:banks,id'],
+            'currency_id' => ['required', 'exists:currencies,id'],
+            'name' => ['required', 'string'],
+            'number' => ['required', 'string', 'unique:accounts,number,'.$account->id, new IBANRule()],
+            'type' => ['required', Rule::enum(AccountType::class)],
+        ]);
+
+        $request->user()->accounts()->update($validated);
+
+        return back();
     }
 
     public function destroy(Request $request, Account $account)
