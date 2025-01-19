@@ -1,6 +1,5 @@
-import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
-import { Button, Input, InputError } from '@/Components/UI/Form';
+import { Button, Input, InputError, Label } from '@/Components/UI/Form';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef, useState } from 'react';
 
@@ -81,7 +80,7 @@ export default function DeleteUserForm({
                     </div>
 
                     <div className="mt-6">
-                        <InputLabel
+                        <Label
                             className="sr-only"
                             htmlFor="password"
                             value="Password"
