@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AccountType;
+use App\Models\Account;
 use App\Models\Bank;
 use App\Models\Currency;
 use App\Rules\IBANRule;
@@ -17,7 +18,12 @@ class AccountController
 {
     public function index(Request $request): Response
     {
-        $accounts = $request->user()->accounts;
+        $accounts = $request->user()
+            ->accounts()
+            ->with([
+                'bank',
+                'currency',
+            ])->get();
 
         return Inertia::render('Account/Index', [
             'accounts' => $accounts,
@@ -53,5 +59,20 @@ class AccountController
         });
 
         return back();
+    }
+
+    public function edit(Request $request, Account $account)
+    {
+        dd('edit', $account->toArray());
+    }
+
+    public function update(Request $request, Account $account)
+    {
+        dd('update', $account->toArray());
+    }
+
+    public function destroy(Request $request, Account $account)
+    {
+        dd('destroy', $account->toArray());
     }
 }
