@@ -29,10 +29,10 @@ export default function TransactionsChartCard({
     }));
 
     return (
-        <Card {...props} className={`${className}`}>
+        <Card {...props} className={`space-y-4 ${className}`}>
             <div className="text-xl">Transactions</div>
 
-            <ResponsiveContainer className="mt-4" width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={processedTransactionData}>
                     <CartesianGrid stroke="#4a5568" strokeDasharray="3 3" />
                     <XAxis
