@@ -1,5 +1,4 @@
-import InputError from '@/Components/InputError';
-import { Button, Input, Label } from '@/Components/UI/Form';
+import { Button, Input, InputError, Label } from '@/Components/UI/Form';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
