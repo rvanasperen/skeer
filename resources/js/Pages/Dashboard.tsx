@@ -40,39 +40,40 @@ export default function Dashboard({
             <Head title="Dashboard" />
 
             <div className="space-y-8">
-                <div className="text-xl font-bold">Dashboard</div>
+                <div className="flex items-center justify-between">
+                    <div className="text-xl font-bold">Dashboard</div>
 
-                <div className="flex items-center gap-2">
-                    <Input
-                        onChange={(e) => setSelectedStartDate(e.target.value)}
-                        type="date"
-                        value={selectedStartDate}
-                    />
-                    <div>to</div>
-                    <Input
-                        onChange={(e) => setSelectedEndDate(e.target.value)}
-                        type="date"
-                        value={selectedEndDate}
-                    />
-                    <div>grouped by</div>
-                    <Select
-                        onChange={(e) =>
-                            setSelectedGroupBy(
-                                e.target.value as
-                                    | 'day'
-                                    | 'week'
-                                    | 'month'
-                                    | 'year',
-                            )
-                        }
-                        value={selectedGroupBy}
-                    >
-                        <option value="day">Day</option>
-                        <option value="week">Week</option>
-                        <option value="month">Month</option>
-                        <option value="year">Year</option>
-                    </Select>
-                    <Button onClick={handleFilter}>Filter</Button>
+                    <div className="flex items-center gap-2">
+                        <Input
+                            onChange={(e) => setSelectedStartDate(e.target.value)}
+                            type="date"
+                            value={selectedStartDate}
+                        />
+                        <div>to</div>
+                        <Input
+                            onChange={(e) => setSelectedEndDate(e.target.value)}
+                            type="date"
+                            value={selectedEndDate}
+                        />
+                        <Select
+                            onChange={(e) =>
+                                setSelectedGroupBy(
+                                    e.target.value as
+                                        | 'day'
+                                        | 'week'
+                                        | 'month'
+                                        | 'year',
+                                )
+                            }
+                            value={selectedGroupBy}
+                        >
+                            <option value="day">Day</option>
+                            <option value="week">Week</option>
+                            <option value="month">Month</option>
+                            <option value="year">Year</option>
+                        </Select>
+                        <Button onClick={handleFilter}>Filter</Button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-4 gap-8">
