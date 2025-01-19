@@ -15,14 +15,16 @@ export default function Index({
             <Head title="Transactions" />
 
             <div className="space-y-8">
-                <div className="text-xl font-bold">Transactions</div>
+                <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold">Transactions</div>
 
-                <Link
-                    className="inline-block"
-                    href={route('transactions.import')}
-                >
-                    <Button>Import Transactions</Button>
-                </Link>
+                    <Link
+                        className="inline-block"
+                        href={route('transactions.import')}
+                    >
+                        <Button>Import Transactions</Button>
+                    </Link>
+                </div>
 
                 {transactions.length === 0 && (
                     <div className="text-gray-500">No transactions found</div>

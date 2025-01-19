@@ -16,7 +16,7 @@ export default function Create({
             <Head title="Create Account" />
 
             <div className="max-w-xl space-y-8">
-                <h2 className="text-xl font-bold">Create Account</h2>
+                <h2 className="text-3xl font-bold">Create Account</h2>
 
                 <Card>
                     <AccountForm banks={banks} currencies={currencies} />

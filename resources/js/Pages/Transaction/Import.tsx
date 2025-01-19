@@ -25,7 +25,7 @@ export default function Import({ banks }: { banks: Bank[] }) {
             <Head title="Import Transactions" />
 
             <div className="max-w-xl space-y-8">
-                <div className="text-xl font-bold">Import Transactions</div>
+                <div className="text-3xl font-bold">Import Transactions</div>
 
                 <Card>
                     <div className="text-lg">Import Transactions</div>

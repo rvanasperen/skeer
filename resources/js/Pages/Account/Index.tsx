@@ -10,11 +10,16 @@ export default function Index({ accounts }: { accounts: Account[] }) {
             <Head title="Accounts" />
 
             <div className="space-y-8">
-                <div className="text-xl font-bold">Accounts</div>
+                <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold">Accounts</div>
 
-                <Link className="inline-block" href={route('accounts.create')}>
-                    <Button>Create Account</Button>
-                </Link>
+                    <Link
+                        className="inline-block"
+                        href={route('accounts.create')}
+                    >
+                        <Button>Create Account</Button>
+                    </Link>
+                </div>
 
                 {accounts.length === 0 && (
                     <div className="text-gray-500">No accounts found</div>
