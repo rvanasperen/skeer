@@ -39,12 +39,12 @@ export default function AccountCard({
                     </div>
 
                     <div className="mt-4 flex gap-4">
-                        <Link
+                        {/*<Link
                             className="block"
                             href={route('accounts.show', account.id)}
                         >
                             <Button>View</Button>
-                        </Link>
+                        </Link>*/}
 
                         <Link
                             className="block"
@@ -53,13 +53,13 @@ export default function AccountCard({
                             <Button>Edit</Button>
                         </Link>
 
-                        <Link
+                        {/*<Link
                             className="block"
                             href={route('accounts.destroy', account.id)}
                             method="delete"
                         >
                             <Button theme="danger">Delete</Button>
-                        </Link>
+                        </Link>*/}
                     </div>
                 </div>
                 <div className="flex flex-col items-center">
