@@ -30,7 +30,7 @@ export default function TransactionsChartCard({
 
     return (
         <Card {...props} className={`${className}`}>
-            <div className="text-xl">Money Flow</div>
+            <div className="text-xl">Transactions</div>
 
             <ResponsiveContainer className="mt-4" width="100%" height={400}>
                 <BarChart data={processedTransactionData}>
