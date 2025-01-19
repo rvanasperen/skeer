@@ -85,11 +85,12 @@ export default function Dashboard({
                 </div>
 
                 <div className="grid grid-cols-12 gap-8">
-                    <NetWorthChartCard
-                        className="col-span-9"
-                        netWorthData={netWorthData}
-                    />
-                    <NetWorthCard className="col-span-3" accounts={accounts} />
+                    <div className="col-span-9">
+                        <NetWorthChartCard netWorthData={netWorthData} />
+                    </div>
+                    <div className="col-span-3">
+                        <NetWorthCard accounts={accounts} />
+                    </div>
 
                     <div className="col-span-6">
                         <Card>todo: table with categories</Card>
