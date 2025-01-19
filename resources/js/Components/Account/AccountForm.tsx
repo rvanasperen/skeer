@@ -1,6 +1,5 @@
 import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
 import { Account, Bank, Currency } from '@/Models';
-import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, FormHTMLAttributes } from 'react';
 
@@ -15,7 +14,7 @@ export default function AccountForm({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const { data, errors, post, put, processing, recentlySuccessful, setData } =
+    const { data, errors, post, put, processing, setData } =
         useForm<{
             bank_id: number | '';
             currency_id: number | '';
@@ -135,23 +134,9 @@ export default function AccountForm({
                 <InputError className="mt-2" message={errors.type} />
             </div>
 
-            <div className="flex items-center gap-4">
-                <Button disabled={processing}>
-                    {account ? 'Update Account' : 'Create Account'}
-                </Button>
-
-                <Transition
-                    show={recentlySuccessful}
-                    enter="transition ease-in-out"
-                    enterFrom="opacity-0"
-                    leave="transition ease-in-out"
-                    leaveTo="opacity-0"
-                >
-                    <p className="text-green-400">
-                        {account ? 'Account updated!' : 'Account created!'}
-                    </p>
-                </Transition>
-            </div>
+            <Button disabled={processing}>
+                {account ? 'Update Account' : 'Create Account'}
+            </Button>
         </form>
     );
 }
