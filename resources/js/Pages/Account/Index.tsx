@@ -1,9 +1,8 @@
+import AccountCard from '@/Components/Account/AccountCard';
 import { Button } from '@/Components/UI/Form';
 import AppLayout from '@/Layouts/AppLayout';
 import Account from '@/Models/Account';
 import { Head, Link } from '@inertiajs/react';
-import { Card } from '@/Components/UI';
-import AccountCard from "@/Components/Account/AccountCard";
 
 export default function Index({ accounts }: { accounts: Account[] }) {
     return (
