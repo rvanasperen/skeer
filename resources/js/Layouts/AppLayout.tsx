@@ -42,6 +42,12 @@ function Sidebar() {
                 />
 
                 <NavItem
+                    href={route('transactions.index')}
+                    isActive={route().current('transactions.*')}
+                    label="Transactions"
+                />
+
+                <NavItem
                     href={route('profile.edit')}
                     isActive={route().current('profile.edit')}
                     label="Profile"

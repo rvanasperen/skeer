@@ -12,6 +12,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard');
 
     Route::resource('accounts', Controllers\AccountController::class);
+    Route::resource('transactions', Controllers\TransactionController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
