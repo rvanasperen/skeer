@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\AccountType;
+use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use LogicException;
 
 class Account extends Model
 {
@@ -52,7 +54,17 @@ class Account extends Model
     public function getBalanceAttribute(): ?float
     {
         if ($this->relationLoaded('transactions')) {
-            return $this->transactions->sum('amount');
+            return $this->transactions->sum(function (Transaction $transaction) {
+                if ($transaction->type === TransactionType::Expense) {
+                    return -$transaction->amount;
+                }
+
+                if ($transaction->type === TransactionType::Income) {
+                    return $transaction->amount;
+                }
+
+                throw new LogicException('Unknown transaction type');
+            });
         }
 
         return null;
