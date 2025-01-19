@@ -6,7 +6,11 @@ export default function Dashboard() {
         <AuthenticatedLayout>
             <Head title="Dashboard" />
 
-            <div>Dashboard page</div>
+            <div className="max-w-xl space-y-8">
+                <div className="text-xl font-bold">Dashboard</div>
+
+                <div>todo</div>
+            </div>
         </AuthenticatedLayout>
     );
 }
