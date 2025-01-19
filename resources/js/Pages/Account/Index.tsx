@@ -12,19 +12,21 @@ export default function Index({ accounts }: { accounts: Account[] }) {
             <div className="space-y-8">
                 <div className="text-xl font-bold">Accounts</div>
 
-                {accounts.length === 0 ? (
+                <Link className="inline-block" href={route('accounts.create')}>
+                    <Button>Create Account</Button>
+                </Link>
+
+                {accounts.length === 0 && (
                     <div className="text-gray-500">No accounts found</div>
-                ) : (
+                )}
+
+                {accounts.length > 0 && (
                     <div className="grid grid-cols-2 gap-8">
                         {accounts.map((account) => (
                             <AccountCard account={account} key={account.id} />
                         ))}
                     </div>
                 )}
-
-                <Link className="block" href={route('accounts.create')}>
-                    <Button>Create Account</Button>
-                </Link>
             </div>
         </AppLayout>
     );
