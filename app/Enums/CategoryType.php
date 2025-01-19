@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum CategoryType: string
 {
-    case Expense = 'expense';
-    case Income = 'income';
+    case Expense = 'Expense';
+    case Income = 'Income';
 }

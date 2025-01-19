@@ -1,6 +1,6 @@
 enum CategoryType {
-    Expense = 'expense',
-    Income = 'income',
+    Expense = 'Expense',
+    Income = 'Income',
 }
 
 export default CategoryType;
