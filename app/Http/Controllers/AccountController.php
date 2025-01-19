@@ -61,6 +61,11 @@ class AccountController
         return back();
     }
 
+    public function show(Request $request, Account $account)
+    {
+        dd('show', $account->toArray());
+    }
+
     public function edit(Request $request, Account $account)
     {
         dd('edit', $account->toArray());
