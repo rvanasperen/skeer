@@ -20,6 +20,8 @@ class TransactionController
             ->orderByDesc('transaction_date')
             ->get();
 
+        // todo: add pagination
+
         return Inertia::render('Transaction/Index', [
             'transactions' => $transactions,
         ]);
