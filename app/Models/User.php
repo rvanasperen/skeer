@@ -37,6 +37,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Account::class);
     }
 
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
     #endregion
 
     protected function casts(): array
