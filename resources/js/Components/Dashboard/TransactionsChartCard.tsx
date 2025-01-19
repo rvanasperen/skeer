@@ -11,21 +11,16 @@ import {
     YAxis,
 } from 'recharts';
 
-interface TransactionData {
-    date: string;
-    total_amount: number;
-}
-
 export default function TransactionsChartCard({
     className = '',
     transactionData,
     ...props
 }: HTMLAttributes<HTMLDivElement> & {
-    transactionData: TransactionData[];
+    transactionData: { date: string; amount: number }[];
 }) {
     const processedTransactionData = transactionData.map((transaction) => ({
         ...transaction,
-        fill: transaction.total_amount >= 0 ? '#82ca8d' : '#ff6b6b',
+        fill: transaction.amount >= 0 ? '#82ca8d' : '#ff6b6b',
     }));
 
     return (
@@ -53,12 +48,12 @@ export default function TransactionsChartCard({
                                 style: 'currency',
                                 currency: 'EUR',
                             }).format(value),
-                            'Total Amount',
+                            'Amount',
                         ]}
                         itemStyle={{ color: '#e2e8f0' }}
                     />
                     <ReferenceLine y={0} stroke="#fc0" />
-                    <Bar dataKey="total_amount" barSize={30} />
+                    <Bar dataKey="amount" barSize={30} />
                 </BarChart>
             </ResponsiveContainer>
         </Card>

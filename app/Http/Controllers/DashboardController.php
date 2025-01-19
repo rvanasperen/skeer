@@ -20,13 +20,13 @@ class DashboardController
 
         $transactionData = $request->user()
             ->transactions()
-            ->selectRaw('DATE(transaction_date) AS date, SUM(CASE WHEN type = "Income" THEN amount ELSE -amount END) AS total_amount')
+            ->selectRaw('DATE(transaction_date) AS date, SUM(CASE WHEN type = "Income" THEN amount ELSE -amount END) AS amount')
             ->groupBy('date')
             ->orderBy('date')
             ->get()
             ->map(fn ($transaction) => [
                 'date' => $transaction->date,
-                'total_amount' => round($transaction->total_amount, 2),
+                'amount' => round($transaction->amount, 2),
             ])
             ->toArray();
 
