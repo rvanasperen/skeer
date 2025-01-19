@@ -126,18 +126,6 @@ class DashboardController
             $netWorthData['accounts'][$account->id] = $accountNetWorthData;
         }
 
-        // backport from php 8.4
-        function array_find_key(array $array, callable $callback)
-        {
-            foreach ($array as $key => $value) {
-                if ($callback($value, $key)) {
-                    return $key;
-                }
-            }
-
-            return null;
-        }
-
         foreach ($netWorthData['accounts'] as $accountId => $accountData) {
             foreach ($accountData as $accountEntry) {
                 $index = array_find_key($netWorthData['total'], fn ($totalEntry) => $totalEntry['date'] === $accountEntry['date']);
