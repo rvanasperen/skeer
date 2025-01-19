@@ -1,10 +1,10 @@
 import NetWorthCard from '@/Components/Dashboard/NetWorthCard';
 import NetWorthChartCard from '@/Components/Dashboard/NetWorthChartCard';
 import TransactionsChartCard from '@/Components/Dashboard/TransactionsChartCard';
-import { Button, Input, Select } from "@/Components/UI/Form";
+import { Button, Input, Select } from '@/Components/UI/Form';
 import AuthenticatedLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
-import { Head, router } from "@inertiajs/react";
+import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Dashboard({
@@ -45,7 +45,9 @@ export default function Dashboard({
 
                     <div className="flex items-center gap-2">
                         <Input
-                            onChange={(e) => setSelectedStartDate(e.target.value)}
+                            onChange={(e) =>
+                                setSelectedStartDate(e.target.value)
+                            }
                             type="date"
                             value={selectedStartDate}
                         />
