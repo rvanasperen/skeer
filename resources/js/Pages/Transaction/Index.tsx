@@ -38,7 +38,7 @@ export default function Index({
                                     <th className="p-4 text-center">
                                         Category
                                     </th>
-                                    <th className="p-4 text-center">Amount</th>
+                                    <th className="p-4 text-end">Amount</th>
                                     <th className="p-4 text-center">Date</th>
                                 </tr>
                             </thead>
@@ -67,18 +67,44 @@ export default function Index({
                                         <td className="p-4 text-center">
                                             {transaction.category?.name}
                                         </td>
-                                        <td className="p-4 text-center">
+                                        <td className="p-4 text-end">
                                             {transaction.type ===
                                                 TransactionType.Expense && (
                                                 <span className="text-red-500">
-                                                    -{transaction.amount}
+                                                    -
+                                                    {new Intl.NumberFormat(
+                                                        'en-US',
+                                                        {
+                                                            style: 'currency',
+                                                            currency:
+                                                                transaction
+                                                                    .account
+                                                                    ?.currency
+                                                                    ?.code,
+                                                        },
+                                                    ).format(
+                                                        transaction.amount,
+                                                    )}
                                                 </span>
                                             )}
 
                                             {transaction.type ===
                                                 TransactionType.Income && (
                                                 <span className="text-green-500">
-                                                    +{transaction.amount}
+                                                    +
+                                                    {new Intl.NumberFormat(
+                                                        'en-US',
+                                                        {
+                                                            style: 'currency',
+                                                            currency:
+                                                                transaction
+                                                                    .account
+                                                                    ?.currency
+                                                                    ?.code,
+                                                        },
+                                                    ).format(
+                                                        transaction.amount,
+                                                    )}
                                                 </span>
                                             )}
                                         </td>

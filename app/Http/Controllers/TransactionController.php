@@ -16,7 +16,7 @@ class TransactionController
     {
         $transactions = $request->user()
             ->transactions()
-            ->with(['account', 'category'])
+            ->with(['account.currency', 'category'])
             ->orderByDesc('transaction_date')
             ->get();
 
