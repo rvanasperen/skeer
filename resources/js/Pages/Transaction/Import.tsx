@@ -9,11 +9,9 @@ export default function Import({ banks }: { banks: Bank[] }) {
     const { data, setData, post, errors, processing } = useForm<{
         bank_id: number | '';
         file?: File;
-        balance: number;
     }>({
         bank_id: '',
         file: undefined,
-        balance: 0,
     });
 
     const handleSubmit: FormEventHandler = (e) => {
@@ -77,30 +75,6 @@ export default function Import({ banks }: { banks: Bank[] }) {
                             <InputError
                                 className="mt-2"
                                 message={errors.file}
-                            />
-                        </div>
-
-                        <div>
-                            <Label htmlFor="balance" value="Starting Balance" />
-                            <Input
-                                autoComplete="off"
-                                className="mt-1 block w-full"
-                                id="balance"
-                                onChange={(e) =>
-                                    setData(
-                                        'balance',
-                                        parseFloat(e.target.value),
-                                    )
-                                }
-                                placeholder="1000"
-                                required={true}
-                                step="0.01"
-                                type="number"
-                                value={data.balance}
-                            />
-                            <InputError
-                                className="mt-2"
-                                message={errors.balance}
                             />
                         </div>
 

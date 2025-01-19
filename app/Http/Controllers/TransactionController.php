@@ -38,14 +38,13 @@ class TransactionController
         $validated = $request->validate([
             'bank_id' => ['required', 'exists:banks,id'],
             'file' => ['required', File::types(['csv'])],
-            'balance' => ['required', 'numeric'],
         ]);
 
         resolve(TransactionImporter::class)
             ->import(
                 $request->user(),
                 Bank::findOrFail($validated['bank_id']),
-                $validated['file']->getRealPath()
+                $validated['file']->getRealPath(),
             );
 
         return to_route('transactions.index');
