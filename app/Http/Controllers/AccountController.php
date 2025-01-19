@@ -9,7 +9,6 @@ use App\Models\Currency;
 use App\Rules\IBANRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,10 +19,8 @@ class AccountController
     {
         $accounts = $request->user()
             ->accounts()
-            ->with([
-                'bank',
-                'currency',
-            ])->get();
+            ->with(['bank', 'currency'])
+            ->get();
 
         return Inertia::render('Account/Index', [
             'accounts' => $accounts,
@@ -51,9 +48,11 @@ class AccountController
             'type' => ['required', Rule::enum(AccountType::class)],
         ]);
 
-        $request->user()->accounts()->create($validated);
+        $request->user()
+            ->accounts()
+            ->create($validated);
 
-        return back();
+        return to_route('accounts.index');
     }
 
     public function show(Request $request, Account $account)
@@ -65,10 +64,7 @@ class AccountController
     {
         $account = $request->user()
             ->accounts()
-            ->with([
-                'bank',
-                'currency',
-            ])
+            ->with(['bank', 'currency'])
             ->findOrFail($accountId);
         $banks = Bank::all();
         $currencies = Currency::all();
@@ -80,23 +76,31 @@ class AccountController
         ]);
     }
 
-    public function update(Request $request, Account $account): RedirectResponse
+    public function update(Request $request, int $accountId): RedirectResponse
     {
         $validated = $request->validate([
             'bank_id' => ['required', 'exists:banks,id'],
             'currency_id' => ['required', 'exists:currencies,id'],
             'name' => ['required', 'string'],
-            'number' => ['required', 'string', 'unique:accounts,number,'.$account->id, new IBANRule()],
+            'number' => ['required', 'string', 'unique:accounts,number,'.$accountId, new IBANRule()],
             'type' => ['required', Rule::enum(AccountType::class)],
         ]);
 
-        $request->user()->accounts()->update($validated);
+        $request->user()
+            ->accounts()
+            ->where('id', $accountId)
+            ->update($validated);
 
-        return back();
+        return to_route('accounts.index');
     }
 
-    public function destroy(Request $request, Account $account)
+    public function destroy(Request $request, int $accountId): RedirectResponse
     {
-        dd('destroy', $account->toArray());
+        $request->user()
+            ->accounts()
+            ->where('id', $accountId)
+            ->delete();
+
+        return back();
     }
 }

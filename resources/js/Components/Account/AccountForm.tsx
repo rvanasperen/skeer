@@ -2,7 +2,7 @@ import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
 import { Account, Bank, Currency } from '@/Models';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
-import { FormEventHandler, FormHTMLAttributes, useRef } from 'react';
+import { FormEventHandler, FormHTMLAttributes } from 'react';
 
 export default function AccountForm({
     account,
@@ -15,30 +15,20 @@ export default function AccountForm({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const nameInput = useRef<HTMLInputElement>(null);
-
-    const {
-        data,
-        errors,
-        post,
-        put,
-        processing,
-        recentlySuccessful,
-        reset,
-        setData,
-    } = useForm<{
-        bank_id: number | '';
-        currency_id: number | '';
-        name: string;
-        number: string;
-        type: string;
-    }>({
-        bank_id: account?.bank_id || '',
-        currency_id: account?.currency_id || '',
-        name: account?.name || '',
-        number: account?.number || '',
-        type: account?.type || '',
-    });
+    const { data, errors, post, put, processing, recentlySuccessful, setData } =
+        useForm<{
+            bank_id: number | '';
+            currency_id: number | '';
+            name: string;
+            number: string;
+            type: string;
+        }>({
+            bank_id: account?.bank_id || '',
+            currency_id: account?.currency_id || '',
+            name: account?.name || '',
+            number: account?.number || '',
+            type: account?.type || '',
+        });
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -46,12 +36,7 @@ export default function AccountForm({
         if (account && account.id) {
             put(route('accounts.update', account.id));
         } else {
-            post(route('accounts.store'), {
-                onSuccess: () => {
-                    reset('name', 'number', 'type');
-                    nameInput.current?.focus();
-                },
-            });
+            post(route('accounts.store'));
         }
     };
 
@@ -112,7 +97,6 @@ export default function AccountForm({
                     id="name"
                     onChange={(e) => setData('name', e.target.value)}
                     placeholder="Primary Checking"
-                    ref={nameInput}
                     required={true}
                     type="text"
                     value={data.name}
