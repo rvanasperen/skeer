@@ -57,7 +57,7 @@ export default function NetWorthCard({
                                     </span>
                                 )}
                                 {networthByCurrency[currencyCode] <= 0 && (
-                                    <span className="red">
+                                    <span className="text-red-500">
                                         {formatterByCurrency[
                                             currencyCode
                                         ].format(
@@ -76,9 +76,20 @@ export default function NetWorthCard({
                 {accounts.map((account) => (
                     <div key={account.id}>
                         {account.name}:{' '}
-                        {formatterByCurrency[
-                            (account.currency as Currency).code
-                        ].format(account.balance)}
+                        {account.balance > 0 && (
+                            <span className="text-green-500">
+                                {formatterByCurrency[
+                                    (account.currency as Currency).code
+                                ].format(account.balance)}
+                            </span>
+                        )}
+                        {account.balance <= 0 && (
+                            <span className="text-red-500">
+                                {formatterByCurrency[
+                                    (account.currency as Currency).code
+                                ].format(account.balance)}
+                            </span>
+                        )}
                     </div>
                 ))}
             </div>
