@@ -1,6 +1,7 @@
 import NetWorthCard from '@/Components/Dashboard/NetWorthCard';
 import NetWorthChartCard from '@/Components/Dashboard/NetWorthChartCard';
 import TransactionsChartCard from '@/Components/Dashboard/TransactionsChartCard';
+import { Card } from '@/Components/UI';
 import { Button, Input, Select } from '@/Components/UI/Form';
 import AuthenticatedLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
@@ -84,19 +85,20 @@ export default function Dashboard({
                 </div>
 
                 <div className="grid grid-cols-12 gap-8">
+                    <NetWorthChartCard
+                        className="col-span-9"
+                        netWorthData={netWorthData}
+                    />
+                    <NetWorthCard className="col-span-3" accounts={accounts} />
+
+                    <div className="col-span-6">
+                        <Card>todo: table with categories</Card>
+                    </div>
+
                     <div className="col-span-6">
                         <TransactionsChartCard
                             transactionData={transactionData}
                         />
-                    </div>
-                    <div className="col-span-6">
-                        <NetWorthChartCard netWorthData={netWorthData} />
-                    </div>
-
-                    <div className="col-span-6">table</div>
-                    <div className="col-span-3">idk</div>
-                    <div className="col-span-3">
-                        <NetWorthCard accounts={accounts} />
                     </div>
                 </div>
             </div>
