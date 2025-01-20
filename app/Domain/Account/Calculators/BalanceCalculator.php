@@ -53,6 +53,8 @@ class BalanceCalculator
                 return $carry;
             }, []);
 
+        // todo: fill in empty spots
+
         return collect($results)
             ->filter(fn ($row) => $row['date'] >= $startDate->toDateString())
             ->values()
