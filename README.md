@@ -1,6 +1,6 @@
 ## Skeer
 
-*(Dutch slang for 'broke', adj., pronounced 'skere')*
+*(Dutch slang for 'broke', adj., pronounced 'skere'. E.g. 'skere tijden, g')*
 
 ### About
 
