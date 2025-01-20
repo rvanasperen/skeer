@@ -30,7 +30,7 @@ class BalanceCalculator
             $model->transactions()
                 ->selectNormalizedAmount()
                 ->selectGroupByDate($groupBy)
-                ->where('transaction_date', '<=', $endDate)
+                ->where('transaction_date', '<=', $endDate->endOfDay())
                 ->groupBy('date')
                 ->orderBy('date')
                 ->get()
@@ -50,7 +50,7 @@ class BalanceCalculator
                     return $carry;
                 }, [])
         )
-            ->filter(fn ($row) => $row['date'] >= $startDate->toDateString())
+            ->filter(fn ($row) => $startDate->lte($row['date']))
             ->values()
             ->toArray();
     }

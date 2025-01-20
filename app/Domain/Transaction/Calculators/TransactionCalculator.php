@@ -19,8 +19,8 @@ class TransactionCalculator
             ->selectNormalizedAmount()
             ->selectGroupByDate($groupBy)
             ->whereBetween('transaction_date', [
-                $startDate,
-                $endDate,
+                $startDate->startOfDay(),
+                $endDate->endOfDay(),
             ])
             ->groupBy('date')
             ->orderBy('date')
