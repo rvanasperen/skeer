@@ -13,11 +13,20 @@ class BalanceCalculator
     {
         $date ??= now();
 
-        return $model->transactions()
-            ->selectNormalizedAmount()
-            ->where('transaction_date', '<=', $date)
-            ->pluck('amount')
-            ->first(); // todo: ?? 0
+        static $cache;
+        $cache ??= [];
+
+        $cacheKey = $model->getTable().$model->id.$date->format('Y-m-d');
+
+        if (! isset($cache[$cacheKey])) {
+            $cache[$cacheKey] = $model->transactions()
+                ->selectNormalizedAmount()
+                ->where('transaction_date', '<=', $date)
+                ->pluck('amount')
+                ->first(); // todo: ?? 0
+        }
+
+        return $cache[$cacheKey];
     }
 
     public function getBalanceOverTime(
