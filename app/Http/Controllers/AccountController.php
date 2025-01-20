@@ -23,7 +23,7 @@ class AccountController
     {
         $accounts = $request->user()
             ->accounts()
-            ->with(['bank', 'currency', 'transactions'])
+            ->with(['bank', 'currency'])
             ->orderBy('name')
             ->get();
 

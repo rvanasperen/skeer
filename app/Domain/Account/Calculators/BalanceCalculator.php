@@ -18,7 +18,7 @@ class BalanceCalculator
             ->selectRaw('SUM(CASE WHEN type = ? THEN amount ELSE -amount END) as balance', [TransactionType::Income->value])
             ->where('transaction_date', '<=', $date)
             ->pluck('balance')
-            ->first();
+            ->first(); // todo: ?? 0
     }
 
     public function getBalanceOverTime(
