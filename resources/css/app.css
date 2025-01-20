@@ -4,4 +4,5 @@
 
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
+    margin-left: -24px;
 }
