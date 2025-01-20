@@ -3,9 +3,7 @@
 namespace App\Domain\Account\Calculators;
 
 use App\Enums\GroupBy;
-use App\Enums\TransactionType;
 use App\Models\Account;
-use App\Support\QueryHelper;
 use Carbon\Carbon;
 
 class BalanceCalculator
@@ -15,48 +13,44 @@ class BalanceCalculator
         $date ??= now();
 
         return $account->transactions()
-            ->selectRaw('SUM(CASE WHEN type = ? THEN amount ELSE -amount END) as balance', [TransactionType::Income->value])
+            ->selectNormalizedAmount()
             ->where('transaction_date', '<=', $date)
-            ->pluck('balance')
+            ->pluck('amount')
             ->first(); // todo: ?? 0
     }
 
     public function getBalanceOverTime(
         Account $account,
-        Carbon $startDate,
-        Carbon $endDate,
+        Carbon  $startDate,
+        Carbon  $endDate,
         GroupBy $groupBy,
     ): array
     {
-        $query = $account->transactions();
+        return collect(
+            $account->transactions()
+                ->selectNormalizedAmount()
+                ->selectGroupByDate($groupBy)
+                ->where('transaction_date', '<=', $endDate)
+                ->groupBy('date')
+                ->orderBy('date')
+                ->get()
+                ->map(fn($row) => [
+                    'date' => $row->date,
+                    'delta' => round($row->amount, 2),
+                ])
+                ->reduce(function ($carry, $row) {
+                    $carry[] = [
+                        'date' => $row['date'],
+                        'delta' => $row['delta'],
+                        'balance' => $carry
+                            ? end($carry)['balance'] + $row['delta']
+                            : $row['delta'],
+                    ];
 
-        resolve(QueryHelper::class)->addGroupBy($query, $groupBy);
-
-        $results = $query->selectRaw('SUM(CASE WHEN type = ? THEN amount ELSE -amount END) as delta', [TransactionType::Income->value])
-            ->where('transaction_date', '<=', $endDate)
-            ->groupBy('date')
-            ->orderBy('date')
-            ->get()
-            ->map(fn ($row) => [
-                'date' => $row->date,
-                'delta' => round($row->delta, 2),
-            ])
-            ->reduce(function ($carry, $row) {
-                $carry[] = [
-                    'date' => $row['date'],
-                    'delta' => $row['delta'],
-                    'balance' => $carry
-                        ? end($carry)['balance'] + $row['delta']
-                        : $row['delta'],
-                ];
-
-                return $carry;
-            }, []);
-
-        // todo: fill in empty spots
-
-        return collect($results)
-            ->filter(fn ($row) => $row['date'] >= $startDate->toDateString())
+                    return $carry;
+                }, [])
+        )
+            ->filter(fn($row) => $row['date'] >= $startDate->toDateString())
             ->values()
             ->toArray();
     }
