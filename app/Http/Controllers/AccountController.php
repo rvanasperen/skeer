@@ -114,6 +114,7 @@ class AccountController
             $startingBalanceDate = $earliestTransaction->transaction_date->subDay();
             $startingBalanceAmount = $validated['current_balance'] - DB::table('transactions')
                 ->selectRaw('SUM(CASE WHEN type = ? THEN -amount ELSE amount END) AS balance', [TransactionType::Expense])
+                ->whereNot('name', 'Starting Balance')
                 ->where('account_id', $account->id)
                 ->first()
                 ->balance ?? 0.0;
