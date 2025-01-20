@@ -1,5 +1,5 @@
 import BalanceOverTimeChartCard from '@/Components/Dashboard/BalanceOverTimeChartCard';
-import NetWorthCard from '@/Components/Dashboard/NetWorthCard';
+import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
 import TransactionsOverTimeChartCard from '@/Components/Dashboard/TransactionsOverTimeChartCard';
 import { Card } from '@/Components/UI';
 import { Button, Input, Select } from '@/Components/UI/Form';
@@ -86,7 +86,7 @@ export default function Dashboard({
                         <BalanceOverTimeChartCard data={balanceOverTimeData} />
                     </div>
                     <div className="col-span-3">
-                        <NetWorthCard accounts={accounts} />
+                        <BalanceSummaryCard accounts={accounts} />
                     </div>
 
                     <div className="col-span-6">

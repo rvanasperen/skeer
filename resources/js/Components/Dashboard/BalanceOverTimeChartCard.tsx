@@ -20,7 +20,7 @@ export default function BalanceOverTimeChartCard({
 }) {
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
-            <div className="text-xl">Net Worth</div>
+            <div className="text-xl">Balance Over Time</div>
 
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data}>

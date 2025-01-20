@@ -25,7 +25,7 @@ export default function TransactionsOverTimeChartCard({
 
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
-            <div className="text-xl">Transactions</div>
+            <div className="text-xl">Transactions Over Time</div>
 
             <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={processedData}>

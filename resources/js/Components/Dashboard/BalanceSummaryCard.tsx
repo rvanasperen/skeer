@@ -2,7 +2,7 @@ import { Card } from '@/Components/UI';
 import { Account, Currency } from '@/Models';
 import { HTMLAttributes } from 'react';
 
-export default function NetWorthCard({
+export default function BalanceSummaryCard({
     accounts,
     className = '',
     ...props
@@ -41,7 +41,7 @@ export default function NetWorthCard({
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
             <div>
-                <div className="text-2xl">Net Worth</div>
+                <div className="text-2xl">Balance Summary</div>
                 <div>
                     {Object.keys(networthByCurrency).map(
                         (currencyCode, index) => (
