@@ -1,5 +1,5 @@
-import BalanceHistoryChartCard from '@/Components/Dashboard/BalanceHistoryChartCard';
-import MoneyFlowChartCard from '@/Components/Dashboard/MoneyFlowChartCard';
+import BalanceHistoryChartCard from '@/Components/Charts/BalanceHistoryChartCard';
+import MoneyFlowChartCard from '@/Components/Charts/MoneyFlowChartCard';
 import { DateRangeGroupFilter } from '@/Components/UI';
 import { GroupBy } from '@/Enums';
 import AppLayout from '@/Layouts/AppLayout';

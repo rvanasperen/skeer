@@ -1,4 +1,4 @@
-import BalanceHistoryChartCard from '@/Components/Dashboard/BalanceHistoryChartCard';
+import BalanceHistoryChartCard from '@/Components/Charts/BalanceHistoryChartCard';
 import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
 import { Card } from '@/Components/UI';
 import AppLayout from '@/Layouts/AppLayout';
