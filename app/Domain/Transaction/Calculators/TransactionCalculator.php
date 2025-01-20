@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Domain\Account\Calculators;
+namespace App\Domain\Transaction\Calculators;
 
 use App\Enums\GroupBy;
 use App\Models\Account;
+use App\Models\User;
 use Carbon\Carbon;
 
 class TransactionCalculator
 {
     public function getTransactionsOverTime(
-        Account $account,
+        User|Account $model,
         Carbon $startDate,
         Carbon $endDate,
         GroupBy $groupBy,
     ): array
     {
-        return $account->transactions()
+        return $model->transactions()
             ->selectNormalizedAmount()
             ->selectGroupByDate($groupBy)
             ->whereBetween('transaction_date', [

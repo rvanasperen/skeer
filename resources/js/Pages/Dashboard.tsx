@@ -1,6 +1,6 @@
 import NetWorthCard from '@/Components/Dashboard/NetWorthCard';
-import NetWorthChartCard from '@/Components/Dashboard/NetWorthChartCard';
-import TransactionsChartCard from '@/Components/Dashboard/TransactionsChartCard';
+import BalanceOverTimeChartCard from '@/Components/Dashboard/BalanceOverTimeChartCard';
+import TransactionsOverTimeChartCard from '@/Components/Dashboard/TransactionsOverTimeChartCard';
 import { Card } from '@/Components/UI';
 import { Button, Input, Select } from '@/Components/UI/Form';
 import AuthenticatedLayout from '@/Layouts/AppLayout';
@@ -9,22 +9,19 @@ import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function Dashboard({
-    accounts,
-    netWorthData,
-    transactionData,
     startDate,
     endDate,
     groupBy,
+    accounts,
+    balanceOverTimeData,
+    transactionsOverTimeData,
 }: {
-    accounts: Account[];
-    netWorthData: {
-        total: { date: string; amount: number }[];
-        account: { date: string; amount: number }[][];
-    };
-    transactionData: { date: string; amount: number }[];
     startDate: string;
     endDate: string;
     groupBy: 'day' | 'week' | 'month' | 'year';
+    accounts: Account[];
+    balanceOverTimeData: { date: string; delta: number; balance: number }[];
+    transactionsOverTimeData: { date: string; amount: number }[];
 }) {
     const [selectedStartDate, setSelectedStartDate] =
         useState<string>(startDate);
@@ -86,7 +83,7 @@ export default function Dashboard({
 
                 <div className="grid grid-cols-12 gap-8">
                     <div className="col-span-9">
-                        <NetWorthChartCard netWorthData={netWorthData} />
+                        <BalanceOverTimeChartCard data={balanceOverTimeData} />
                     </div>
                     <div className="col-span-3">
                         <NetWorthCard accounts={accounts} />
@@ -97,8 +94,8 @@ export default function Dashboard({
                     </div>
 
                     <div className="col-span-6">
-                        <TransactionsChartCard
-                            transactionData={transactionData}
+                        <TransactionsOverTimeChartCard
+                            data={transactionsOverTimeData}
                         />
                     </div>
                 </div>

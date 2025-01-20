@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Domain\Account\Calculators\BalanceCalculator;
+use App\Domain\Transaction\Calculators\BalanceCalculator;
 use App\Enums\AccountType;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

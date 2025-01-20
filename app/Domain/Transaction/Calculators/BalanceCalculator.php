@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Domain\Account\Calculators;
+namespace App\Domain\Transaction\Calculators;
 
 use App\Enums\GroupBy;
 use App\Models\Account;
+use App\Models\User;
 use Carbon\Carbon;
 
 class BalanceCalculator
 {
-    public function getBalance(Account $account, ?Carbon $date = null): float
+    public function getBalance(User|Account $model, ?Carbon $date = null): float
     {
         $date ??= now();
 
-        return $account->transactions()
+        return $model->transactions()
             ->selectNormalizedAmount()
             ->where('transaction_date', '<=', $date)
             ->pluck('amount')
@@ -20,14 +21,14 @@ class BalanceCalculator
     }
 
     public function getBalanceOverTime(
-        Account $account,
-        Carbon  $startDate,
-        Carbon  $endDate,
-        GroupBy $groupBy,
+        User|Account $model,
+        Carbon       $startDate,
+        Carbon       $endDate,
+        GroupBy      $groupBy,
     ): array
     {
         return collect(
-            $account->transactions()
+            $model->transactions()
                 ->selectNormalizedAmount()
                 ->selectGroupByDate($groupBy)
                 ->where('transaction_date', '<=', $endDate)

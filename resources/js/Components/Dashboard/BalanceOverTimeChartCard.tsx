@@ -11,22 +11,19 @@ import {
     YAxis,
 } from 'recharts';
 
-export default function NetWorthChartCard({
+export default function BalanceOverTimeChartCard({
     className = '',
-    netWorthData,
+    data,
     ...props
 }: HTMLAttributes<HTMLDivElement> & {
-    netWorthData: {
-        total: { date: string; amount: number }[];
-        account: { date: string; amount: number }[][];
-    };
+    data: { date: string; delta: number; balance: number }[];
 }) {
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
             <div className="text-xl">Net Worth</div>
 
             <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={netWorthData.total}>
+                <LineChart data={data}>
                     <CartesianGrid stroke="#4a5568" strokeDasharray="3 3" />
                     <XAxis
                         dataKey="date"
@@ -34,7 +31,7 @@ export default function NetWorthChartCard({
                         tick={{ fill: '#e2e8f0' }}
                     />
                     <YAxis
-                        dataKey="amount"
+                        dataKey="balance"
                         stroke="#e2e8f0"
                         tick={{ fill: '#e2e8f0' }}
                     />
@@ -55,7 +52,7 @@ export default function NetWorthChartCard({
                         itemStyle={{ color: '#e2e8f0' }}
                     />
                     <ReferenceLine y={0} stroke="#e2e8f0" />
-                    <Line dataKey="amount" stroke="#82ca8d" />
+                    <Line dataKey="balance" stroke="#82ca8d" />
                 </LineChart>
             </ResponsiveContainer>
         </Card>
