@@ -5,7 +5,7 @@ namespace App\Domain\Transaction;
 use App\Enums\TransactionType;
 use Carbon\Carbon;
 
-class TransactionData
+final readonly class TransactionData
 {
     public function __construct(
         public TransactionType $type,
