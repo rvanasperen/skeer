@@ -79,12 +79,12 @@ export default function Dashboard({
                             <Card>
                                 <div>todo: tasks</div>
                                 <div>
-                                    - if transactions with no category, create
-                                    rules for them
+                                    - if transactions with no category, prompt
+                                    user to create import rules for them
                                 </div>
                                 <div>
-                                    - if last import &gt;= 7? days ago, ask user
-                                    for new import
+                                    - if last import &gt; 3 days ago, prompt
+                                    user for new transaction import
                                 </div>
                             </Card>
 
