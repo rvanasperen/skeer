@@ -47,11 +47,18 @@ export default function Dashboard({
                                             <div className="pl-4">
                                                 {category.children.map(
                                                     (childCategory) => (
-                                                        <div key={childCategory.id}>
-                                                            {childCategory.name}:{' '}
-                                                            {childCategory.spent}
+                                                        <div
+                                                            key={
+                                                                childCategory.id
+                                                            }
+                                                        >
+                                                            {childCategory.name}
+                                                            :{' '}
+                                                            {
+                                                                childCategory.spent
+                                                            }
                                                         </div>
-                                                    )
+                                                    ),
                                                 )}
                                             </div>
                                         )}
@@ -61,25 +68,28 @@ export default function Dashboard({
                         </Card>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-8">
-                        <BalanceSummaryCard accounts={accounts} />
-
-                        <Card>
-                            <div>todo: tasks</div>
-                            <div>
-                                - if transactions with no category, create rules
-                                for them
+                    <div>
+                        <div className="grid grid-cols-2 gap-8">
+                            <div className="col-span-2">
+                                <BalanceHistoryChartCard
+                                    data={balanceOverTimeData}
+                                />
                             </div>
-                            <div>
-                                - if last import &gt;= 7? days ago, ask user for
-                                new import
-                            </div>
-                        </Card>
 
-                        <BalanceHistoryChartCard
-                            className="col-span-2"
-                            data={balanceOverTimeData}
-                        />
+                            <Card>
+                                <div>todo: tasks</div>
+                                <div>
+                                    - if transactions with no category, create
+                                    rules for them
+                                </div>
+                                <div>
+                                    - if last import &gt;= 7? days ago, ask user
+                                    for new import
+                                </div>
+                            </Card>
+
+                            <BalanceSummaryCard accounts={accounts} />
+                        </div>
                     </div>
                 </div>
             </div>
