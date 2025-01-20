@@ -54,6 +54,12 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                             label="Dashboard"
                         />
 
+                        <NavItem
+                            href={route('reports')}
+                            isActive={route().current('reports')}
+                            label="Reports"
+                        />
+
                         <div>
                             <hr className="my-4 border-gray-700" />
                         </div>

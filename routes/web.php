@@ -11,6 +11,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', Controllers\DashboardController::class)
         ->name('dashboard');
 
+    Route::get('reports', Controllers\ReportsController::class)
+        ->name('reports');
+
     Route::get('setup', [Controllers\SetupController::class, 'showForm'])
         ->name('setup');
     Route::post('setup', [Controllers\SetupController::class, 'processForm']);

@@ -11,12 +11,14 @@ import {
     YAxis,
 } from 'recharts';
 
-export default function TransactionsOverTimeChartCard({
+export default function MoneyFlowChartCard({
     className = '',
     data,
+    height = 200,
     ...props
 }: HTMLAttributes<HTMLDivElement> & {
     data: { date: string; amount: number }[];
+    height?: number;
 }) {
     const processedData = data.map((transaction) => ({
         ...transaction,
@@ -25,9 +27,9 @@ export default function TransactionsOverTimeChartCard({
 
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
-            <div className="text-xl">Transactions Over Time</div>
+            <div className="text-xl">Money Flow</div>
 
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={height}>
                 <BarChart data={processedData}>
                     <CartesianGrid stroke="#4a5568" strokeDasharray="3 3" />
                     <XAxis

@@ -11,18 +11,26 @@ import {
     YAxis,
 } from 'recharts';
 
-export default function BalanceOverTimeChartCard({
+export default function BalanceHistoryChartCard({
     className = '',
     data,
+    height = 200,
     ...props
 }: HTMLAttributes<HTMLDivElement> & {
     data: { date: string; delta: number; balance: number }[];
+    height?: number;
 }) {
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
-            <div className="text-xl">Balance Over Time</div>
+            <div className="flex justify-between">
+                <div className="text-xl">Balance History</div>
 
-            <ResponsiveContainer width="100%" height={200}>
+                <div className="text-sm text-gray-500">
+                    {/*todo: Last N days/weeks/etc*/}
+                </div>
+            </div>
+
+            <ResponsiveContainer width="100%" height={height}>
                 <LineChart data={data}>
                     <CartesianGrid stroke="#4a5568" strokeDasharray="3 3" />
                     <XAxis
