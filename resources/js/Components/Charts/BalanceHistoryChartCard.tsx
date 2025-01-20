@@ -55,7 +55,7 @@ export default function BalanceHistoryChartCard({
                                 style: 'currency',
                                 currency: 'EUR',
                             }).format(value),
-                            'Net Worth',
+                            'Balance',
                         ]}
                         itemStyle={{ color: '#e2e8f0' }}
                     />
