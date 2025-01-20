@@ -22,7 +22,7 @@ readonly class TransactionImporter
         ];
     }
 
-    public function import(User $user, Bank $bank, string $filePath): void
+    public function import(User $user, Bank $bank, Currency $currency, string $csvFilePath): void
     {
         DB::beginTransaction();
 
@@ -36,7 +36,7 @@ readonly class TransactionImporter
             /** @var Transformer $transformer */
             $transformer = resolve($this->transformersMap[$bank->bic]);
 
-            $fp = fopen($filePath, 'rb');
+            $fp = fopen($csvFilePath, 'rb');
 
             $headers = fgetcsv($fp);
 
@@ -59,7 +59,7 @@ readonly class TransactionImporter
                     if ($account === null) {
                         $account = $user->accounts()->create([
                             'bank_id' => $bank->id,
-                            'currency_id' => Currency::first()->id,
+                            'currency_id' => $currency->id,
                             'name' => "{$accountNumber} (imported)",
                             'number' => $accountNumber,
                             'type' => AccountType::Checking,

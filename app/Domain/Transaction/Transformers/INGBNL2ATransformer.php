@@ -12,26 +12,29 @@ class INGBNL2ATransformer implements Transformer
 {
     public function getAccountNumber(array $data): string
     {
-        return $data['Rekening'];
+        return $data['Rekening'] ?? $data['Account'];
     }
 
     public function getTransactionData(array $data): TransactionData
     {
-        $type = match($data['Af Bij']) {
-            'Af' => TransactionType::Expense,
-            'Bij' => TransactionType::Income,
-            default => throw new LogicException("Unsupported transaction type: {$data['Af Bij']}"),
+        $typeField = $data['Af Bij'] ?? $data['Debit/credit'];
+
+        $type = match($typeField) {
+            'Af', 'Debit' => TransactionType::Expense,
+            'Bij', 'Credit' => TransactionType::Income,
+            default => throw new LogicException("Unsupported transaction type: {$typeField}"),
         };
 
-        $amount = (float) str_replace(',', '.', $data['Bedrag (EUR)']);
+        // todo: currency code
+        $amount = (float) str_replace(',', '.', $data['Bedrag (EUR)'] ?? $data['Amount (EUR)']);
 
         return new TransactionData(
             type: $type,
             amount: $amount,
-            name: $data['Naam / Omschrijving'],
-            counterparty: $data['Tegenrekening'],
-            description: $data['Mededelingen'],
-            transactionDate: Carbon::createFromFormat('Ymd', $data['Datum']),
+            name: $data['Naam / Omschrijving'] ?? $data['Name / Description'],
+            counterparty: $data['Tegenrekening'] ?? $data['Counterparty'],
+            description: $data['Mededelingen'] ?? $data['Notifications'],
+            transactionDate: Carbon::createFromFormat('Ymd', $data['Datum'] ?? $data['Date']),
         );
     }
 }
