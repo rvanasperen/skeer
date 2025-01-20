@@ -54,6 +54,10 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                             label="Dashboard"
                         />
 
+                        <div>
+                            <hr className="my-4 border-gray-700" />
+                        </div>
+
                         <NavItem
                             href={route('accounts.index')}
                             isActive={route().current('accounts.*')}
@@ -67,6 +71,10 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         />
                     </>
                 )}
+
+                <div>
+                    <hr className="my-4 border-gray-700" />
+                </div>
 
                 <NavItem
                     href={route('profile.edit')}
