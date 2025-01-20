@@ -2,11 +2,12 @@ import BalanceOverTimeChartCard from '@/Components/Dashboard/BalanceOverTimeChar
 import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
 import TransactionsOverTimeChartCard from '@/Components/Dashboard/TransactionsOverTimeChartCard';
 import { Card } from '@/Components/UI';
-import { Button, Input, Select } from '@/Components/UI/Form';
+import DateRangeGroupFilter from '@/Components/UI/DateRangeGroupFilter';
+import { GroupBy } from '@/Enums';
 import AuthenticatedLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
+import { PageProps } from '@/types';
 import { Head, router } from '@inertiajs/react';
-import { useState } from 'react';
 
 export default function Dashboard({
     startDate,
@@ -15,26 +16,23 @@ export default function Dashboard({
     accounts,
     balanceOverTimeData,
     transactionsOverTimeData,
-}: {
+}: PageProps<{
     startDate: string;
     endDate: string;
-    groupBy: 'day' | 'week' | 'month' | 'year';
+    groupBy: GroupBy;
     accounts: Account[];
     balanceOverTimeData: { date: string; delta: number; balance: number }[];
     transactionsOverTimeData: { date: string; amount: number }[];
-}) {
-    const [selectedStartDate, setSelectedStartDate] =
-        useState<string>(startDate);
-    const [selectedEndDate, setSelectedEndDate] = useState<string>(endDate);
-    const [selectedGroupBy, setSelectedGroupBy] = useState<
-        'day' | 'week' | 'month' | 'year'
-    >(groupBy);
-
-    const handleFilter = () => {
+}>) {
+    const handleFilter = (
+        startDate: string,
+        endDate: string,
+        groupBy: GroupBy,
+    ) => {
         router.get(route('dashboard'), {
-            start_date: selectedStartDate,
-            end_date: selectedEndDate,
-            group_by: selectedGroupBy,
+            start_date: startDate,
+            end_date: endDate,
+            group_by: groupBy,
         });
     };
 
@@ -46,39 +44,12 @@ export default function Dashboard({
                 <div className="flex items-center justify-between">
                     <div className="text-3xl font-bold">Dashboard</div>
 
-                    <div className="flex items-center gap-2">
-                        <Input
-                            onChange={(e) =>
-                                setSelectedStartDate(e.target.value)
-                            }
-                            type="date"
-                            value={selectedStartDate}
-                        />
-                        <div>to</div>
-                        <Input
-                            onChange={(e) => setSelectedEndDate(e.target.value)}
-                            type="date"
-                            value={selectedEndDate}
-                        />
-                        <Select
-                            onChange={(e) =>
-                                setSelectedGroupBy(
-                                    e.target.value as
-                                        | 'day'
-                                        | 'week'
-                                        | 'month'
-                                        | 'year',
-                                )
-                            }
-                            value={selectedGroupBy}
-                        >
-                            <option value="day">Day</option>
-                            <option value="week">Week</option>
-                            <option value="month">Month</option>
-                            <option value="year">Year</option>
-                        </Select>
-                        <Button onClick={handleFilter}>Filter</Button>
-                    </div>
+                    <DateRangeGroupFilter
+                        startDate={startDate}
+                        endDate={endDate}
+                        groupBy={groupBy}
+                        onFilter={handleFilter}
+                    />
                 </div>
 
                 <div className="grid grid-cols-12 gap-8">
