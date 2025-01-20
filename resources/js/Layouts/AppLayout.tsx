@@ -26,7 +26,7 @@ function NavItem({
 
 function Sidebar({ showSetup }: { showSetup: boolean }) {
     return (
-        <div className="w-80 space-y-8 bg-gray-900 p-8">
+        <div className="w-80 flex-none space-y-8 bg-gray-900 p-8">
             <div className="flex items-end gap-2">
                 <ApplicationLogo className="h-14 fill-current text-gray-100" />
                 <div>
