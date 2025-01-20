@@ -52,19 +52,29 @@ export default function Dashboard({
                     />
                 </div>
 
-                <div className="grid grid-cols-12 gap-8">
-                    <div className="col-span-9">
-                        <BalanceOverTimeChartCard data={balanceOverTimeData} />
-                    </div>
-                    <div className="col-span-3">
-                        <BalanceSummaryCard accounts={accounts} />
-                    </div>
+                <div className="grid grid-cols-2 gap-8">
+                    <div className="space-y-8">
+                        <div className="grid grid-cols-2 gap-8">
+                            <BalanceSummaryCard accounts={accounts} />
 
-                    <div className="col-span-6">
+                            <Card>
+                                <div>todo: tasks</div>
+                                <div>
+                                    - if transactions with no category, create
+                                    rules for them
+                                </div>
+                                <div>
+                                    - if last import &gt;= 7? days ago, ask user
+                                    for new import
+                                </div>
+                            </Card>
+                        </div>
+
                         <Card>todo: table with categories</Card>
                     </div>
+                    <div className="space-y-8">
+                        <BalanceOverTimeChartCard data={balanceOverTimeData} />
 
-                    <div className="col-span-6">
                         <TransactionsOverTimeChartCard
                             data={transactionsOverTimeData}
                         />
