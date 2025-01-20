@@ -32,7 +32,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                 <div>
                     <div className="text-4xl font-bold">Skeer</div>
                     <div className="text-sm text-gray-400">
-                        (Dutch slang for broke, adj.)
+                        (Dutch slang for 'broke')
                     </div>
                 </div>
             </div>
