@@ -1,3 +1,4 @@
+import { ApplicationLogo } from '@/Components/UI/Icons';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
 
@@ -25,8 +26,16 @@ function NavItem({
 
 function Sidebar({ showSetup }: { showSetup: boolean }) {
     return (
-        <div className="w-80 space-y-4 bg-gray-900 p-8">
-            <div className="text-lg font-bold">Skeer</div>
+        <div className="w-80 space-y-8 bg-gray-900 p-8">
+            <div className="flex items-end gap-2">
+                <ApplicationLogo className="h-14 fill-current text-gray-100" />
+                <div>
+                    <div className="text-4xl font-bold">Skeer</div>
+                    <div className="text-sm text-gray-400">
+                        (Dutch slang for broke, adj.)
+                    </div>
+                </div>
+            </div>
 
             <div className="space-y-2">
                 {showSetup && (
