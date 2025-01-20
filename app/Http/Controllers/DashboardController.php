@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-readonly class DashboardController
+class DashboardController
 {
     public function __construct(
-        private BalanceCalculator     $balanceCalculator,
-        private TransactionCalculator $transactionCalculator,
+        private readonly BalanceCalculator $balanceCalculator,
+        private readonly TransactionCalculator $transactionCalculator,
     ) {
     }
 
@@ -37,7 +37,8 @@ readonly class DashboardController
         }
 
         $balanceOverTimeData = $this->balanceCalculator->getBalanceOverTime($user, $startDate, $endDate, $groupBy);
-        $transactionsOverTimeData = $this->transactionCalculator->getTransactionsOverTime($user, $startDate, $endDate, $groupBy);
+        $transactionsOverTimeData = $this->transactionCalculator->getTransactionsOverTime($user, $startDate, $endDate,
+            $groupBy);
 
         return Inertia::render('Dashboard', [
             'startDate' => $startDate->toDateString(),
