@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Category\CategoryDataBuilder;
 use App\Domain\Transaction\Calculators\BalanceCalculator;
 use App\Enums\GroupBy;
 use Illuminate\Http\RedirectResponse;
@@ -13,6 +14,7 @@ class DashboardController
 {
     public function __construct(
         private readonly BalanceCalculator $balanceCalculator,
+        private readonly CategoryDataBuilder $categoryDataBuilder,
     ) {
     }
 
@@ -36,9 +38,12 @@ class DashboardController
             GroupBy::Day,
         );
 
+        $categoryData = $this->categoryDataBuilder->buildCategoryData($user); // todo: date range
+
         return Inertia::render('Dashboard', [
             'accounts' => $accounts,
             'balanceOverTimeData' => $balanceOverTimeData,
+            'categoryData' => $categoryData,
         ]);
     }
 }

@@ -6,12 +6,21 @@ import { Account } from '@/Models';
 import { PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
+interface CategoryData {
+    id: number;
+    name: string;
+    spent: number;
+    children?: CategoryData[];
+}
+
 export default function Dashboard({
     accounts,
     balanceOverTimeData,
+    categoryData,
 }: PageProps<{
     accounts: Account[];
     balanceOverTimeData: { date: string; delta: number; balance: number }[];
+    categoryData: CategoryData[];
 }>) {
     return (
         <AppLayout>
@@ -22,7 +31,34 @@ export default function Dashboard({
 
                 <div className="grid grid-cols-2 gap-8">
                     <div>
-                        <Card>todo: table with categories</Card>
+                        <Card className="space-y-4">
+                            <div className="text-2xl">Category Summary</div>
+
+                            <div>(work in progress)</div>
+
+                            <div className="space-y-4">
+                                {categoryData.map((category) => (
+                                    <div key={category.id}>
+                                        <div>
+                                            {category.name}: {category.spent}
+                                        </div>
+
+                                        {category.children && (
+                                            <div className="pl-4">
+                                                {category.children.map(
+                                                    (childCategory) => (
+                                                        <div key={childCategory.id}>
+                                                            {childCategory.name}:{' '}
+                                                            {childCategory.spent}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
                     </div>
 
                     <div className="grid grid-cols-2 gap-8">
