@@ -37,7 +37,7 @@ class DashboardController
     private function getAccounts(User $user): Collection
     {
         return $user->accounts()
-            ->with(['currency',  'transactions'])
+            ->with(['currency'])
             ->orderBy('name')
             ->get();
     }
