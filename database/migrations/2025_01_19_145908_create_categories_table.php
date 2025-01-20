@@ -17,7 +17,7 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('type');
 //            $table->decimal('budgeted', 10, 2)->nullable();
-//            $table->string('budget_frequency')->nullable();
+//            $table->string('budget_frequency')->nullable(); // week, month, quarter, year
             $table->timestamps();
         });
     }
