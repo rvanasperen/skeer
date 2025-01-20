@@ -14,7 +14,7 @@ export default function BalanceSummaryCard({
     );
 
     const formatterByCurrency: Record<string, Intl.NumberFormat> = {};
-    const networthByCurrency: Record<string, number> = {};
+    const balanceByCurrency: Record<string, number> = {};
 
     if (enabledCurrencies.length > 0) {
         enabledCurrencies.forEach((currencyCode) => {
@@ -27,7 +27,7 @@ export default function BalanceSummaryCard({
                 currency: currencyCode,
             });
 
-            networthByCurrency[currencyCode] = accounts.reduce(
+            balanceByCurrency[currencyCode] = accounts.reduce(
                 (accumulator, account) =>
                     accumulator +
                     (account.currency?.code === currencyCode
@@ -43,25 +43,25 @@ export default function BalanceSummaryCard({
             <div>
                 <div className="text-2xl">Balance Summary</div>
                 <div>
-                    {Object.keys(networthByCurrency).map(
+                    {Object.keys(balanceByCurrency).map(
                         (currencyCode, index) => (
                             <div key={index}>
                                 {currencyCode}:{' '}
-                                {networthByCurrency[currencyCode] > 0 && (
+                                {balanceByCurrency[currencyCode] > 0 && (
                                     <span className="text-green-500">
                                         {formatterByCurrency[
                                             currencyCode
                                         ].format(
-                                            networthByCurrency[currencyCode],
+                                            balanceByCurrency[currencyCode],
                                         )}
                                     </span>
                                 )}
-                                {networthByCurrency[currencyCode] <= 0 && (
+                                {balanceByCurrency[currencyCode] <= 0 && (
                                     <span className="text-red-500">
                                         {formatterByCurrency[
                                             currencyCode
                                         ].format(
-                                            networthByCurrency[currencyCode],
+                                            balanceByCurrency[currencyCode],
                                         )}
                                     </span>
                                 )}
