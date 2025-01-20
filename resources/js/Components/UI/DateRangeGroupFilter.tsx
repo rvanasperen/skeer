@@ -43,7 +43,7 @@ export default function DateRangeGroupFilter({
                     (key) => {
                         return (
                             <option key={key} value={GroupBy[key]}>
-                                {GroupBy[key]}
+                                {key}
                             </option>
                         );
                     },
