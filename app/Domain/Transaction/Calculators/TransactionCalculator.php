@@ -14,8 +14,7 @@ class TransactionCalculator
         Carbon $startDate,
         Carbon $endDate,
         GroupBy $groupBy,
-    ): array
-    {
+    ): array {
         return $model->transactions()
             ->selectNormalizedAmount()
             ->selectGroupByDate($groupBy)

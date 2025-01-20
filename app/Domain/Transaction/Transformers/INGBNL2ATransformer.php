@@ -19,7 +19,7 @@ class INGBNL2ATransformer implements Transformer
     {
         $typeField = $data['Af Bij'] ?? $data['Debit/credit'];
 
-        $type = match($typeField) {
+        $type = match ($typeField) {
             'Af', 'Debit' => TransactionType::Expense,
             'Bij', 'Credit' => TransactionType::Income,
             default => throw new LogicException("Unsupported transaction type: {$typeField}"),

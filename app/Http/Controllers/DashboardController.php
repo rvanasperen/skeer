@@ -37,8 +37,12 @@ class DashboardController
         }
 
         $balanceOverTimeData = $this->balanceCalculator->getBalanceOverTime($user, $startDate, $endDate, $groupBy);
-        $transactionsOverTimeData = $this->transactionCalculator->getTransactionsOverTime($user, $startDate, $endDate,
-            $groupBy);
+        $transactionsOverTimeData = $this->transactionCalculator->getTransactionsOverTime(
+            $user,
+            $startDate,
+            $endDate,
+            $groupBy
+        );
 
         return Inertia::render('Dashboard', [
             'startDate' => $startDate->toDateString(),

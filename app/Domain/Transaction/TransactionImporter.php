@@ -84,7 +84,6 @@ readonly class TransactionImporter
                     'import_hash' => $hash,
                 ]);
             }
-
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;

@@ -25,8 +25,7 @@ class BalanceCalculator
         Carbon       $startDate,
         Carbon       $endDate,
         GroupBy      $groupBy,
-    ): array
-    {
+    ): array {
         return collect(
             $model->transactions()
                 ->selectNormalizedAmount()
@@ -35,7 +34,7 @@ class BalanceCalculator
                 ->groupBy('date')
                 ->orderBy('date')
                 ->get()
-                ->map(fn($row) => [
+                ->map(fn ($row) => [
                     'date' => $row->date,
                     'delta' => round($row->amount, 2),
                 ])
@@ -51,7 +50,7 @@ class BalanceCalculator
                     return $carry;
                 }, [])
         )
-            ->filter(fn($row) => $row['date'] >= $startDate->toDateString())
+            ->filter(fn ($row) => $row['date'] >= $startDate->toDateString())
             ->values()
             ->toArray();
     }
