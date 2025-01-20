@@ -6,8 +6,12 @@
 
 An open source budget management app for developers.
 
-I created this project because existing open source offerings are too complex, and paid offerings are too expensive. I'm
-a developer, not an accountant.
+I created this project because existing open source offerings are either too simple or too complex, and paid offerings
+are too expensive and opinionated.
+
+I'm not an accountant. I'm just a developer looking to get some insights and fancy graphs on my hard-earned dough.
+
+PRs welcome.
 
 ### Status
 
@@ -21,7 +25,7 @@ Laravel and React (with Inertia).
 
 - ING Bank (NL)
 
-Add support for your own abnk by creating (and PRing) a [Transformer](app/Domain/Transaction/Transformers).
+Add support for your own bank by creating (and PRing) a [Transformer](app/Domain/Transaction/Transformers).
 
 ### Installation
 
