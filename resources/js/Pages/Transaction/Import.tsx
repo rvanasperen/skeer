@@ -1,16 +1,24 @@
 import { Card } from '@/Components/UI';
 import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
 import AppLayout from '@/Layouts/AppLayout';
-import { Bank } from '@/Models';
+import { Bank, Currency } from '@/Models';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export default function Import({ banks }: { banks: Bank[] }) {
+export default function Import({
+    banks,
+    currencies,
+}: {
+    banks: Bank[];
+    currencies: Currency[];
+}) {
     const { data, setData, post, errors, processing } = useForm<{
         bank_id: number | '';
+        currency_id: number | '';
         file?: File;
     }>({
         bank_id: '',
+        currency_id: '',
         file: undefined,
     });
 
@@ -57,6 +65,36 @@ export default function Import({ banks }: { banks: Bank[] }) {
                             <InputError
                                 className="mt-2"
                                 message={errors.bank_id}
+                            />
+                        </div>
+
+                        <div>
+                            <Label htmlFor="currency" value="Currency" />
+                            <Select
+                                className="mt-1 block w-full"
+                                id="currency"
+                                onChange={(e) =>
+                                    setData(
+                                        'currency_id',
+                                        parseInt(e.target.value),
+                                    )
+                                }
+                                required={true}
+                                value={data.currency_id}
+                            >
+                                <option value="">Select a currency</option>
+                                {currencies.map((currency) => (
+                                    <option
+                                        key={currency.id}
+                                        value={currency.id}
+                                    >
+                                        {currency.name} ({currency.code})
+                                    </option>
+                                ))}
+                            </Select>
+                            <InputError
+                                className="mt-2"
+                                message={errors.currency_id}
                             />
                         </div>
 
