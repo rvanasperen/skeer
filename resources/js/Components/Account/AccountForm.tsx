@@ -154,7 +154,14 @@ export default function AccountForm({
                         type="number"
                         value={data.current_balance}
                     />
-                    <InputError className="mt-2" message={errors.current_balance} />
+                    <div className="mt-2 text-sm text-gray-500">
+                        The starting balance of the account will be updated to
+                        make sure the current value is correct.
+                    </div>
+                    <InputError
+                        className="mt-2"
+                        message={errors.current_balance}
+                    />
                 </div>
             )}
 
