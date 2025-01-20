@@ -1,5 +1,5 @@
-import NetWorthCard from '@/Components/Dashboard/NetWorthCard';
 import BalanceOverTimeChartCard from '@/Components/Dashboard/BalanceOverTimeChartCard';
+import NetWorthCard from '@/Components/Dashboard/NetWorthCard';
 import TransactionsOverTimeChartCard from '@/Components/Dashboard/TransactionsOverTimeChartCard';
 import { Card } from '@/Components/UI';
 import { Button, Input, Select } from '@/Components/UI/Form';
