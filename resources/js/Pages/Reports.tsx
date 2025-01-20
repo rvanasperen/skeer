@@ -48,10 +48,14 @@ export default function Reports({
                 </div>
 
                 <div className="grid grid-cols-2 gap-8">
-                    <BalanceHistoryChartCard data={balanceOverTimeData} />
+                    <BalanceHistoryChartCard
+                        data={balanceOverTimeData}
+                        height={400}
+                    />
 
                     <MoneyFlowChartCard
                         data={transactionsOverTimeData}
+                        height={400}
                     />
                 </div>
             </div>
