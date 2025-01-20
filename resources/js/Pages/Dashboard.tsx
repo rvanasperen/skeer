@@ -1,8 +1,7 @@
 import BalanceOverTimeChartCard from '@/Components/Dashboard/BalanceOverTimeChartCard';
 import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
 import TransactionsOverTimeChartCard from '@/Components/Dashboard/TransactionsOverTimeChartCard';
-import { Card } from '@/Components/UI';
-import DateRangeGroupFilter from '@/Components/UI/DateRangeGroupFilter';
+import { Card, DateRangeGroupFilter } from '@/Components/UI';
 import { GroupBy } from '@/Enums';
 import AuthenticatedLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
