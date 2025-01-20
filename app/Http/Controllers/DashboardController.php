@@ -21,9 +21,18 @@ class DashboardController
 
     public function __invoke(Request $request): Response|RedirectResponse
     {
-        $startDate = Carbon::parse($request->input('start_date', now()->subMonths(12)->startOfMonth()));
-        $endDate = Carbon::parse($request->input('end_date', now()));
-        $groupBy = GroupBy::from($request->input('group_by', 'month'));
+        $startDate = Carbon::parse(
+            $request->input(
+                'start_date',
+                now()->subMonths(12)->startOfMonth()
+            )
+        );
+        $endDate = Carbon::parse(
+            $request->input('end_date', now())
+        );
+        $groupBy = GroupBy::from(
+            $request->input('group_by', 'month')
+        );
 
         $user = $request->user();
 
@@ -36,7 +45,13 @@ class DashboardController
             return to_route('setup');
         }
 
-        $balanceOverTimeData = $this->balanceCalculator->getBalanceOverTime($user, $startDate, $endDate, $groupBy);
+        $balanceOverTimeData = $this->balanceCalculator->getBalanceOverTime(
+            $user,
+            $startDate,
+            $endDate,
+            $groupBy,
+        );
+
         $transactionsOverTimeData = $this->transactionCalculator->getTransactionsOverTime(
             $user,
             $startDate,
@@ -48,7 +63,6 @@ class DashboardController
             'startDate' => $startDate->toDateString(),
             'endDate' => $endDate->toDateString(),
             'groupBy' => $groupBy,
-
             'accounts' => $accounts,
             'balanceOverTimeData' => $balanceOverTimeData,
             'transactionsOverTimeData' => $transactionsOverTimeData,
