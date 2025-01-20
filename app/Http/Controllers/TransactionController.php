@@ -19,9 +19,7 @@ class TransactionController
             ->transactions()
             ->with(['account.currency', 'category'])
             ->orderByDesc('transaction_date')
-            ->get();
-
-        // todo: add pagination
+            ->paginate();
 
         return Inertia::render('Transaction/Index', [
             'transactions' => $transactions,

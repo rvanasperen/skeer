@@ -1,14 +1,15 @@
-import { Card } from '@/Components/UI';
+import { Card, PaginationControls } from "@/Components/UI";
 import { Button } from '@/Components/UI/Form';
 import { TransactionType } from '@/Enums';
 import AppLayout from '@/Layouts/AppLayout';
 import { Transaction } from '@/Models';
+import { PaginatedData } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({
     transactions,
 }: {
-    transactions: Transaction[];
+    transactions: PaginatedData<Transaction>;
 }) {
     return (
         <AppLayout>
@@ -26,12 +27,14 @@ export default function Index({
                     </Link>
                 </div>
 
-                {transactions.length === 0 && (
+                {transactions.total === 0 && (
                     <div className="text-gray-400">No transactions found</div>
                 )}
 
-                {transactions.length > 0 && (
-                    <Card>
+                {transactions.total > 0 && (
+                    <Card className="space-y-6">
+                        <PaginationControls pagination={transactions} />
+
                         <table className="w-full">
                             <thead className="text-lg">
                                 <tr>
@@ -45,7 +48,7 @@ export default function Index({
                                 </tr>
                             </thead>
                             <tbody>
-                                {transactions.map((transaction) => (
+                                {transactions.data.map((transaction) => (
                                     <tr
                                         key={transaction.id}
                                         className="border-t border-gray-800 last:border-b hover:bg-gray-800"
@@ -123,6 +126,8 @@ export default function Index({
                                 ))}
                             </tbody>
                         </table>
+
+                        <PaginationControls pagination={transactions} />
                     </Card>
                 )}
             </div>
