@@ -20,14 +20,14 @@ export default function AccountForm({
         name: string;
         number: string;
         type: string;
-        current_balance: number;
+        current_balance: number | '';
     }>({
         bank_id: account?.bank_id || '',
         currency_id: account?.currency_id || '',
         name: account?.name || '',
         number: account?.number || '',
         type: account?.type || '',
-        current_balance: 0,
+        current_balance: account ? parseFloat(account.balance.toFixed(2)) : '',
     });
 
     const handleSubmit: FormEventHandler = (e) => {
