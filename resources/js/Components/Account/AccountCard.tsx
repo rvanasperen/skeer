@@ -19,7 +19,7 @@ export default function AccountCard({
             <div className="flex">
                 <div className="grow">
                     <div className="text-xl">{account.name}</div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-400">
                         <div>{account.number}</div>
                         <div>{account.type} account</div>
                     </div>
@@ -68,7 +68,7 @@ export default function AccountCard({
                         className="size-16"
                         src={`/assets/images/banks/logos/${account.bank?.bic}.png`}
                     />
-                    <div className="mt-1 text-sm text-gray-500">
+                    <div className="mt-1 text-sm text-gray-400">
                         {account.bank?.name}
                     </div>
                 </div>

@@ -22,7 +22,7 @@ export default function Index({ accounts }: { accounts: Account[] }) {
                 </div>
 
                 {accounts.length === 0 && (
-                    <div className="text-gray-500">No accounts found</div>
+                    <div className="text-gray-400">No accounts found</div>
                 )}
 
                 {accounts.length > 0 && (

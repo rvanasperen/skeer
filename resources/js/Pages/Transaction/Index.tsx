@@ -27,7 +27,7 @@ export default function Index({
                 </div>
 
                 {transactions.length === 0 && (
-                    <div className="text-gray-500">No transactions found</div>
+                    <div className="text-gray-400">No transactions found</div>
                 )}
 
                 {transactions.length > 0 && (
@@ -54,14 +54,14 @@ export default function Index({
                                             <div>
                                                 {transaction.account?.name}
                                             </div>
-                                            <div className="text-sm text-gray-500">
+                                            <div className="text-sm text-gray-400">
                                                 {transaction.account?.number}
                                             </div>
                                         </td>
                                         <td className="p-4 text-start">
                                             <div>{transaction.name}</div>
                                             {transaction.counterparty && (
-                                                <div className="text-sm text-gray-500">
+                                                <div className="text-sm text-gray-400">
                                                     {transaction.counterparty}
                                                 </div>
                                             )}
