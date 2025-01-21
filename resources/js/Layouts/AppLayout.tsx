@@ -38,7 +38,14 @@ function NavItem({
             }
             href={href}
         >
-            {label}
+            <div className="flex items-center justify-between">
+                <div>{label}</div>
+                {keySequence && (
+                    <div className="text-sm text-gray-500">
+                        {keySequence?.join(' ')}
+                    </div>
+                )}
+            </div>
         </Link>
     );
 }
