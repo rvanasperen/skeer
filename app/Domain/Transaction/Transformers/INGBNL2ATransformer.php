@@ -12,7 +12,7 @@ class INGBNL2ATransformer implements Transformer
 {
     public function getHeaders(): ?array
     {
-        return null;
+        return null; // todo: add headers, add mech to skip header in importer
     }
 
     public function getAccountNumber(array $data): string
