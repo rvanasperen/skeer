@@ -25,7 +25,7 @@ export default function BalanceHistoryChartCard({
             <div className="flex justify-between">
                 <div className="text-xl">Balance History</div>
 
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-400">
                     {/*todo: Last N days/weeks/etc*/}
                 </div>
             </div>
