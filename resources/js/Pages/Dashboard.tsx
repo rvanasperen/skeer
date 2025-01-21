@@ -1,5 +1,6 @@
 import BalanceHistoryChartCard from '@/Components/Charts/BalanceHistoryChartCard';
 import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
+import TasksCard from '@/Components/Dashboard/TasksCard';
 import { Card } from '@/Components/UI';
 import AppLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
@@ -17,10 +18,12 @@ export default function Dashboard({
     accounts,
     balanceOverTimeData,
     categoryData,
+    tasks,
 }: PageProps<{
     accounts: Account[];
     balanceOverTimeData: { date: string; delta: number; balance: number }[];
     categoryData: CategoryData[];
+    tasks: { name: string; description: string; route: string }[];
 }>) {
     return (
         <AppLayout>
@@ -76,17 +79,7 @@ export default function Dashboard({
                                 />
                             </div>
 
-                            <Card>
-                                <div>todo: tasks</div>
-                                <div>
-                                    - if transactions with no category, prompt
-                                    user to create import rules for them
-                                </div>
-                                <div>
-                                    - if last import &gt; 3 days ago, prompt
-                                    user for new transaction import
-                                </div>
-                            </Card>
+                            <TasksCard tasks={tasks} />
 
                             <BalanceSummaryCard accounts={accounts} />
                         </div>
