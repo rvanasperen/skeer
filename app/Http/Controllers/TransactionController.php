@@ -15,13 +15,23 @@ class TransactionController
 {
     public function index(Request $request): Response
     {
-        $transactions = $request->user()
-            ->transactions()
+        $user = $request->user();
+
+        $accounts = $user->accounts()->orderBy('name')->get();
+
+        $categories = $user->categories()->orderBy('name')->get();
+
+        $currencies = Currency::all();
+
+        $transactions = $user->transactions()
             ->with(['account.currency', 'category'])
             ->orderByDesc('transaction_date')
             ->paginate();
 
         return Inertia::render('Transaction/Index', [
+            'accounts' => $accounts,
+            'categories' => $categories,
+            'currencies' => $currencies,
             'transactions' => $transactions,
         ]);
     }

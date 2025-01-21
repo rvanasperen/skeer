@@ -2,18 +2,24 @@ import {
     KeyboardShortcut,
     useKeyboardShortcutsContext,
 } from '@/Components/Providers/KeyboardShortcutsProvider';
-import { Card, PaginationControls } from '@/Components/UI';
+import FiltersCard from '@/Components/Transaction/FiltersCard';
+import TransactionsTableCard from '@/Components/Transaction/TransactionsTableCard';
 import { Button } from '@/Components/UI/Form';
 import { PaginatedData } from '@/Data';
-import { TransactionType } from '@/Enums';
 import AppLayout from '@/Layouts/AppLayout';
-import { Transaction } from '@/Models';
+import { Account, Category, Currency, Transaction } from '@/Models';
 import { Head, Link, router } from '@inertiajs/react';
 import { useEffect } from 'react';
 
 export default function Index({
+    accounts,
+    categories,
+    currencies,
     transactions,
 }: {
+    accounts: Account[];
+    categories: Category[];
+    currencies: Currency[];
     transactions: PaginatedData<Transaction>;
 }) {
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
@@ -60,118 +66,39 @@ export default function Index({
             <div className="space-y-8">
                 <div className="flex items-center justify-between">
                     <div className="text-3xl font-bold">Transactions</div>
-
-                    <Link
-                        className="inline-block"
-                        href={route('transactions.import')}
-                    >
-                        <Button>Import Transactions</Button>
-                    </Link>
                 </div>
 
-                {transactions.total === 0 && (
-                    <div className="text-gray-400">No transactions found</div>
-                )}
+                <div className="grid grid-cols-3 gap-8">
+                    <div className="col-span-2">
+                        {transactions.total === 0 && (
+                            <div className="text-gray-400">
+                                No transactions found
+                            </div>
+                        )}
 
-                {transactions.total > 0 && (
-                    <Card className="space-y-6">
-                        <PaginationControls pagination={transactions} />
+                        {transactions.total > 0 && (
+                            <TransactionsTableCard
+                                transactions={transactions}
+                            />
+                        )}
+                    </div>
+                    <div className="col-span-1 space-y-8">
+                        <Link href={route('transactions.import')}>
+                            <Button className="flex w-full items-center justify-center gap-2">
+                                <div>Import Transactions</div>
+                                <div className="text-sm text-gray-400">it</div>
+                            </Button>
+                        </Link>
 
-                        <table className="w-full">
-                            <thead className="text-lg">
-                                <tr>
-                                    <th className="p-4 text-start">Account</th>
-                                    <th className="p-4 text-start">Name</th>
-                                    <th className="p-4 text-center">
-                                        Category
-                                    </th>
-                                    <th className="p-4 text-end">Amount</th>
-                                    <th className="p-4 text-center">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {transactions.data.map((transaction) => (
-                                    <tr
-                                        key={transaction.id}
-                                        className="border-t border-gray-800 last:border-b hover:bg-gray-800"
-                                    >
-                                        <td className="p-4 text-start">
-                                            <div>
-                                                {transaction.account?.name}
-                                            </div>
-                                            <div className="text-sm text-gray-400">
-                                                {transaction.account?.number}
-                                            </div>
-                                        </td>
-                                        <td className="p-4 text-start">
-                                            <div>{transaction.name}</div>
-                                            {transaction.counterparty && (
-                                                <div className="text-sm text-gray-400">
-                                                    {transaction.counterparty}
-                                                </div>
-                                            )}
-                                        </td>
-                                        <td className="p-4 text-center">
-                                            {transaction.category?.name}
-                                        </td>
-                                        <td className="p-4 text-end">
-                                            {transaction.type ===
-                                                TransactionType.Expense && (
-                                                <span className="text-red-500">
-                                                    -
-                                                    {new Intl.NumberFormat(
-                                                        'en-US',
-                                                        {
-                                                            style: 'currency',
-                                                            currency:
-                                                                transaction
-                                                                    .account
-                                                                    ?.currency
-                                                                    ?.code,
-                                                        },
-                                                    ).format(
-                                                        transaction.amount,
-                                                    )}
-                                                </span>
-                                            )}
-
-                                            {transaction.type ===
-                                                TransactionType.Income && (
-                                                <span className="text-green-500">
-                                                    +
-                                                    {new Intl.NumberFormat(
-                                                        'en-US',
-                                                        {
-                                                            style: 'currency',
-                                                            currency:
-                                                                transaction
-                                                                    .account
-                                                                    ?.currency
-                                                                    ?.code,
-                                                        },
-                                                    ).format(
-                                                        transaction.amount,
-                                                    )}
-                                                </span>
-                                            )}
-                                        </td>
-                                        <td className="p-4 text-center">
-                                            {
-                                                new Date(
-                                                    transaction.transaction_date,
-                                                )
-                                                    .toISOString()
-                                                    .split('T')[0]
-                                            }
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
-                        <PaginationControls pagination={transactions} />
-                    </Card>
-                )}
+                        {transactions.total > 0 && (
+                            <FiltersCard
+                                accounts={accounts}
+                                categories={categories}
+                                currencies={currencies}
+                            />
+                        )}
+                    </div>
+                </div>
             </div>
         </AppLayout>
     );
