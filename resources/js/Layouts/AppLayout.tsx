@@ -2,6 +2,7 @@ import {
     KeyboardShortcut,
     useKeyboardShortcutsContext,
 } from '@/Components/Providers/KeyboardShortcutsProvider';
+import { useNotificationsContext } from '@/Components/Providers/NotificationsProvider';
 import { ApplicationLogo } from '@/Components/UI/Icons';
 import { Link, router, usePage } from '@inertiajs/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
@@ -144,6 +145,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
 export default function AppLayout({ children }: PropsWithChildren) {
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
+    const { showNotification } = useNotificationsContext();
 
     const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
 
@@ -159,8 +161,21 @@ export default function AppLayout({ children }: PropsWithChildren) {
         {
             keySequence: ['i', 'd', 'd', 'q', 'd'],
             action: () => {
-                setEasterEggDogMode((prevState) => !prevState);
-                // todo: fire notification
+                setEasterEggDogMode((prevState) => {
+                    if (prevState) {
+                        showNotification({
+                            message: 'Dog mode deactivated!',
+                            type: 'error',
+                        });
+                    } else {
+                        showNotification({
+                            message: 'Dog mode activated!',
+                            type: 'success',
+                        });
+                    }
+
+                    return !prevState;
+                });
             },
         },
     ];
@@ -184,7 +199,9 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     return (
         <div
-            className={`flex min-h-screen bg-gray-800 text-gray-100 duration-1000 ease-linear ${easterEggDogMode ? 'grayscale' : ''}`}
+            className={`flex min-h-screen bg-gray-800 text-gray-100 duration-1000 ease-linear ${
+                easterEggDogMode ? 'grayscale' : ''
+            }`}
         >
             <Sidebar showSetup={user.accounts?.length === 0} />
 

@@ -2,6 +2,7 @@ import '../css/app.css';
 import './bootstrap';
 
 import { KeyboardShortcutsProvider } from '@/Components/Providers/KeyboardShortcutsProvider';
+import { NotificationsProvider } from '@/Components/Providers/NotificationsProvider';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
@@ -19,9 +20,11 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <KeyboardShortcutsProvider>
-                <App {...props} />
-            </KeyboardShortcutsProvider>,
+            <NotificationsProvider>
+                <KeyboardShortcutsProvider>
+                    <App {...props} />
+                </KeyboardShortcutsProvider>
+            </NotificationsProvider>,
         );
     },
     progress: {
