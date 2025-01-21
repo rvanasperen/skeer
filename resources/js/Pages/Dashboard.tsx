@@ -2,17 +2,11 @@ import BalanceHistoryChartCard from '@/Components/Charts/BalanceHistoryChartCard
 import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
 import TasksCard from '@/Components/Dashboard/TasksCard';
 import { Card } from '@/Components/UI';
+import { BalanceOverTimeData, CategoryData, TaskData } from '@/Data';
 import AppLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
 import { PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
-
-interface CategoryData {
-    id: number;
-    name: string;
-    spent: number;
-    children?: CategoryData[];
-}
 
 export default function Dashboard({
     accounts,
@@ -21,9 +15,9 @@ export default function Dashboard({
     tasks,
 }: PageProps<{
     accounts: Account[];
-    balanceOverTimeData: { date: string; delta: number; balance: number }[];
+    balanceOverTimeData: BalanceOverTimeData[];
     categoryData: CategoryData[];
-    tasks: { name: string; description: string; route: string }[];
+    tasks: TaskData[];
 }>) {
     return (
         <AppLayout>

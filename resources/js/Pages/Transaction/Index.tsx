@@ -1,9 +1,9 @@
-import { Card, PaginationControls } from "@/Components/UI";
+import { Card, PaginationControls } from '@/Components/UI';
 import { Button } from '@/Components/UI/Form';
+import { PaginatedData } from '@/Data';
 import { TransactionType } from '@/Enums';
 import AppLayout from '@/Layouts/AppLayout';
 import { Transaction } from '@/Models';
-import { PaginatedData } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({

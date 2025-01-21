@@ -1,6 +1,7 @@
 import BalanceHistoryChartCard from '@/Components/Charts/BalanceHistoryChartCard';
 import MoneyFlowChartCard from '@/Components/Charts/MoneyFlowChartCard';
 import { DateRangeGroupFilter } from '@/Components/UI';
+import { BalanceOverTimeData, TransactionsOverTimeData } from '@/Data';
 import { GroupBy } from '@/Enums';
 import AppLayout from '@/Layouts/AppLayout';
 import { PageProps } from '@/types';
@@ -16,8 +17,8 @@ export default function Reports({
     startDate: string;
     endDate: string;
     groupBy: GroupBy;
-    balanceOverTimeData: { date: string; delta: number; balance: number }[];
-    transactionsOverTimeData: { date: string; amount: number }[];
+    balanceOverTimeData: BalanceOverTimeData[];
+    transactionsOverTimeData: TransactionsOverTimeData[];
 }>) {
     const handleFilter = (
         startDate: string,
