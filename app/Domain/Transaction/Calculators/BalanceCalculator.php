@@ -23,7 +23,7 @@ class BalanceCalculator
                 ->selectNormalizedAmount()
                 ->where('transaction_date', '<=', $date)
                 ->pluck('amount')
-                ->first(); // todo: ?? 0
+                ->first() ?? 0;
         }
 
         return $cache[$cacheKey];
