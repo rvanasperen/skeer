@@ -21,6 +21,7 @@ class CoreDataSeeder extends Seeder
     {
         $banks = [
             ['bic' => 'INGBNL2A', 'name' => 'ING Bank'],
+            ['bic' => 'SNSBNL2A', 'name' => 'SNS Bank'],
         ];
 
         foreach ($banks as $data) {
