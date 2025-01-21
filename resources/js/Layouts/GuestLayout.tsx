@@ -2,9 +2,9 @@ import User from '@/Models/User';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
 
-function TopNav({ user }: { user?: User }) {
+function Header({ user }: { user?: User }) {
     return (
-        <div className="bg-gray-900">
+        <div className="bg-indigo-800 text-gray-100 dark:bg-gray-900">
             <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
                 <Link href={route('index')} className="text-lg font-bold">
                     Skeer
@@ -29,8 +29,8 @@ export default function GuestLayout({ children }: PropsWithChildren) {
     const user = usePage().props.auth.user;
 
     return (
-        <div className="min-h-screen bg-gray-800 text-gray-100">
-            <TopNav user={user} />
+        <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
+            <Header user={user} />
 
             <div className="mx-auto max-w-7xl p-4">{children}</div>
         </div>

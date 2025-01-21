@@ -37,8 +37,8 @@ function NavItem({
     return (
         <Link
             className={
-                'block rounded-md px-4 py-2 hover:bg-gray-700 ' +
-                (isActive ? 'bg-gray-800' : '')
+                'block rounded-md px-4 py-2 hover:bg-indigo-700 hover:shadow-md dark:hover:bg-gray-700 ' +
+                (isActive ? 'bg-indigo-700 shadow-md dark:bg-gray-800' : '')
             }
             href={href}
         >
@@ -56,7 +56,7 @@ function NavItem({
 
 function Sidebar({ showSetup }: { showSetup: boolean }) {
     return (
-        <div className="w-80 flex-none space-y-8 bg-gray-900 p-8">
+        <div className="w-80 flex-none space-y-8 bg-indigo-800 p-8 text-gray-100 dark:bg-gray-900">
             <div className="flex items-end gap-2">
                 <ApplicationLogo className="h-14 fill-current text-gray-100" />
                 <div>
@@ -88,7 +88,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         <NavItem
                             href={route('reports')}
                             isActive={route().current('reports')}
-                            keySequence={['g', 'r']}
+                            keySequence={['g', 'r', 'e']}
                             label="Reports"
                         />
 
@@ -108,6 +108,13 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                             isActive={route().current('categories.*')}
                             keySequence={['g', 'c']}
                             label="Categories"
+                        />
+
+                        <NavItem
+                            href="#"
+                            isActive={false}
+                            keySequence={['g', 'r', 'u']}
+                            label="Rules"
                         />
 
                         <NavItem
@@ -131,7 +138,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                 />
 
                 <Link
-                    className="block w-full rounded-md px-4 py-2 text-start hover:bg-gray-700"
+                    className="block w-full rounded-md px-4 py-2 text-start hover:bg-indigo-700 hover:shadow-md hover:dark:bg-gray-800"
                     href={route('logout')}
                     method="post"
                 >
@@ -199,7 +206,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     return (
         <div
-            className={`flex min-h-screen bg-gray-800 text-gray-100 duration-1000 ease-linear ${
+            className={`flex min-h-screen bg-gray-100 text-gray-900 duration-1000 ease-linear dark:bg-gray-800 dark:text-gray-100 ${
                 easterEggDogMode ? 'grayscale' : ''
             }`}
         >
