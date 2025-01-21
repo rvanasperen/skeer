@@ -45,9 +45,11 @@ class SNSBNL2ATransformer implements Transformer
         $type = TransactionType::Expense;
         $amount = (float) $data['amount'];
 
-        if($amount > 0) {
+        if ($amount > 0) {
             $type = TransactionType::Income;
         }
+
+        $amount = abs($amount);
 
         return new TransactionData(
             type: $type,
