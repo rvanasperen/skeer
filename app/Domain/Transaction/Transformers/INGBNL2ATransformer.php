@@ -10,6 +10,11 @@ use LogicException;
 
 class INGBNL2ATransformer implements Transformer
 {
+    public function getHeaders(): ?array
+    {
+        return null;
+    }
+
     public function getAccountNumber(array $data): string
     {
         return $data['Rekening'] ?? $data['Account'];

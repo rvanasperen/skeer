@@ -3,6 +3,7 @@
 namespace App\Domain\Transaction;
 
 use App\Domain\Transaction\Transformers\INGBNL2ATransformer;
+use App\Domain\Transaction\Transformers\SNSBNL2ATransformer;
 use App\Enums\AccountType;
 use App\Models\Bank;
 use App\Models\Currency;
@@ -20,6 +21,7 @@ readonly class TransactionImporter
     {
         $this->transformersMap = [
             'INGBNL2A' => INGBNL2ATransformer::class,
+            'SNSBNL2A' => SNSBNL2ATransformer::class,
         ];
     }
 
@@ -39,7 +41,7 @@ readonly class TransactionImporter
 
             $fp = fopen($csvFilePath, 'rb');
 
-            $headers = fgetcsv($fp);
+            $headers = $transformer->getHeaders() ?? fgetcsv($fp);
 
             while ($row = fgetcsv($fp)) {
                 $data = array_combine($headers, $row);
