@@ -1,16 +1,58 @@
+import {
+    KeyboardShortcut,
+    useKeyboardShortcutsContext,
+} from '@/Components/Providers/KeyboardShortcutsProvider';
 import { Card, PaginationControls } from '@/Components/UI';
 import { Button } from '@/Components/UI/Form';
 import { PaginatedData } from '@/Data';
 import { TransactionType } from '@/Enums';
 import AppLayout from '@/Layouts/AppLayout';
 import { Transaction } from '@/Models';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
+import { useEffect } from 'react';
 
 export default function Index({
     transactions,
 }: {
     transactions: PaginatedData<Transaction>;
 }) {
+    const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
+        useKeyboardShortcutsContext();
+
+    useEffect(() => {
+        const shortcuts: KeyboardShortcut[] = [
+            {
+                keySequence: ['h'],
+                action: () => {
+                    if (transactions.prev_page_url) {
+                        router.visit(transactions.prev_page_url);
+                    }
+                },
+            },
+            {
+                keySequence: ['l'],
+                action: () => {
+                    if (transactions.next_page_url) {
+                        router.visit(transactions.next_page_url);
+                    }
+                },
+            },
+        ];
+
+        shortcuts.forEach(({ keySequence, action }) => {
+            registerKeyboardShortcut({
+                keySequence: keySequence,
+                action: action,
+            });
+        });
+
+        return () => {
+            shortcuts.forEach(({ keySequence }) =>
+                unregisterKeyboardShortcut(keySequence),
+            );
+        };
+    }, [transactions]);
+
     return (
         <AppLayout>
             <Head title="Transactions" />
