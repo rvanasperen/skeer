@@ -37,7 +37,7 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
 
     return (
         <NotificationsContext.Provider value={{ showNotification }}>
-            <ToastContainer />
+            <ToastContainer theme="dark" />
             {children}
         </NotificationsContext.Provider>
     );
