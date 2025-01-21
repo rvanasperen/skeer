@@ -71,9 +71,9 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         />
 
                         <NavItem
-                            href="#"
-                            isActive={false}
-                            label="Categories (todo)"
+                            href={route('categories.index')}
+                            isActive={route().current('categories.*')}
+                            label="Categories"
                         />
 
                         <NavItem

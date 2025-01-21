@@ -8,17 +8,19 @@ Route::get('/', Controllers\IndexController::class)
     ->name('index');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('setup', [Controllers\SetupController::class, 'showForm'])
+        ->name('setup');
+    Route::post('setup', [Controllers\SetupController::class, 'processForm']);
+
     Route::get('dashboard', Controllers\DashboardController::class)
         ->name('dashboard');
 
     Route::get('reports', Controllers\ReportsController::class)
         ->name('reports');
 
-    Route::get('setup', [Controllers\SetupController::class, 'showForm'])
-        ->name('setup');
-    Route::post('setup', [Controllers\SetupController::class, 'processForm']);
-
     Route::resource('accounts', Controllers\AccountController::class);
+
+    Route::resource('categories', Controllers\CategoryController::class);
 
     Route::get('transactions/import', [Controllers\TransactionController::class, 'showImportForm'])
         ->name('transactions.import');
