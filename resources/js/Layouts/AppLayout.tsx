@@ -1,4 +1,7 @@
-import { useKeyboardShortcutsContext } from '@/Components/Providers/KeyboardShortcutsProvider';
+import {
+    KeyboardShortcut,
+    useKeyboardShortcutsContext,
+} from '@/Components/Providers/KeyboardShortcutsProvider';
 import { ApplicationLogo } from '@/Components/UI/Icons';
 import { Link, router, usePage } from '@inertiajs/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
@@ -144,7 +147,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
 
-    const shortcuts = [
+    const shortcuts: KeyboardShortcut[] = [
         {
             keySequence: ['c', 'a'],
             action: () => router.visit(route('accounts.create')),
