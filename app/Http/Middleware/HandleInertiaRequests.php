@@ -30,7 +30,10 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = $request->user();
-        $user->load('accounts');
+
+        if ($user) {
+            $user->load('accounts');
+        }
 
         return [
             ...parent::share($request),
