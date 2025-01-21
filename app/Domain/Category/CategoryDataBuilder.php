@@ -10,14 +10,12 @@ class CategoryDataBuilder
     public function buildCategoryData(User $user): array
     {
         $data = $user->categories()
-//            ->leftJoin('budgets', 'categories.id', '=', 'budgets.category_id')
             ->leftJoin('transactions', 'categories.id', '=', 'transactions.category_id')
             ->select([
                 'categories.id AS category_id',
                 'categories.name AS category_name',
                 'categories.parent_id AS category_parent_id',
             ])
-//            ->selectRaw('COALESCE(SUM(budgets.amount), 0) AS budgeted')
             ->selectRaw("COALESCE(SUM(CASE WHEN transactions.type = ? THEN amount WHEN transactions.type = ? THEN -amount WHEN transactions.type = ? THEN 0 END), 0) AS spent",
                 [
                     TransactionType::Income->value,
