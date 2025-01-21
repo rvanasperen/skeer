@@ -13,10 +13,16 @@ class TaskGenerator
     {
         $tasks = [];
 
+        $this->checkMissingOpeningBalance($tasks, $user);
         $this->checkStaleImport($tasks, $user);
         $this->checkUncategorizedTransactions($tasks, $user);
 
         return $tasks;
+    }
+
+    private function checkMissingOpeningBalance(array &$tasks, User $user): void
+    {
+        // todo
     }
 
     private function checkStaleImport(array &$tasks, User $user): void
