@@ -1,4 +1,4 @@
-import { PaginatedData } from '@/types';
+import { PaginatedData } from '@/Data';
 import { Link } from '@inertiajs/react';
 
 export default function PaginationControls({
