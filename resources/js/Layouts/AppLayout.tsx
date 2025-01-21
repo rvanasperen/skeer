@@ -1,16 +1,34 @@
+import { useShortcutsContext } from '@/Components/Providers/ShortcutsProvider';
 import { ApplicationLogo } from '@/Components/UI/Icons';
-import { Link, usePage } from '@inertiajs/react';
-import { PropsWithChildren } from 'react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { PropsWithChildren, useEffect } from 'react';
 
 function NavItem({
     isActive = false,
     href,
+    keys = undefined,
     label,
 }: {
     isActive?: boolean;
     href: string;
+    keys?: string[] | undefined;
     label: string;
 }) {
+    const { registerShortcut, unregisterShortcut } = useShortcutsContext();
+
+    useEffect(() => {
+        if (!keys || keys.length === 0) {
+            return;
+        }
+
+        registerShortcut({
+            keys: keys,
+            action: () => router.visit(href),
+        });
+
+        return () => unregisterShortcut(keys);
+    }, []);
+
     return (
         <Link
             className={
@@ -51,12 +69,14 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         <NavItem
                             href={route('dashboard')}
                             isActive={route().current('dashboard')}
+                            keys={['g', 'd']}
                             label="Dashboard"
                         />
 
                         <NavItem
                             href={route('reports')}
                             isActive={route().current('reports')}
+                            keys={['g', 'r']}
                             label="Reports"
                         />
 
@@ -67,18 +87,21 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         <NavItem
                             href={route('accounts.index')}
                             isActive={route().current('accounts.*')}
+                            keys={['g', 'a']}
                             label="Accounts"
                         />
 
                         <NavItem
                             href={route('categories.index')}
                             isActive={route().current('categories.*')}
+                            keys={['g', 'c']}
                             label="Categories"
                         />
 
                         <NavItem
                             href={route('transactions.index')}
                             isActive={route().current('transactions.*')}
+                            keys={['g', 't']}
                             label="Transactions"
                         />
                     </>
@@ -91,6 +114,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                 <NavItem
                     href={route('profile.edit')}
                     isActive={route().current('profile.edit')}
+                    keys={['g', 'p']}
                     label="Profile"
                 />
 
@@ -107,9 +131,34 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
 }
 
 export default function AppLayout({ children }: PropsWithChildren) {
-    const user = usePage().props.auth.user;
+    const { registerShortcut, unregisterShortcut } = useShortcutsContext();
 
-    console.log(user);
+    const shortcuts = [
+        {
+            keys: ['c', 'a'],
+            action: () => router.visit(route('accounts.create')),
+        },
+        {
+            keys: ['i', 't'],
+            action: () => router.visit(route('transactions.import')),
+        },
+        {
+            keys: ['i', 'd', 'd', 'q', 'd'],
+            action: () => alert('God mode activated!'),
+        },
+    ];
+
+    useEffect(() => {
+        shortcuts.forEach(({ keys, action }) => {
+            registerShortcut({ keys: keys, action: action });
+        });
+
+        return () => {
+            shortcuts.forEach(({ keys }) => unregisterShortcut(keys));
+        };
+    }, []);
+
+    const user = usePage().props.auth.user;
 
     return (
         <div className="flex min-h-screen bg-gray-800 text-gray-100">
