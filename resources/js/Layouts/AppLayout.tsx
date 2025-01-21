@@ -152,11 +152,16 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     useEffect(() => {
         shortcuts.forEach(({ keySequence, action }) => {
-            registerKeyboardShortcut({ keySequence: keySequence, action: action });
+            registerKeyboardShortcut({
+                keySequence: keySequence,
+                action: action,
+            });
         });
 
         return () => {
-            shortcuts.forEach(({ keySequence }) => unregisterKeyboardShortcut(keySequence));
+            shortcuts.forEach(({ keySequence }) =>
+                unregisterKeyboardShortcut(keySequence),
+            );
         };
     }, []);
 
