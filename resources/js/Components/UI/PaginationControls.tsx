@@ -16,7 +16,7 @@ export default function PaginationControls({
             <div>
                 {pagination.links.map((link) => (
                     <Link
-                        key={link.url}
+                        key={link.label}
                         className={`rounded-md px-4 py-2 ${
                             link.active
                                 ? 'bg-gray-800 text-gray-100'
