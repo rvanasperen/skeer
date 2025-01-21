@@ -1,3 +1,4 @@
+import { useNotificationsContext } from '@/Components/Providers/NotificationsProvider';
 import { Card } from '@/Components/UI';
 import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
 import AppLayout from '@/Layouts/AppLayout';
@@ -12,6 +13,8 @@ export default function Import({
     banks: Bank[];
     currencies: Currency[];
 }) {
+    const { showNotification } = useNotificationsContext();
+
     const { data, setData, post, errors, processing } = useForm<{
         bank_id: number | '';
         currency_id: number | '';
@@ -25,7 +28,14 @@ export default function Import({
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('transactions.import'));
+        post(route('transactions.import'), {
+            onSuccess: () => {
+                showNotification({
+                    message: 'Transactions imported!',
+                    type: 'success',
+                });
+            },
+        });
     };
 
     return (
