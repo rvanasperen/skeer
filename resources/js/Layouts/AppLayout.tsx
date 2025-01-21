@@ -156,7 +156,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
         {
             keySequence: ['i', 'd', 'd', 'q', 'd'],
             action: () => {
-                setEasterEggDogMode(true);
+                setEasterEggDogMode((prevState) => !prevState);
                 // todo: fire notification
             },
         },
