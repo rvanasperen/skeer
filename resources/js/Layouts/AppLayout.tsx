@@ -181,7 +181,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     return (
         <div
-            className={`flex min-h-screen bg-gray-800 text-gray-100 ${easterEggDogMode ? 'dog-mode' : ''}`}
+            className={`flex min-h-screen bg-gray-800 text-gray-100 duration-1000 ease-linear ${easterEggDogMode ? 'grayscale' : ''}`}
         >
             <Sidebar showSetup={user.accounts?.length === 0} />
 

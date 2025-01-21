@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.dog-mode {
-    filter: grayscale(100%);
-    transition: filter 2s ease;
-}
-
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
     margin-left: -24px;
