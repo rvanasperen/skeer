@@ -59,7 +59,7 @@ class BalanceCalculator
                     return $carry;
                 }, [])
         )
-            ->filter(fn ($row) => $startDate->lte($row['date']))
+            ->filter(fn ($row) => $startDate->lte($row['date'])) // todo: fix, eg week == 2024-52
             ->values()
             ->toArray();
     }
