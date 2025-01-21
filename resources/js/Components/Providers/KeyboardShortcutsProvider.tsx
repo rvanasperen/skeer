@@ -7,22 +7,22 @@ import {
     useState,
 } from 'react';
 
-export type Shortcut = {
-    keys: string[];
+export type KeyboardShortcut = {
+    keySequence: string[];
     action: () => void;
 };
 
-type ShortcutsContextType = {
-    registerShortcut: (shortcut: Shortcut) => void;
-    unregisterShortcut: (keys: string[]) => void;
+type KeyboardShortcutsContextType = {
+    registerKeyboardShortcut: (shortcut: KeyboardShortcut) => void;
+    unregisterKeyboardShortcut: (keys: string[]) => void;
 };
 
-const ShortcutsContext = createContext<ShortcutsContextType | undefined>(
-    undefined,
-);
+const KeyboardShortcutsContext = createContext<
+    KeyboardShortcutsContextType | undefined
+>(undefined);
 
-export function useShortcutsContext() {
-    const context = useContext(ShortcutsContext);
+export function useKeyboardShortcutsContext() {
+    const context = useContext(KeyboardShortcutsContext);
 
     if (!context) {
         throw new Error(
@@ -33,21 +33,29 @@ export function useShortcutsContext() {
     return context;
 }
 
-export function ShortcutsProvider({ children }: PropsWithChildren) {
-    const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+export function KeyboardShortcutsProvider({ children }: PropsWithChildren) {
+    const [keyboardShortcuts, setKeyboardShortcuts] = useState<
+        KeyboardShortcut[]
+    >([]);
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
     const TIMEOUT_MS = 1000;
 
-    const registerShortcut = useCallback((shortcut: Shortcut) => {
-        setShortcuts((prevShortcuts) => [...prevShortcuts, shortcut]);
-    }, []);
+    const registerKeyboardShortcut = useCallback(
+        (shortcut: KeyboardShortcut) => {
+            setKeyboardShortcuts((prevShortcuts) => [
+                ...prevShortcuts,
+                shortcut,
+            ]);
+        },
+        [],
+    );
 
-    const unregisterShortcut = useCallback((keys: string[]) => {
-        setShortcuts((prevShortcuts) =>
+    const unregisterKeyboardShortcut = useCallback((keys: string[]) => {
+        setKeyboardShortcuts((prevShortcuts) =>
             prevShortcuts.filter(
-                (shortcut) => !arraysEqual(shortcut.keys, keys),
+                (shortcut) => !arraysEqual(shortcut.keySequence, keys),
             ),
         );
     }, []);
@@ -83,8 +91,8 @@ export function ShortcutsProvider({ children }: PropsWithChildren) {
 
             setPressedKeys(() => newPressedKeys);
 
-            shortcuts.forEach(({ keys, action }) => {
-                if (arraysEqual(keys, newPressedKeys)) {
+            keyboardShortcuts.forEach(({ keySequence, action }) => {
+                if (arraysEqual(keySequence, newPressedKeys)) {
                     action();
                     event.preventDefault();
                     resetKeys();
@@ -115,13 +123,16 @@ export function ShortcutsProvider({ children }: PropsWithChildren) {
                 clearTimeout(timeoutId);
             }
         };
-    }, [pressedKeys, shortcuts, timeoutId]);
+    }, [pressedKeys, keyboardShortcuts, timeoutId]);
 
     return (
-        <ShortcutsContext.Provider
-            value={{ registerShortcut, unregisterShortcut }}
+        <KeyboardShortcutsContext.Provider
+            value={{
+                registerKeyboardShortcut,
+                unregisterKeyboardShortcut,
+            }}
         >
             {children}
-        </ShortcutsContext.Provider>
+        </KeyboardShortcutsContext.Provider>
     );
 }

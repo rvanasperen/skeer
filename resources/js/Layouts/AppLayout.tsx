@@ -1,4 +1,4 @@
-import { useShortcutsContext } from '@/Components/Providers/ShortcutsProvider';
+import { useKeyboardShortcutsContext } from '@/Components/Providers/KeyboardShortcutsProvider';
 import { ApplicationLogo } from '@/Components/UI/Icons';
 import { Link, router, usePage } from '@inertiajs/react';
 import { PropsWithChildren, useEffect } from 'react';
@@ -6,27 +6,28 @@ import { PropsWithChildren, useEffect } from 'react';
 function NavItem({
     isActive = false,
     href,
-    keys = undefined,
+    keySequence = undefined,
     label,
 }: {
     isActive?: boolean;
     href: string;
-    keys?: string[] | undefined;
+    keySequence?: string[] | undefined;
     label: string;
 }) {
-    const { registerShortcut, unregisterShortcut } = useShortcutsContext();
+    const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
+        useKeyboardShortcutsContext();
 
     useEffect(() => {
-        if (!keys || keys.length === 0) {
+        if (!keySequence || keySequence.length === 0) {
             return;
         }
 
-        registerShortcut({
-            keys: keys,
+        registerKeyboardShortcut({
+            keySequence: keySequence,
             action: () => router.visit(href),
         });
 
-        return () => unregisterShortcut(keys);
+        return () => unregisterKeyboardShortcut(keySequence);
     }, []);
 
     return (
@@ -69,14 +70,14 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         <NavItem
                             href={route('dashboard')}
                             isActive={route().current('dashboard')}
-                            keys={['g', 'd']}
+                            keySequence={['g', 'd']}
                             label="Dashboard"
                         />
 
                         <NavItem
                             href={route('reports')}
                             isActive={route().current('reports')}
-                            keys={['g', 'r']}
+                            keySequence={['g', 'r']}
                             label="Reports"
                         />
 
@@ -87,21 +88,21 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                         <NavItem
                             href={route('accounts.index')}
                             isActive={route().current('accounts.*')}
-                            keys={['g', 'a']}
+                            keySequence={['g', 'a']}
                             label="Accounts"
                         />
 
                         <NavItem
                             href={route('categories.index')}
                             isActive={route().current('categories.*')}
-                            keys={['g', 'c']}
+                            keySequence={['g', 'c']}
                             label="Categories"
                         />
 
                         <NavItem
                             href={route('transactions.index')}
                             isActive={route().current('transactions.*')}
-                            keys={['g', 't']}
+                            keySequence={['g', 't']}
                             label="Transactions"
                         />
                     </>
@@ -114,7 +115,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
                 <NavItem
                     href={route('profile.edit')}
                     isActive={route().current('profile.edit')}
-                    keys={['g', 'p']}
+                    keySequence={['g', 'p']}
                     label="Profile"
                 />
 
@@ -131,30 +132,31 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
 }
 
 export default function AppLayout({ children }: PropsWithChildren) {
-    const { registerShortcut, unregisterShortcut } = useShortcutsContext();
+    const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
+        useKeyboardShortcutsContext();
 
     const shortcuts = [
         {
-            keys: ['c', 'a'],
+            keySequence: ['c', 'a'],
             action: () => router.visit(route('accounts.create')),
         },
         {
-            keys: ['i', 't'],
+            keySequence: ['i', 't'],
             action: () => router.visit(route('transactions.import')),
         },
         {
-            keys: ['i', 'd', 'd', 'q', 'd'],
+            keySequence: ['i', 'd', 'd', 'q', 'd'],
             action: () => alert('God mode activated!'),
         },
     ];
 
     useEffect(() => {
-        shortcuts.forEach(({ keys, action }) => {
-            registerShortcut({ keys: keys, action: action });
+        shortcuts.forEach(({ keySequence, action }) => {
+            registerKeyboardShortcut({ keySequence: keySequence, action: action });
         });
 
         return () => {
-            shortcuts.forEach(({ keys }) => unregisterShortcut(keys));
+            shortcuts.forEach(({ keySequence }) => unregisterKeyboardShortcut(keySequence));
         };
     }, []);
 
