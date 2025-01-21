@@ -1,7 +1,7 @@
 import { useKeyboardShortcutsContext } from '@/Components/Providers/KeyboardShortcutsProvider';
 import { ApplicationLogo } from '@/Components/UI/Icons';
 import { Link, router, usePage } from '@inertiajs/react';
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 function NavItem({
     isActive = false,
@@ -42,7 +42,7 @@ function NavItem({
                 <div>{label}</div>
                 {keySequence && (
                     <div className="text-sm text-gray-500">
-                        {keySequence?.join(' ')}
+                        {keySequence.join(' ')}
                     </div>
                 )}
             </div>
@@ -142,6 +142,8 @@ export default function AppLayout({ children }: PropsWithChildren) {
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
 
+    const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
+
     const shortcuts = [
         {
             keySequence: ['c', 'a'],
@@ -153,7 +155,10 @@ export default function AppLayout({ children }: PropsWithChildren) {
         },
         {
             keySequence: ['i', 'd', 'd', 'q', 'd'],
-            action: () => alert('God mode activated!'),
+            action: () => {
+                setEasterEggDogMode(true);
+                // todo: fire notification
+            },
         },
     ];
 
@@ -175,7 +180,9 @@ export default function AppLayout({ children }: PropsWithChildren) {
     const user = usePage().props.auth.user;
 
     return (
-        <div className="flex min-h-screen bg-gray-800 text-gray-100">
+        <div
+            className={`flex min-h-screen bg-gray-800 text-gray-100 ${easterEggDogMode ? 'dog-mode' : ''}`}
+        >
             <Sidebar showSetup={user.accounts?.length === 0} />
 
             <div className="grow p-8">{children}</div>
