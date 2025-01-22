@@ -14,7 +14,7 @@ class TaskGenerator
     {
         $tasks = [];
 
-        $this->checkUnrenamedImportedAccounts($tasks, $user);
+        $this->checkImportedAccountNames($tasks, $user);
         $this->checkMissingOrStaleOpeningBalance($tasks, $user);
         $this->checkStaleImportedTransactions($tasks, $user);
         $this->checkUncategorizedTransactions($tasks, $user);
@@ -22,7 +22,7 @@ class TaskGenerator
         return $tasks;
     }
 
-    private function checkUnrenamedImportedAccounts(array &$tasks, User $user): void
+    private function checkImportedAccountNames(array &$tasks, User $user): void
     {
         $numImportedAccounts = $user->accounts()
             ->whereLike('name', '%(imported)')
