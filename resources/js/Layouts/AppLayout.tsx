@@ -143,11 +143,23 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
 }
 
 export default function AppLayout({ children }: PropsWithChildren) {
+    const user = usePage().props.auth.user;
+
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
     const { showNotification } = useNotificationsContext();
 
     const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
+
+    // const { flash } = usePage().props;
+    //
+    // // todo: fix this triggering multiple times
+    // if (flash.message) {
+    //     showNotification({
+    //         message: flash.message,
+    //         type: 'success',
+    //     });
+    // }
 
     const shortcuts: KeyboardShortcut[] = [
         {
@@ -194,8 +206,6 @@ export default function AppLayout({ children }: PropsWithChildren) {
             );
         };
     }, []);
-
-    const user = usePage().props.auth.user;
 
     return (
         <div

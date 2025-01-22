@@ -6,4 +6,8 @@ export type PageProps<
     auth: {
         user: User;
     };
+    flash: {
+        message: string;
+        // todo: type (success, error, warning, info, nuclear etc)
+    };
 };

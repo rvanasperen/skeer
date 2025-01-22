@@ -65,6 +65,8 @@ class TransactionController
             $validated['file']->getRealPath(),
         );
 
+        $request->session()->flash('message', 'woop');
+
         return to_route('transactions.index');
     }
 }
