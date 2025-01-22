@@ -2,6 +2,7 @@
 
 namespace App\Domain\Task;
 
+use App\Domain\Transaction\OpeningBalanceService;
 use App\Models\User;
 
 class TaskGenerator
@@ -13,15 +14,29 @@ class TaskGenerator
     {
         $tasks = [];
 
-        $this->checkMissingOpeningBalance($tasks, $user);
+        $this->checkMissingOrStaleOpeningBalance($tasks, $user);
         $this->checkStaleImport($tasks, $user);
         $this->checkUncategorizedTransactions($tasks, $user);
 
         return $tasks;
     }
 
-    private function checkMissingOpeningBalance(array &$tasks, User $user): void
+    private function checkMissingOrStaleOpeningBalance(array &$tasks, User $user): void
     {
+        $openingBalanceService = resolve(OpeningBalanceService::class);
+
+        foreach ($user->accounts as $account) {
+            if (! $openingBalanceService->hasValidOpeningBalanceTransaction($account)) {
+                $tasks[] = new TaskData(
+                    'Set Current Balance',
+                    sprintf(
+                        'Update your current balance for account account "%s".',
+                        $account->name
+                    ),
+                    route('accounts.edit', $account),
+                );
+            }
+        }
         // todo
     }
 
