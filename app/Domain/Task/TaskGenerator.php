@@ -59,7 +59,6 @@ class TaskGenerator
                 );
             }
         }
-        // todo
     }
 
     private function checkStaleImportedTransactions(array &$tasks, User $user): void
