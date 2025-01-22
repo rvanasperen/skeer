@@ -10,7 +10,6 @@ use App\Models\Currency;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use LogicException;
-use RuntimeException;
 use Throwable;
 
 readonly class TransactionImporter
@@ -53,7 +52,7 @@ readonly class TransactionImporter
                 $hash = sha1(serialize($data));
 
                 if ($user->transactions()->where('import_hash', $hash)->exists()) {
-                    throw new RuntimeException("Transaction with hash $hash already imported");
+                    continue;
                 }
 
                 $accountNumber = $transformer->getAccountNumber($data);
