@@ -27,12 +27,14 @@ class TaskGenerator
 
     private function checkStaleImport(array &$tasks, User $user): void
     {
+        $threshold = 2;
+
         $lastImportedTransactionDate = $user->transactions()
             ->orderBy('transaction_date', 'desc')
             ->first()
             ->transaction_date;
 
-        if ($lastImportedTransactionDate < now()->subDays(2)) {
+        if ($lastImportedTransactionDate < now()->subDays($threshold)) {
             $tasks[] = new TaskData(
                 'Import Transactions',
                 sprintf(
