@@ -7,7 +7,6 @@ use App\Enums\AccountType;
 use App\Models\Account;
 use App\Models\Bank;
 use App\Models\Currency;
-use App\Rules\IBANRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -48,7 +47,7 @@ class AccountController
             'bank_id' => ['required', 'exists:banks,id'],
             'currency_id' => ['required', 'exists:currencies,id'],
             'name' => ['required', 'string'],
-            'number' => ['required', 'string', 'unique:accounts', new IBANRule()],
+            'number' => ['required', 'string', 'unique:accounts'],
             'type' => ['required', Rule::enum(AccountType::class)],
         ]);
 
@@ -86,7 +85,7 @@ class AccountController
             'bank_id' => ['required', 'exists:banks,id'],
             'currency_id' => ['required', 'exists:currencies,id'],
             'name' => ['required', 'string'],
-            'number' => ['required', 'string', 'unique:accounts,number,'.$accountId, new IBANRule()],
+            'number' => ['required', 'string', 'unique:accounts,number,'.$accountId],
             'type' => ['required', Rule::enum(AccountType::class)],
             'current_balance' => ['required', 'numeric'],
         ]);
