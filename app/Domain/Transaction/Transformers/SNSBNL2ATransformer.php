@@ -19,7 +19,7 @@ class SNSBNL2ATransformer implements Transformer
         return [
             'date',
             'account',
-            'counterparty_iban',
+            'counterparty_account',
             'counterparty_name',
             'unused_5',
             'unused_6',
@@ -60,7 +60,7 @@ class SNSBNL2ATransformer implements Transformer
             type: $type,
             amount: $amount,
             name: $data['counterparty_name'],
-            counterparty: $data['counterparty_iban'],
+            counterparty: $data['counterparty_account'],
             description: $data['description'],
             transactionDate: Carbon::createFromFormat('d-m-Y', $data['date']),
         );
