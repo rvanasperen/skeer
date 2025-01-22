@@ -10,36 +10,46 @@ use LogicException;
 
 class INGBNL2ATransformer implements Transformer
 {
+    public function hasHeaderRow(): bool
+    {
+        return true;
+    }
+
     public function getHeaders(): ?array
     {
-        return null; // todo: add headers, add mech to skip header in importer
+        return [
+            'date',
+            'counterparty_name',
+            'account',
+            'counterparty_account',
+            'unused_5',
+            'type',
+            'amount',
+            'unused_8',
+            'description',
+        ];
     }
 
     public function getAccountNumber(array $data): string
     {
-        return $data['Rekening'] ?? $data['Account'];
+        return $data['account'];
     }
 
     public function getTransactionData(array $data): TransactionData
     {
-        $typeField = $data['Af Bij'] ?? $data['Debit/credit'];
-
-        $type = match ($typeField) {
+        $type = match ($data['type']) {
             'Af', 'Debit' => TransactionType::Expense,
             'Bij', 'Credit' => TransactionType::Income,
-            default => throw new LogicException("Unsupported transaction type: {$typeField}"),
+            default => throw new LogicException("Unsupported transaction type: {$data['type']}"),
         };
-
-        // todo: currency code
-        $amount = (float) str_replace(',', '.', $data['Bedrag (EUR)'] ?? $data['Amount (EUR)']);
 
         return new TransactionData(
             type: $type,
-            amount: $amount,
-            name: $data['Naam / Omschrijving'] ?? $data['Name / Description'],
-            counterparty: $data['Tegenrekening'] ?? $data['Counterparty'],
-            description: $data['Mededelingen'] ?? $data['Notifications'],
-            transactionDate: Carbon::createFromFormat('Ymd', $data['Datum'] ?? $data['Date']),
+            amount: (float) str_replace(',', '.', $data['amount']),
+            name: $data['counterparty_name'],
+            counterparty: $data['counterparty_account'],
+            description: $data['description'],
+            transactionDate: Carbon::createFromFormat('Ymd', $data['date']),
         );
     }
 }

@@ -41,7 +41,11 @@ readonly class TransactionImporter
 
             $fp = fopen($csvFilePath, 'rb');
 
-            $headers = $transformer->getHeaders() ?? fgetcsv($fp);
+            if ($transformer->hasHeaderRow()) {
+                fgetcsv($fp); // skip headers in csv
+            }
+
+            $headers = $transformer->getHeaders();
 
             while ($row = fgetcsv($fp)) {
                 $data = array_combine($headers, $row);

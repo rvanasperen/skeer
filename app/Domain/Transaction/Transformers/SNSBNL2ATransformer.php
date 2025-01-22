@@ -9,28 +9,33 @@ use Carbon\Carbon;
 
 class SNSBNL2ATransformer implements Transformer
 {
+    public function hasHeaderRow(): bool
+    {
+        return false;
+    }
+
     public function getHeaders(): ?array
     {
         return [
             'date',
             'account',
-            'counter_party_iban',
-            'counter_party_name',
-            'unknown_1',
-            'unknown_2',
-            'unknown_3',
-            'unknown_4',
-            'unknown_5',
-            'unknown_6',
+            'counterparty_iban',
+            'counterparty_name',
+            'unused_5',
+            'unused_6',
+            'unused_7',
+            'unused_8',
+            'unused_9',
+            'unused_10',
             'amount',
             'currency',
-            'unknown_7',
-            'unknown_8',
-            'unknown_9',
-            'unknown_10',
-            'unknown_11',
+            'unused_13',
+            'unused_14',
+            'unused_15',
+            'unused_16',
+            'unused_17',
             'description',
-            'unknown_12',
+            'unused_19',
             'assigned_category'
         ];
     }
@@ -54,8 +59,8 @@ class SNSBNL2ATransformer implements Transformer
         return new TransactionData(
             type: $type,
             amount: $amount,
-            name: $data['counter_party_name'],
-            counterparty: $data['counter_party_iban'],
+            name: $data['counterparty_name'],
+            counterparty: $data['counterparty_iban'],
             description: $data['description'],
             transactionDate: Carbon::createFromFormat('d-m-Y', $data['date']),
         );
