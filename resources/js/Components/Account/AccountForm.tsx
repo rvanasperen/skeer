@@ -170,7 +170,7 @@ export default function AccountForm({
                         value={data.current_balance}
                     />
                     <div className="mt-2 text-sm text-gray-400">
-                        The starting balance of the account will be updated to
+                        The opening balance of the account will be updated to
                         make sure the current value is correct.
                     </div>
                     <InputError
