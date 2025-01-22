@@ -145,7 +145,7 @@ export default function AccountForm({
                 >
                     <option value="">Select a type</option>
                     <option value="Checking">Checking</option>
-                    <option value="Savings">Savings</option>
+                    <option value="Saving">Saving</option>
                 </Select>
                 <InputError className="mt-2" message={errors.type} />
             </div>
