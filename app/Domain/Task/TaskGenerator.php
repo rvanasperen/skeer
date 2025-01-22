@@ -14,11 +14,33 @@ class TaskGenerator
     {
         $tasks = [];
 
+        $this->checkUnrenamedImportedAccounts($tasks, $user);
         $this->checkMissingOrStaleOpeningBalance($tasks, $user);
-        $this->checkStaleImport($tasks, $user);
+        $this->checkStaleImportedTransactions($tasks, $user);
         $this->checkUncategorizedTransactions($tasks, $user);
 
         return $tasks;
+    }
+
+    private function checkUnrenamedImportedAccounts(array &$tasks, User $user): void
+    {
+        $numImportedAccounts = $user->accounts()
+            ->whereLike('name', '%(imported)')
+            ->count();
+
+        if ($numImportedAccounts > 0) {
+            $tasks[] = new TaskData(
+                'Rename Imported Accounts',
+                sprintf(
+                    'You have %s imported account%s which need%s a better name.',
+                    number_format($numImportedAccounts),
+                    $numImportedAccounts === 1 ? '' : 's',
+                    $numImportedAccounts === 1 ? 's' : ''
+                ),
+                route('accounts.index'),
+            );
+        }
+
     }
 
     private function checkMissingOrStaleOpeningBalance(array &$tasks, User $user): void
@@ -40,7 +62,7 @@ class TaskGenerator
         // todo
     }
 
-    private function checkStaleImport(array &$tasks, User $user): void
+    private function checkStaleImportedTransactions(array &$tasks, User $user): void
     {
         $threshold = 2;
 
@@ -53,7 +75,7 @@ class TaskGenerator
             $tasks[] = new TaskData(
                 'Import Transactions',
                 sprintf(
-                    'Your imported transactions are out of date. Import new ones starting from %s.',
+                    'Your imported transactions are stale. Import new ones starting from %s.',
                     $lastImportedTransactionDate->format('Y-m-d')
                 ),
                 route('transactions.import'),
