@@ -120,7 +120,7 @@ export default function AccountForm({
             </div>
 
             <div>
-                <Label htmlFor="number" value="Number (IBAN)" />
+                <Label htmlFor="number" value="Number (usually IBAN)" />
                 <Input
                     autoComplete="off"
                     className="mt-1 block w-full"
