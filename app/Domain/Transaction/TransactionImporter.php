@@ -3,12 +3,14 @@
 namespace App\Domain\Transaction;
 
 use App\Domain\Transaction\Transformers\INGBNL2ATransformer;
+use App\Domain\Transaction\Transformers\SNSBNL2ATransformer;
 use App\Enums\AccountType;
 use App\Models\Bank;
 use App\Models\Currency;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use LogicException;
+use RuntimeException;
 use Throwable;
 
 readonly class TransactionImporter
@@ -19,6 +21,7 @@ readonly class TransactionImporter
     {
         $this->transformersMap = [
             'INGBNL2A' => INGBNL2ATransformer::class,
+            'SNSBNL2A' => SNSBNL2ATransformer::class,
         ];
     }
 
@@ -38,7 +41,7 @@ readonly class TransactionImporter
 
             $fp = fopen($csvFilePath, 'rb');
 
-            $headers = fgetcsv($fp);
+            $headers = $transformer->getHeaders() ?? fgetcsv($fp);
 
             while ($row = fgetcsv($fp)) {
                 $data = array_combine($headers, $row);
@@ -46,7 +49,7 @@ readonly class TransactionImporter
                 $hash = sha1(serialize($data));
 
                 if ($user->transactions()->where('import_hash', $hash)->exists()) {
-                    continue;
+                    throw new RuntimeException("Transaction with hash $hash already imported");
                 }
 
                 $accountNumber = $transformer->getAccountNumber($data);

@@ -52,7 +52,7 @@ class TestDataSeeder extends Seeder
             'Income' => [
                 'Income',
                 'Misc',
-                'Starting Balance',
+                'Starting Balance', // todo: Opening Balance, magic string
             ],
         ];
 

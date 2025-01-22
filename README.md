@@ -22,6 +22,7 @@ Laravel and React (with Inertia).
 ### Supported Banks
 
 - ING Bank (NL)
+- SNS Bank (NL) - Potentially Volksbank sister brands like ASN Bank and RegioBank
 
 Add support for your own bank by creating (and PRing) a [Transformer](app/Domain/Transaction/Transformers).
 
