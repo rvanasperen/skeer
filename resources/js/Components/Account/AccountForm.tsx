@@ -1,4 +1,3 @@
-import { useNotificationsContext } from '@/Components/Providers/NotificationsProvider';
 import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
 import { Account, Bank, Currency } from '@/Models';
 import { useForm } from '@inertiajs/react';
@@ -15,8 +14,6 @@ export default function AccountForm({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const { showNotification } = useNotificationsContext();
-
     const { data, errors, post, put, processing, setData } = useForm<{
         bank_id: number | '';
         currency_id: number | '';
@@ -37,21 +34,9 @@ export default function AccountForm({
         e.preventDefault();
 
         if (account) {
-            put(route('accounts.update', account.id), {
-                onSuccess: () =>
-                    showNotification({
-                        message: 'Account updated!',
-                        type: 'success',
-                    }),
-            });
+            put(route('accounts.update', account.id));
         } else {
-            post(route('accounts.store'), {
-                onSuccess: () =>
-                    showNotification({
-                        message: 'Account created!',
-                        type: 'success',
-                    }),
-            });
+            post(route('accounts.store'));
         }
     };
 

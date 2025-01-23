@@ -55,6 +55,8 @@ class AccountController
             ->accounts()
             ->create($validated);
 
+        notify('Account created!');
+
         return to_route('accounts.index');
     }
 
@@ -102,6 +104,8 @@ class AccountController
 
             resolve(OpeningBalanceService::class)
                 ->updateOpeningBalance($account, $validated['current_balance']);
+
+            notify('Account updated!');
         });
 
         return to_route('accounts.index');
