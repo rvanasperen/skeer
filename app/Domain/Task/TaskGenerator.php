@@ -30,6 +30,7 @@ class TaskGenerator
 
         if ($numImportedAccounts > 0) {
             $tasks[] = new TaskData(
+                'rename_imported_accounts',
                 'Rename Imported Accounts',
                 sprintf(
                     'You have %s imported account%s which need%s a better name.',
@@ -50,6 +51,7 @@ class TaskGenerator
         foreach ($user->accounts as $account) {
             if (! $openingBalanceService->hasValidOpeningBalanceTransaction($account)) {
                 $tasks[] = new TaskData(
+                    "set_current_balance_{$account->id}",
                     'Set Current Balance',
                     sprintf(
                         'Update your current balance for account account "%s".',
@@ -72,6 +74,7 @@ class TaskGenerator
 
         if ($lastImportedTransactionDate < now()->subDays($threshold)) {
             $tasks[] = new TaskData(
+                'import_transactions',
                 'Import Transactions',
                 sprintf(
                     'Your imported transactions are stale. Import new ones starting from %s.',
@@ -90,6 +93,7 @@ class TaskGenerator
 
         if ($numTransactionsWithCategory > 0) {
             $tasks[] = new TaskData(
+                'categorize_transactions',
                 'Categorize Transactions',
                 sprintf(
                     'You have %s transactions without a category.',

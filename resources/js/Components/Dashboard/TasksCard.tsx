@@ -1,4 +1,5 @@
 import { Card } from '@/Components/UI';
+import { TaskData } from '@/Data';
 import { Link } from '@inertiajs/react';
 import { HTMLAttributes } from 'react';
 
@@ -7,7 +8,7 @@ export default function TasksCard({
     tasks,
     ...props
 }: HTMLAttributes<HTMLDivElement> & {
-    tasks: { name: string; description: string; route: string }[];
+    tasks: TaskData[];
 }) {
     return (
         <Card {...props} className={`space-y-4 ${className}`}>
@@ -22,7 +23,7 @@ export default function TasksCard({
             {tasks.length > 0 &&
                 tasks.map((task) => (
                     <Link
-                        key={task.name}
+                        key={task.key}
                         className="block hover:bg-gray-800"
                         href={task.route}
                     >
