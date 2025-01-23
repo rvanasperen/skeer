@@ -7,7 +7,9 @@ export type PageProps<
         user: User;
     };
     flash: {
-        message: string;
-        // todo: type (success, error, warning, info, nuclear etc)
+        notification: {
+            message: string;
+            type: 'success' | 'error';
+        };
     };
 };

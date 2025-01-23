@@ -151,15 +151,32 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
 
-    // const { flash } = usePage().props;
-    //
-    // // todo: fix this triggering multiple times
-    // if (flash.message) {
-    //     showNotification({
-    //         message: flash.message,
-    //         type: 'success',
-    //     });
-    // }
+    const { flash } = usePage().props;
+    const [displayedFlashMessage, setDisplayedFlashMessage] = useState<
+        string | null
+    >(null);
+
+    useEffect(() => {
+        if (!flash.notification) {
+            return;
+        }
+
+        if (flash.notification.message === displayedFlashMessage) {
+            return;
+        }
+
+        showNotification({
+            message: flash.notification.message,
+            type: flash.notification.type,
+        });
+
+        setDisplayedFlashMessage(flash.notification.message);
+    }, [
+        displayedFlashMessage,
+        flash.notification,
+        setDisplayedFlashMessage,
+        showNotification,
+    ]);
 
     const shortcuts: KeyboardShortcut[] = [
         {
