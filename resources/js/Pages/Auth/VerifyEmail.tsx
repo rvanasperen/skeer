@@ -16,10 +16,9 @@ function VerifyEmail({ status }: { status?: string }) {
         <>
             <Head title="Email Verification" />
 
-            <form
-                className="mx-auto max-w-md space-y-4"
-                onSubmit={handleSubmit}
-            >
+            <div className="space-y-4 sm:mx-auto sm:max-w-md">
+                <div className="text-xl">Verify Email</div>
+
                 <div className="text-sm">
                     Thanks for signing up! Before getting started, could you
                     verify your email address by clicking on the link we just
@@ -34,16 +33,18 @@ function VerifyEmail({ status }: { status?: string }) {
                     </div>
                 )}
 
-                <div className="flex items-center justify-between">
-                    <Button disabled={processing}>
-                        Resend Verification Email
-                    </Button>
+                <form onSubmit={handleSubmit}>
+                    <div className="flex items-center justify-between">
+                        <Button disabled={processing}>
+                            Resend Verification Email
+                        </Button>
 
-                    <Link href={route('logout')} method="post">
-                        Log Out
-                    </Link>
-                </div>
-            </form>
+                        <Link href={route('logout')} method="post">
+                            <Button theme="danger">Log Out</Button>
+                        </Link>
+                    </div>
+                </form>
+            </div>
         </>
     );
 }
