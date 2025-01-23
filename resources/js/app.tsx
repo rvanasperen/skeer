@@ -6,6 +6,7 @@ import { NotificationsProvider } from '@/Components/Providers/NotificationsProvi
 import AppLayout from '@/Layouts/AppLayout';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { JSXElementConstructor, PropsWithChildren, ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -18,8 +19,6 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.tsx'),
         );
 
-        console.log(page);
-
         // @ts-expect-error Variable 'page' is of unknown type
         page.default.layout ??= (page: ReactNode) => (
             <AppLayout>{page}</AppLayout>
@@ -30,12 +29,19 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
+        const withProviders = (
+            app: ReactNode,
+            providers: JSXElementConstructor<PropsWithChildren>[],
+        ) =>
+            providers.reduce((acc, Provider) => {
+                return <Provider>{acc}</Provider>;
+            }, app);
+
         root.render(
-            <NotificationsProvider>
-                <KeyboardShortcutsProvider>
-                    <App {...props} />
-                </KeyboardShortcutsProvider>
-            </NotificationsProvider>,
+            withProviders(<App {...props} />, [
+                NotificationsProvider,
+                KeyboardShortcutsProvider,
+            ]),
         );
     },
     progress: {
