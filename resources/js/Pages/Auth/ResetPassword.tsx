@@ -1,9 +1,9 @@
 import { Button, Input, InputError, Label } from '@/Components/UI/Form';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, ReactNode } from 'react';
 
-export default function ResetPassword({
+function ResetPassword({
     token,
     email,
 }: {
@@ -31,7 +31,7 @@ export default function ResetPassword({
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Reset Password" />
 
             <form
@@ -95,6 +95,10 @@ export default function ResetPassword({
 
                 <Button disabled={processing}>Reset Password</Button>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+ResetPassword.layout = (page: ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default ResetPassword;

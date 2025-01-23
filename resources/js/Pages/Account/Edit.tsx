@@ -1,6 +1,5 @@
 import AccountForm from '@/Components/Account/AccountForm';
 import { Card } from '@/Components/UI';
-import AppLayout from '@/Layouts/AppLayout';
 import { Account, Bank, Currency } from '@/Models';
 import { Head } from '@inertiajs/react';
 
@@ -14,7 +13,7 @@ export default function Edit({
     currencies: Currency[];
 }) {
     return (
-        <AppLayout>
+        <>
             <Head title={`Edit Account - ${account.name}`} />
 
             <div className="max-w-xl space-y-8">
@@ -28,6 +27,6 @@ export default function Edit({
                     />
                 </Card>
             </div>
-        </AppLayout>
+        </>
     );
 }

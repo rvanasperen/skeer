@@ -1,11 +1,10 @@
 import { Card } from '@/Components/UI';
 import { CategoryData } from '@/Data';
-import AppLayout from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
 
 export default function Index({ categories }: { categories: CategoryData[] }) {
     return (
-        <AppLayout>
+        <>
             <Head title="Categories" />
 
             <div className="text-3xl font-bold">Categories</div>
@@ -26,6 +25,6 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                     </>
                 ))}
             </Card>
-        </AppLayout>
+        </>
     );
 }

@@ -3,7 +3,6 @@ import BalanceSummaryCard from '@/Components/Dashboard/BalanceSummaryCard';
 import TasksCard from '@/Components/Dashboard/TasksCard';
 import { Card } from '@/Components/UI';
 import { BalanceOverTimeData, CategoryData, TaskData } from '@/Data';
-import AppLayout from '@/Layouts/AppLayout';
 import { Account } from '@/Models';
 import { PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -20,7 +19,7 @@ export default function Dashboard({
     tasks: TaskData[];
 }>) {
     return (
-        <AppLayout>
+        <>
             <Head title="Dashboard" />
 
             <div className="space-y-8">
@@ -80,6 +79,6 @@ export default function Dashboard({
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </>
     );
 }

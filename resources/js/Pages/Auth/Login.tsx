@@ -7,9 +7,9 @@ import {
 } from '@/Components/UI/Form';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, ReactNode } from 'react';
 
-export default function Login({
+function Login({
     status,
     canResetPassword,
 }: {
@@ -35,7 +35,7 @@ export default function Login({
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Login" />
 
             <form
@@ -97,6 +97,10 @@ export default function Login({
                     )}
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+Login.layout = (page: ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default Login;

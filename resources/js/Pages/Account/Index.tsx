@@ -1,12 +1,11 @@
 import AccountCard from '@/Components/Account/AccountCard';
 import { Button } from '@/Components/UI/Form';
-import AppLayout from '@/Layouts/AppLayout';
 import Account from '@/Models/Account';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ accounts }: { accounts: Account[] }) {
     return (
-        <AppLayout>
+        <>
             <Head title="Accounts" />
 
             <div className="space-y-8">
@@ -33,6 +32,6 @@ export default function Index({ accounts }: { accounts: Account[] }) {
                     </div>
                 )}
             </div>
-        </AppLayout>
+        </>
     );
 }

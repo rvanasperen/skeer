@@ -1,6 +1,5 @@
 import AccountForm from '@/Components/Account/AccountForm';
 import { Card } from '@/Components/UI';
-import AppLayout from '@/Layouts/AppLayout';
 import { Bank, Currency } from '@/Models';
 import { Head } from '@inertiajs/react';
 
@@ -12,7 +11,7 @@ export default function Create({
     currencies: Currency[];
 }) {
     return (
-        <AppLayout>
+        <>
             <Head title="Create Account" />
 
             <div className="max-w-xl space-y-8">
@@ -22,6 +21,6 @@ export default function Create({
                     <AccountForm banks={banks} currencies={currencies} />
                 </Card>
             </div>
-        </AppLayout>
+        </>
     );
 }

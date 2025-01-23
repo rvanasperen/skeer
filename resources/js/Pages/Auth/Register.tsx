@@ -1,9 +1,9 @@
 import { Button, Input, InputError, Label } from '@/Components/UI/Form';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, ReactNode } from 'react';
 
-export default function Register() {
+function Register() {
     const { data, setData, post, processing, errors, reset } = useForm<{
         name: string;
         email: string;
@@ -25,7 +25,7 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Register" />
 
             <form
@@ -106,6 +106,10 @@ export default function Register() {
                     <Link href={route('login')}>Already registered?</Link>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+Register.layout = (page: ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default Register;

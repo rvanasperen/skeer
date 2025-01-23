@@ -1,9 +1,9 @@
 import { Button, Input, InputError, Label } from '@/Components/UI/Form';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, ReactNode } from 'react';
 
-export default function ConfirmPassword() {
+function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm<{
         password: string;
     }>({
@@ -19,7 +19,7 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Confirm Password" />
 
             <form
@@ -49,6 +49,10 @@ export default function ConfirmPassword() {
 
                 <Button disabled={processing}>Confirm</Button>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+ConfirmPassword.layout = (page: ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default ConfirmPassword;

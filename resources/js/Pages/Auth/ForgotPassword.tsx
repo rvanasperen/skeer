@@ -1,9 +1,9 @@
 import { Button, Input, InputError, Label } from '@/Components/UI/Form';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, ReactNode } from 'react';
 
-export default function ForgotPassword({ status }: { status?: string }) {
+function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm<{
         email: string;
     }>({
@@ -17,7 +17,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Forgot Password" />
 
             <form
@@ -52,6 +52,10 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 <Button disabled={processing}>Email Password Reset Link</Button>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+ForgotPassword.layout = (page: ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default ForgotPassword;

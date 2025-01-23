@@ -3,7 +3,6 @@ import MoneyFlowChartCard from '@/Components/Charts/MoneyFlowChartCard';
 import { DateRangeGroupFilter } from '@/Components/UI';
 import { BalanceOverTimeData, TransactionsOverTimeData } from '@/Data';
 import { GroupBy } from '@/Enums';
-import AppLayout from '@/Layouts/AppLayout';
 import { PageProps } from '@/types';
 import { Head, router } from '@inertiajs/react';
 
@@ -33,7 +32,7 @@ export default function Reports({
     };
 
     return (
-        <AppLayout>
+        <>
             <Head title="Reports" />
 
             <div className="space-y-8">
@@ -60,6 +59,6 @@ export default function Reports({
                     />
                 </div>
             </div>
-        </AppLayout>
+        </>
     );
 }

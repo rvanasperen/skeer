@@ -1,5 +1,4 @@
 import { Card } from '@/Components/UI';
-import AppLayout from '@/Layouts/AppLayout';
 import { PageProps } from '@/types';
 import { Head } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
@@ -11,7 +10,7 @@ export default function Edit({
     status,
 }: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
     return (
-        <AppLayout>
+        <>
             <Head title="Profile" />
 
             <div className="max-w-xl space-y-8">
@@ -30,6 +29,6 @@ export default function Edit({
                     <DeleteUserForm />
                 </Card>
             </div>
-        </AppLayout>
+        </>
     );
 }
