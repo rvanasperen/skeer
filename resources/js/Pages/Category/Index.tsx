@@ -11,7 +11,7 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
 
             <Card>
                 {categories.map((category) => (
-                    <>
+                    <div key={category.id}>
                         <div key={category.id}>{category.name}</div>
                         {category.children && (
                             <div className="pl-4">
@@ -22,7 +22,7 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                                 ))}
                             </div>
                         )}
-                    </>
+                    </div>
                 ))}
             </Card>
         </>
