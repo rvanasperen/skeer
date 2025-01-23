@@ -58,14 +58,18 @@ class TransactionController
         $bank = Bank::findOrFail($validated['bank_id']);
         $currency = Currency::findOrFail($validated['currency_id']);
 
-        resolve(TransactionImporter::class)->import(
+        $numImported = resolve(TransactionImporter::class)->import(
             $request->user(),
             $bank,
             $currency,
             $validated['file']->getRealPath(),
         );
 
-        $request->session()->flash('message', 'woop');
+        $request->session()->flash('message', sprintf(
+            '%s new transaction%s imported',
+            number_format($numImported),
+            $numImported === 1 ? '' : 's',
+        ));
 
         return to_route('transactions.index');
     }

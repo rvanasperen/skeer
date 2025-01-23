@@ -24,7 +24,7 @@ readonly class TransactionImporter
         ];
     }
 
-    public function import(User $user, Bank $bank, Currency $currency, string $csvFilePath): void
+    public function import(User $user, Bank $bank, Currency $currency, string $csvFilePath): int
     {
         DB::beginTransaction();
 
@@ -34,6 +34,8 @@ readonly class TransactionImporter
             if (! isset($this->transformersMap[$bank->bic])) {
                 throw new LogicException("No transformer found for bank: $bank->name ($bank->bic)");
             }
+
+            $numImported = 0;
 
             /** @var Transformer $transformer */
             $transformer = resolve($this->transformersMap[$bank->bic]);
@@ -89,6 +91,8 @@ readonly class TransactionImporter
                     'imported_at' => now(),
                     'import_hash' => $hash,
                 ]);
+
+                $numImported++;
             }
         } catch (Throwable $e) {
             DB::rollBack();
@@ -96,5 +100,7 @@ readonly class TransactionImporter
         }
 
         DB::commit();
+
+        return $numImported;
     }
 }
