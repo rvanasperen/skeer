@@ -232,7 +232,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
         >
             <Sidebar showSetup={user.accounts?.length === 0} />
 
-            <div className="grow p-8">{children}</div>
+            <div className="grow p-4 xl:p-8">{children}</div>
         </div>
     );
 }
