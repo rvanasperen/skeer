@@ -8,7 +8,7 @@ export default function Index({ accounts }: { accounts: Account[] }) {
         <>
             <Head title="Accounts" />
 
-            <div className="space-y-8">
+            <div className="space-y-4 xl:space-y-8">
                 <div className="flex items-center justify-between">
                     <div className="text-3xl font-bold">Accounts</div>
 
@@ -25,7 +25,7 @@ export default function Index({ accounts }: { accounts: Account[] }) {
                 )}
 
                 {accounts.length > 0 && (
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-2 gap-4 xl:gap-8">
                         {accounts.map((account) => (
                             <AccountCard account={account} key={account.id} />
                         ))}

@@ -16,7 +16,7 @@ export default function Edit({
         <>
             <Head title={`Edit Account - ${account.name}`} />
 
-            <div className="max-w-xl space-y-8">
+            <div className="max-w-xl space-y-4 xl:space-y-8">
                 <h2 className="text-3xl font-bold">Edit Account</h2>
 
                 <Card>

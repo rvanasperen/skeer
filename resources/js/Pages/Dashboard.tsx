@@ -22,10 +22,10 @@ export default function Dashboard({
         <>
             <Head title="Dashboard" />
 
-            <div className="space-y-8">
+            <div className="space-y-4 xl:space-y-8">
                 <div className="text-3xl font-bold">Dashboard</div>
 
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-4 xl:gap-8">
                     <div>
                         <Card className="space-y-4">
                             <div className="text-2xl">Category Summary</div>
@@ -65,7 +65,7 @@ export default function Dashboard({
                     </div>
 
                     <div>
-                        <div className="grid grid-cols-2 gap-8">
+                        <div className="grid grid-cols-2 gap-4 xl:gap-8">
                             <div className="col-span-2">
                                 <BalanceHistoryChartCard
                                     data={balanceOverTimeData}
