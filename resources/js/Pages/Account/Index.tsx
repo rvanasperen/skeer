@@ -25,7 +25,7 @@ export default function Index({ accounts }: { accounts: Account[] }) {
                 )}
 
                 {accounts.length > 0 && (
-                    <div className="grid grid-cols-2 gap-4 xl:gap-8">
+                    <div className="grid gap-4 xl:grid-cols-2 xl:gap-8">
                         {accounts.map((account) => (
                             <AccountCard account={account} key={account.id} />
                         ))}
