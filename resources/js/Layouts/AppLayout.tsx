@@ -2,6 +2,7 @@ import {
     KeyboardShortcut,
     useKeyboardShortcutsContext,
 } from '@/Components/Providers/KeyboardShortcutsProvider';
+import { useMobileNavigationContext } from '@/Components/Providers/MobileNavigationProvider';
 import { useNotificationsContext } from '@/Components/Providers/NotificationsProvider';
 import { ApplicationLogo } from '@/Components/UI/Icons';
 import { Link, router, usePage } from '@inertiajs/react';
@@ -20,6 +21,7 @@ function NavItem({
 }) {
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
+    const { setShowMobileNavigation } = useMobileNavigationContext();
 
     useEffect(() => {
         if (!keySequence || keySequence.length === 0) {
@@ -41,6 +43,7 @@ function NavItem({
                 (isActive ? 'bg-gray-800' : '')
             }
             href={href}
+            onClick={() => setShowMobileNavigation(false)}
         >
             <div className="flex items-center justify-between">
                 <div>{label}</div>
@@ -55,8 +58,14 @@ function NavItem({
 }
 
 function Sidebar({ showSetup }: { showSetup: boolean }) {
+    const { showMobileNavigation } = useMobileNavigationContext();
+
     return (
-        <div className="hidden w-64 flex-none space-y-6 bg-gray-900 p-4 md:block xl:w-80 xl:space-y-8 xl:p-8">
+        <div
+            className={`z-10 h-full w-full space-y-6 bg-gray-900 p-4 md:static md:block md:w-64 md:flex-none xl:w-80 xl:space-y-8 xl:p-8 ${
+                showMobileNavigation ? 'absolute' : 'hidden'
+            }`}
+        >
             <div className="flex items-end gap-2">
                 <ApplicationLogo className="h-14 fill-current text-gray-100" />
                 <div>
@@ -145,6 +154,9 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
 export default function AppLayout({ children }: PropsWithChildren) {
     const user = usePage().props.auth.user;
 
+    const { showMobileNavigation, setShowMobileNavigation } =
+        useMobileNavigationContext();
+
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
     const { showNotification } = useNotificationsContext();
@@ -226,13 +238,40 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
     return (
         <div
-            className={`flex min-h-screen bg-gray-800 text-gray-100 duration-1000 ease-linear ${
+            className={`flex h-dvh flex-col bg-gray-800 text-gray-100 ease-linear md:flex-row ${
                 easterEggDogMode ? 'grayscale' : ''
             }`}
         >
-            <Sidebar showSetup={user.accounts?.length === 0} />
+            <div className="relative flex grow overflow-y-scroll">
+                <Sidebar showSetup={user.accounts?.length === 0} />
 
-            <div className="grow p-4 xl:p-8">{children}</div>
+                <div className="grow overflow-y-scroll p-4 xl:p-8">
+                    {children}
+                </div>
+            </div>
+
+            <div className="flex justify-evenly border-t border-gray-700 bg-gray-900 p-2 md:hidden">
+                <Link
+                    className={`px-4 py-2 ${route().current('dashboard') ? 'bg-gray-800' : ''}`}
+                    href={route('dashboard')}
+                >
+                    Dashboard
+                </Link>
+                <button
+                    className={`cursor-pointer px-4 py-2 ${showMobileNavigation ? 'bg-gray-800' : ''}`}
+                    onClick={() =>
+                        setShowMobileNavigation((prevState) => !prevState)
+                    }
+                >
+                    Menu
+                </button>
+                <Link
+                    className={`px-4 py-2 ${route().current('transactions.*') ? 'bg-gray-800' : ''}`}
+                    href={route('transactions.index')}
+                >
+                    Transactions
+                </Link>
+            </div>
         </div>
     );
 }

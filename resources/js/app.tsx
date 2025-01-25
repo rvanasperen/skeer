@@ -2,6 +2,7 @@ import '../css/app.css';
 import './bootstrap';
 
 import { KeyboardShortcutsProvider } from '@/Components/Providers/KeyboardShortcutsProvider';
+import { MobileNavigationProvider } from '@/Components/Providers/MobileNavigationProvider';
 import { NotificationsProvider } from '@/Components/Providers/NotificationsProvider';
 import AppLayout from '@/Layouts/AppLayout';
 import { createInertiaApp } from '@inertiajs/react';
@@ -41,6 +42,7 @@ createInertiaApp({
             withProviders(<App {...props} />, [
                 NotificationsProvider,
                 KeyboardShortcutsProvider,
+                MobileNavigationProvider,
             ]),
         );
     },
