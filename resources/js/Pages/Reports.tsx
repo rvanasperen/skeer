@@ -35,8 +35,8 @@ export default function Reports({
         <>
             <Head title="Reports" />
 
-            <div className="space-y-8">
-                <div className="flex items-center justify-between">
+            <div className="space-y-4 xl:space-y-8">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
                     <div className="text-3xl font-bold">Reports</div>
 
                     <DateRangeGroupFilter
