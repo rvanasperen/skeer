@@ -62,7 +62,7 @@ export default function AccountCard({
                         </Link>*/}
                     </div>
                 </div>
-                <div className="flex flex-shrink-0 flex-col items-center">
+                <div className="flex shrink-0 flex-col items-center">
                     <img
                         alt="Bank Logo"
                         className="size-16"
