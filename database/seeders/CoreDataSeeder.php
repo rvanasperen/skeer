@@ -33,6 +33,7 @@ class CoreDataSeeder extends Seeder
     {
         $currencies = [
             ['code' => 'EUR', 'name' => 'Euro'],
+            ['code' => 'USD', 'name' => 'US Dollar'],
         ];
 
         foreach ($currencies as $data) {

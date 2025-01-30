@@ -50,7 +50,7 @@ class TestDataSeeder extends Seeder
 
         $income = [
             'Income' => [
-                'Income',
+                'Salary',
                 'Misc',
                 'Starting Balance', // todo: Opening Balance, magic string
             ],
@@ -70,7 +70,6 @@ class TestDataSeeder extends Seeder
         $category = Category::create([
             'user_id' => $user->id,
             'name' => $category,
-            'type' => $type,
         ]);
 
         foreach ($subcategories as $subcategory) {
@@ -78,7 +77,6 @@ class TestDataSeeder extends Seeder
                 'parent_id' => $category->id,
                 'user_id' => $user->id,
                 'name' => $subcategory,
-                'type' => $type,
             ]);
         }
     }
