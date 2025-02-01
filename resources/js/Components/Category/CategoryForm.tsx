@@ -15,8 +15,6 @@ export default function CategoryForm({
 }) {
     const { showNotification } = useNotificationsContext();
 
-    console.log("category", category);
-
     // data, errors,
     const { data, post, put, processing, setData } = useForm<{
         name: string;
