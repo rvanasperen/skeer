@@ -1,9 +1,14 @@
 import GuestLayout from '@/Layouts/GuestLayout';
+import { ReactNode } from 'react';
 
-export default function Index() {
+function Index() {
     return (
-        <GuestLayout>
+        <>
             <h1>Index Page</h1>
-        </GuestLayout>
+        </>
     );
 }
+
+Index.layout = (page: ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default Index;

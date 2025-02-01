@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Transaction\OpeningBalanceService;
 use App\Enums\AccountType;
-use App\Enums\TransactionType;
 use App\Models\Account;
 use App\Models\Bank;
-use App\Models\Category;
 use App\Models\Currency;
-use App\Rules\IBANRule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -49,13 +47,15 @@ class AccountController
             'bank_id' => ['required', 'exists:banks,id'],
             'currency_id' => ['required', 'exists:currencies,id'],
             'name' => ['required', 'string'],
-            'number' => ['required', 'string', 'unique:accounts', new IBANRule()],
+            'number' => ['required', 'string', 'unique:accounts'],
             'type' => ['required', Rule::enum(AccountType::class)],
         ]);
 
         $request->user()
             ->accounts()
             ->create($validated);
+
+        notify('Account created!');
 
         return to_route('accounts.index');
     }
@@ -87,7 +87,7 @@ class AccountController
             'bank_id' => ['required', 'exists:banks,id'],
             'currency_id' => ['required', 'exists:currencies,id'],
             'name' => ['required', 'string'],
-            'number' => ['required', 'string', 'unique:accounts,number,'.$accountId, new IBANRule()],
+            'number' => ['required', 'string', 'unique:accounts,number,'.$accountId],
             'type' => ['required', Rule::enum(AccountType::class)],
             'current_balance' => ['required', 'numeric'],
         ]);
@@ -102,46 +102,10 @@ class AccountController
             /** @var Account $account */
             $account = $user->accounts()->findOrFail($accountId);
 
-            $earliestTransaction = $account->transactions()
-                ->whereNot('name', 'Starting Balance') // todo: Opening Balance, magic string
-                ->orderBy('transaction_date')
-                ->first();
+            resolve(OpeningBalanceService::class)
+                ->updateOpeningBalance($account, $validated['current_balance']);
 
-            if ($earliestTransaction === null) {
-                return;
-            }
-
-            $startingBalanceDate = $earliestTransaction->transaction_date->subDay();
-            $startingBalanceAmount = $validated['current_balance'] - DB::table('transactions')
-                ->selectRaw('SUM(CASE WHEN type = ? THEN -amount ELSE amount END) AS balance', [TransactionType::Expense])
-                ->whereNot('name', 'Starting Balance') // todo: Opening Balance, magic string
-                ->where('account_id', $account->id)
-                ->first()
-                ->balance ?? 0.0;
-            $startingBalanceCategory = Category::where('name', 'Starting Balance')->firstOrFail(); // todo: Opening Balance, magic string
-
-            $startingBalanceTransaction = $account->transactions()
-                ->where([
-                    'account_id' => $account->id,
-                    'name' => 'Starting Balance', // todo: Opening Balance, magic string
-                ])
-                ->first();
-
-            if ($startingBalanceTransaction !== null) {
-                $startingBalanceTransaction->update([
-                    'amount' => $startingBalanceAmount,
-                    'transaction_date' => $startingBalanceDate,
-                ]);
-            } else {
-                $user->transactions()->create([
-                    'account_id' => $accountId,
-                    'category_id' => $startingBalanceCategory->id,
-                    'type' => TransactionType::Income,
-                    'amount' => $startingBalanceAmount,
-                    'name' => 'Starting Balance', // todo: Opening Balance, magic string
-                    'transaction_date' => $startingBalanceDate,
-                ]);
-            }
+            notify('Account updated!');
         });
 
         return to_route('accounts.index');

@@ -11,7 +11,7 @@ export default function Edit({
     categories: CategoryData[];
 }) {
     return (
-        <AppLayout>
+        <>
             <Head title="Create category" />
 
             <div className="max-w-xl space-y-8">
@@ -21,6 +21,6 @@ export default function Edit({
 
                 <CategoryForm categories={categories} category={category} />
             </div>
-        </AppLayout>
+        </>
     );
 }

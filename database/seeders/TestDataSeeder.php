@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\AccountType;
+use App\Domain\Transaction\OpeningBalanceService;
 use App\Enums\CategoryType;
 use App\Enums\TransactionType;
 use App\Models\Account;
@@ -92,9 +93,10 @@ class TestDataSeeder extends Seeder
 
         $income = [
             'Income' => [
+                OpeningBalanceService::OPENING_BALANCE_CATEGORY_NAME, // required
+                'Income',
                 'Salary',
                 'Misc',
-                'Starting Balance', // todo: Opening Balance, magic string
             ],
         ];
 

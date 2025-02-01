@@ -143,11 +143,40 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
 }
 
 export default function AppLayout({ children }: PropsWithChildren) {
+    const user = usePage().props.auth.user;
+
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
     const { showNotification } = useNotificationsContext();
 
     const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
+
+    const { flash } = usePage().props;
+    const [displayedFlashMessage, setDisplayedFlashMessage] = useState<
+        string | null
+    >(null);
+
+    useEffect(() => {
+        if (!flash.notification) {
+            return;
+        }
+
+        if (flash.notification.message === displayedFlashMessage) {
+            return;
+        }
+
+        showNotification({
+            message: flash.notification.message,
+            type: flash.notification.type,
+        });
+
+        setDisplayedFlashMessage(flash.notification.message);
+    }, [
+        displayedFlashMessage,
+        flash.notification,
+        setDisplayedFlashMessage,
+        showNotification,
+    ]);
 
     const shortcuts: KeyboardShortcut[] = [
         {
@@ -194,8 +223,6 @@ export default function AppLayout({ children }: PropsWithChildren) {
             );
         };
     }, []);
-
-    const user = usePage().props.auth.user;
 
     return (
         <div

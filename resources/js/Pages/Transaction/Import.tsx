@@ -1,7 +1,5 @@
-import { useNotificationsContext } from '@/Components/Providers/NotificationsProvider';
 import { Card } from '@/Components/UI';
 import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
-import AppLayout from '@/Layouts/AppLayout';
 import { Bank, Currency } from '@/Models';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
@@ -13,8 +11,6 @@ export default function Import({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const { showNotification } = useNotificationsContext();
-
     const { data, setData, post, errors, processing } = useForm<{
         bank_id: number | '';
         currency_id: number | '';
@@ -28,18 +24,11 @@ export default function Import({
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('transactions.import'), {
-            onSuccess: () => {
-                showNotification({
-                    message: 'Transactions imported!',
-                    type: 'success',
-                });
-            },
-        });
+        post(route('transactions.import'));
     };
 
     return (
-        <AppLayout>
+        <>
             <Head title="Import Transactions" />
 
             <div className="max-w-xl space-y-8">
@@ -132,6 +121,6 @@ export default function Import({
                     </form>
                 </Card>
             </div>
-        </AppLayout>
+        </>
     );
 }

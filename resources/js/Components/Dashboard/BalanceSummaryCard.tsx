@@ -47,7 +47,7 @@ export default function BalanceSummaryCard({
                         (currencyCode, index) => (
                             <div key={index}>
                                 {currencyCode}:{' '}
-                                {balanceByCurrency[currencyCode] > 0 && (
+                                {balanceByCurrency[currencyCode] >= 0 && (
                                     <span className="text-green-500">
                                         {formatterByCurrency[
                                             currencyCode
@@ -56,7 +56,7 @@ export default function BalanceSummaryCard({
                                         )}
                                     </span>
                                 )}
-                                {balanceByCurrency[currencyCode] <= 0 && (
+                                {balanceByCurrency[currencyCode] < 0 && (
                                     <span className="text-red-500">
                                         {formatterByCurrency[
                                             currencyCode
@@ -76,14 +76,14 @@ export default function BalanceSummaryCard({
                 {accounts.map((account) => (
                     <div key={account.id}>
                         {account.name}:{' '}
-                        {account.balance > 0 && (
+                        {account.balance >= 0 && (
                             <span className="text-green-500">
                                 {formatterByCurrency[
                                     (account.currency as Currency).code
                                 ].format(account.balance)}
                             </span>
                         )}
-                        {account.balance <= 0 && (
+                        {account.balance < 0 && (
                             <span className="text-red-500">
                                 {formatterByCurrency[
                                     (account.currency as Currency).code

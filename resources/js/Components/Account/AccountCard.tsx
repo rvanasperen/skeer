@@ -26,12 +26,12 @@ export default function AccountCard({
 
                     <div className="mt-4 text-xl">
                         Balance:{' '}
-                        {account.balance > 0 && (
+                        {account.balance >= 0 && (
                             <span className="text-green-500">
                                 {formatter.format(account.balance)}
                             </span>
                         )}
-                        {account.balance <= 0 && (
+                        {account.balance < 0 && (
                             <span className="text-red-500">
                                 {formatter.format(account.balance)}
                             </span>

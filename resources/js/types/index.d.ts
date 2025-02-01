@@ -6,4 +6,10 @@ export type PageProps<
     auth: {
         user: User;
     };
+    flash: {
+        notification: {
+            message: string;
+            type: 'success' | 'error';
+        };
+    };
 };

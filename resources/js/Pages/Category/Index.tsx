@@ -3,7 +3,6 @@ import { Card } from '@/Components/UI';
 import { Button } from '@/Components/UI/Form';
 import IconButton from '@/Components/UI/Form/IconButton';
 import { CategoryData } from '@/Data';
-import AppLayout from '@/Layouts/AppLayout';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Head, Link, useForm } from '@inertiajs/react';
@@ -71,7 +70,7 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
     };
 
     return (
-        <AppLayout>
+        <>
             <Head title="Categories" />
 
             <div className="space-y-8">
@@ -206,6 +205,6 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                     </table>
                 </Card>
             </div>
-        </AppLayout>
+        </>
     );
 }

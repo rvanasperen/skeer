@@ -6,7 +6,6 @@ import FiltersCard from '@/Components/Transaction/FiltersCard';
 import TransactionsTableCard from '@/Components/Transaction/TransactionsTableCard';
 import { Button } from '@/Components/UI/Form';
 import { PaginatedData } from '@/Data';
-import AppLayout from '@/Layouts/AppLayout';
 import { Account, Category, Currency, Transaction } from '@/Models';
 import { Head, Link, router } from '@inertiajs/react';
 import { useEffect } from 'react';
@@ -60,7 +59,7 @@ export default function Index({
     }, [transactions]);
 
     return (
-        <AppLayout>
+        <>
             <Head title="Transactions" />
 
             <div className="space-y-8">
@@ -100,6 +99,6 @@ export default function Index({
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </>
     );
 }

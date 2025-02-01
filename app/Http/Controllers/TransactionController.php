@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 use Inertia\Response;
+use Throwable;
 
 class TransactionController
 {
@@ -58,12 +59,25 @@ class TransactionController
         $bank = Bank::findOrFail($validated['bank_id']);
         $currency = Currency::findOrFail($validated['currency_id']);
 
-        resolve(TransactionImporter::class)->import(
-            $request->user(),
-            $bank,
-            $currency,
-            $validated['file']->getRealPath(),
-        );
+        try {
+            $numImported = resolve(TransactionImporter::class)->import(
+                $request->user(),
+                $bank,
+                $currency,
+                $validated['file']->getRealPath(),
+            );
+
+            notify(sprintf(
+                '%s new transaction%s imported!',
+                number_format($numImported),
+                $numImported === 1 ? '' : 's',
+            ));
+        } catch (Throwable $e) {
+            notify(sprintf(
+                'Oopsie woopsie, %s!!!',
+                $e->getMessage(),
+            ), 'error');
+        }
 
         return to_route('transactions.index');
     }

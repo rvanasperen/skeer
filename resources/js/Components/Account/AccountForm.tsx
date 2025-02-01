@@ -1,4 +1,3 @@
-import { useNotificationsContext } from '@/Components/Providers/NotificationsProvider';
 import { Button, Input, InputError, Label, Select } from '@/Components/UI/Form';
 import { Account, Bank, Currency } from '@/Models';
 import { useForm } from '@inertiajs/react';
@@ -15,8 +14,6 @@ export default function AccountForm({
     banks: Bank[];
     currencies: Currency[];
 }) {
-    const { showNotification } = useNotificationsContext();
-
     const { data, errors, post, put, processing, setData } = useForm<{
         bank_id: number | '';
         currency_id: number | '';
@@ -37,21 +34,9 @@ export default function AccountForm({
         e.preventDefault();
 
         if (account) {
-            put(route('accounts.update', account.id), {
-                onSuccess: () =>
-                    showNotification({
-                        message: 'Account updated!',
-                        type: 'success',
-                    }),
-            });
+            put(route('accounts.update', account.id));
         } else {
-            post(route('accounts.store'), {
-                onSuccess: () =>
-                    showNotification({
-                        message: 'Account created!',
-                        type: 'success',
-                    }),
-            });
+            post(route('accounts.store'));
         }
     };
 
@@ -120,7 +105,7 @@ export default function AccountForm({
             </div>
 
             <div>
-                <Label htmlFor="number" value="Number (IBAN)" />
+                <Label htmlFor="number" value="Number (usually IBAN)" />
                 <Input
                     autoComplete="off"
                     className="mt-1 block w-full"
@@ -145,7 +130,7 @@ export default function AccountForm({
                 >
                     <option value="">Select a type</option>
                     <option value="Checking">Checking</option>
-                    <option value="Savings">Savings</option>
+                    <option value="Saving">Saving</option>
                 </Select>
                 <InputError className="mt-2" message={errors.type} />
             </div>
@@ -170,7 +155,7 @@ export default function AccountForm({
                         value={data.current_balance}
                     />
                     <div className="mt-2 text-sm text-gray-400">
-                        The starting balance of the account will be updated to
+                        The opening balance of the account will be updated to
                         make sure the current value is correct.
                     </div>
                     <InputError
