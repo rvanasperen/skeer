@@ -3,6 +3,7 @@
 namespace App\Domain\Category;
 
 use App\Enums\TransactionType;
+use App\Models\Category;
 use App\Models\User;
 
 class CategoryDataBuilder
@@ -52,13 +53,14 @@ class CategoryDataBuilder
         return $nestedData;
     }
 
-    private function buildCategory($category, $data): array
+    private function buildCategory(Category $category, $data): array
     {
         $categoryData = [
             'id' => $category->category_id,
             'name' => $category->category_name,
             'spent' => round($category->spent, 2),
             'children' => [],
+            'transaction_count' => Category::find($category->category_id)->transactions()->count(),
         ];
 
         foreach ($data as $child) {
