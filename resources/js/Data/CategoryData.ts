@@ -4,4 +4,5 @@ export default interface CategoryData {
     spent: number;
     children?: CategoryData[];
     parent_id: number | null;
+    transaction_count?: number;
 }

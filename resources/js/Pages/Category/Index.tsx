@@ -1,3 +1,4 @@
+import Modal from '@/Components/Modal';
 import { Card } from '@/Components/UI';
 import { Button } from '@/Components/UI/Form';
 import IconButton from '@/Components/UI/Form/IconButton';
@@ -5,10 +6,70 @@ import { CategoryData } from '@/Data';
 import AppLayout from '@/Layouts/AppLayout';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import classNames from 'classnames';
+import { useState } from 'react';
 
 export default function Index({ categories }: { categories: CategoryData[] }) {
+    const [showConfirmCategoryDeletion, setShowConfirmCategoryDeletion] =
+        useState(false);
+
+    const [categoryToDelete, setCategoryToDelete] = useState<CategoryData>(
+        {} as CategoryData,
+    );
+
+    const { processing, delete: destroy } = useForm();
+
+    const handleDeleteCategory = () => {
+        destroy(route('categories.destroy', categoryToDelete.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                setShowConfirmCategoryDeletion(false);
+            },
+        });
+    };
+
+    const renderDeleteModal = () => {
+        return (
+            <Modal
+                show={showConfirmCategoryDeletion}
+                onClose={() => {}}
+                closeable={true}
+                maxWidth="xl"
+            >
+                <form onSubmit={handleDeleteCategory} className="p-6 text-gray-100">
+                    <div className="text-lg dark:text-gray-400">
+                        Are you sure you want to delete the category '
+                        {categoryToDelete.name}' ?
+                    </div>
+                    <div className="mt-1 text-sm text-gray-400">
+                        This will cause {categoryToDelete.transaction_count}{' '}
+                        transactions to unlinked from '{categoryToDelete.name}'
+                        and will need to be categorized again.
+                    </div>
+                    <div className="mt-6 flex justify-end gap-4 text-white">
+                        <Button
+                            disabled={processing}
+                            theme="danger"
+                            type="submit"
+                        >
+                            Delete Account
+                        </Button>
+
+                        <Button
+                            onClick={() =>
+                                setShowConfirmCategoryDeletion(false)
+                            }
+                            theme="secondary"
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                </form>
+            </Modal>
+        );
+    };
+
     return (
         <AppLayout>
             <Head title="Categories" />
@@ -25,6 +86,8 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                     </Link>
                 </div>
 
+                {showConfirmCategoryDeletion && renderDeleteModal()}
+
                 <Card>
                     <table className="w-full table-auto">
                         {categories.map((category) => {
@@ -35,7 +98,6 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                                         category?.children?.length > 0,
                                 },
                             );
-
                             return (
                                 <>
                                     <tr className={parentRowClasses}>
@@ -67,6 +129,15 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                                                 <IconButton
                                                     iconName={faTrash}
                                                     theme="danger"
+                                                    onClick={() => {
+                                                        setShowConfirmCategoryDeletion(
+                                                            true,
+                                                        );
+
+                                                        setCategoryToDelete(
+                                                            category,
+                                                        );
+                                                    }}
                                                 >
                                                     Delete
                                                 </IconButton>
@@ -112,6 +183,15 @@ export default function Index({ categories }: { categories: CategoryData[] }) {
                                                                     faTrash
                                                                 }
                                                                 className="h-10"
+                                                                onClick={() => {
+                                                                    setShowConfirmCategoryDeletion(
+                                                                        true,
+                                                                    );
+
+                                                                    setCategoryToDelete(
+                                                                        childCategory,
+                                                                    );
+                                                                }}
                                                             >
                                                                 Delete
                                                             </IconButton>
