@@ -28,7 +28,7 @@ Add support for your own bank by creating (and PRing) a [Transformer](app/Domain
 
 ### Installation
 
-PHP 8.4+ and Node (16+?) are required.
+PHP 8.3+ and Node (16+?) are required.
 
 ```sh
 $ git clone repo && cd repo

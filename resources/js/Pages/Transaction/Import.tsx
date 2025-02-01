@@ -31,7 +31,7 @@ export default function Import({
         <>
             <Head title="Import Transactions" />
 
-            <div className="max-w-xl space-y-8">
+            <div className="max-w-xl space-y-4 xl:space-y-8">
                 <div className="text-3xl font-bold">Import Transactions</div>
 
                 <Card>

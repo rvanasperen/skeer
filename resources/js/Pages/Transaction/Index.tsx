@@ -62,12 +62,12 @@ export default function Index({
         <>
             <Head title="Transactions" />
 
-            <div className="space-y-8">
+            <div className="space-y-4 xl:space-y-8">
                 <div className="flex items-center justify-between">
                     <div className="text-3xl font-bold">Transactions</div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-8">
+                <div className="grid grid-cols-3 gap-4 xl:gap-8">
                     <div className="col-span-2">
                         {transactions.total === 0 && (
                             <div className="text-gray-400">
@@ -81,7 +81,7 @@ export default function Index({
                             />
                         )}
                     </div>
-                    <div className="col-span-1 space-y-8">
+                    <div className="col-span-1 space-y-4 xl:space-y-8">
                         <Link href={route('transactions.import')}>
                             <Button className="flex w-full items-center justify-center gap-2">
                                 <div>Import Transactions</div>

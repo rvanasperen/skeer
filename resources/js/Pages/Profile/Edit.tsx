@@ -13,7 +13,7 @@ export default function Edit({
         <>
             <Head title="Profile" />
 
-            <div className="max-w-xl space-y-8">
+            <div className="max-w-xl space-y-4 xl:space-y-8">
                 <h2 className="text-3xl font-bold">Profile</h2>
 
                 <Card>

@@ -23,33 +23,37 @@ export default function DateRangeGroupFilter({
     };
 
     return (
-        <div className="flex items-center gap-2">
-            <Input
-                onChange={(e) => setSelectedStartDate(e.target.value)}
-                type="date"
-                value={selectedStartDate}
-            />
-            <div>to</div>
-            <Input
-                onChange={(e) => setSelectedEndDate(e.target.value)}
-                type="date"
-                value={selectedEndDate}
-            />
-            <Select
-                onChange={(e) => setSelectedGroupBy(e.target.value as GroupBy)}
-                value={selectedGroupBy}
-            >
-                {(Object.keys(GroupBy) as Array<keyof typeof GroupBy>).map(
-                    (key) => {
-                        return (
-                            <option key={key} value={GroupBy[key]}>
-                                {key}
-                            </option>
-                        );
-                    },
-                )}
-            </Select>
-            <Button onClick={handleFilter}>Filter</Button>
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+            <div className="flex items-center gap-2">
+                <Input
+                    onChange={(e) => setSelectedStartDate(e.target.value)}
+                    type="date"
+                    value={selectedStartDate}
+                />
+                <div>to</div>
+                <Input
+                    onChange={(e) => setSelectedEndDate(e.target.value)}
+                    type="date"
+                    value={selectedEndDate}
+                />
+            </div>
+            <div className="flex items-center gap-2">
+                <Select
+                    onChange={(e) => setSelectedGroupBy(e.target.value as GroupBy)}
+                    value={selectedGroupBy}
+                >
+                    {(Object.keys(GroupBy) as Array<keyof typeof GroupBy>).map(
+                        (key) => {
+                            return (
+                                <option key={key} value={GroupBy[key]}>
+                                    {key}
+                                </option>
+                            );
+                        },
+                    )}
+                </Select>
+                <Button onClick={handleFilter}>Filter</Button>
+            </div>
         </div>
     );
 }

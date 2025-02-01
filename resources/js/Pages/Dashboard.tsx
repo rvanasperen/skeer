@@ -22,11 +22,25 @@ export default function Dashboard({
         <>
             <Head title="Dashboard" />
 
-            <div className="space-y-8">
+            <div className="space-y-4 xl:space-y-8">
                 <div className="text-3xl font-bold">Dashboard</div>
 
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid gap-4 xl:grid-cols-2 xl:gap-8">
                     <div>
+                        <BalanceHistoryChartCard data={balanceOverTimeData} />
+                    </div>
+
+                    <div>
+                        <BalanceSummaryCard accounts={accounts} />
+                    </div>
+                </div>
+
+                <div className="grid gap-4 xl:grid-cols-2 xl:gap-8">
+                    <div className="xl:order-2">
+                        <TasksCard tasks={tasks} />
+                    </div>
+
+                    <div className="xl:order-1">
                         <Card className="space-y-4">
                             <div className="text-2xl">Category Summary</div>
 
@@ -62,20 +76,6 @@ export default function Dashboard({
                                 ))}
                             </div>
                         </Card>
-                    </div>
-
-                    <div>
-                        <div className="grid grid-cols-2 gap-8">
-                            <div className="col-span-2">
-                                <BalanceHistoryChartCard
-                                    data={balanceOverTimeData}
-                                />
-                            </div>
-
-                            <TasksCard tasks={tasks} />
-
-                            <BalanceSummaryCard accounts={accounts} />
-                        </div>
                     </div>
                 </div>
             </div>
