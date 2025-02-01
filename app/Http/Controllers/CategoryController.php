@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -73,5 +74,22 @@ class CategoryController
         $category->update($validated);
 
         return to_route('categories.index');
+    }
+
+    public function destroy(Request $request, Category $category): RedirectResponse
+    {
+        $passed = DB::transaction(function () use ($category) {
+            $category
+                ->transactions()
+                ->update(['category_id' => null]);
+
+            $category->delete();
+
+            return true;
+        });
+
+        return to_route('categories.index', [
+            'success' => (bool) $passed,
+        ]);
     }
 }
