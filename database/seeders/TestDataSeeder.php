@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\AccountType;
 use App\Enums\CategoryType;
+use App\Enums\TransactionType;
+use App\Models\Account;
 use App\Models\Category;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +17,44 @@ class TestDataSeeder extends Seeder
     {
         $user = $this->createUser();
         $this->createDefaultCategories($user);
+        $account = $this->createBankAccount($user);
+        $this->createTransactions($account, $user);
+    }
+
+    private function createBankAccount(User $user)
+    {
+        return Account::factory()->create([
+            'user_id' => $user->id,
+            'type' => AccountType::Checking
+        ]);
+    }
+
+    private function createTransactions(Account $account, User $user)
+    {
+        /** @var Category $salaryCategory */
+        $salaryCategory = Category::firstWhere('name', 'Salary');
+
+        Transaction::factory()
+            ->count(10)
+            ->create([
+                'category_id' => $salaryCategory->id,
+                'user_id' => $user->id,
+                'account_id' => $account->id,
+            ]);
+
+        $outgoing = Category::whereIn('name', ['Bills', 'Usual Expenses'])->get();
+        $categories = Category::whereIn('parent_id', $outgoing->pluck('id'))->get();
+
+        Transaction::factory()
+            ->count(100)
+            ->afterMaking(function (Transaction $transaction) use ($categories) {
+                $transaction->category_id = $categories->random()->id;
+            })
+            ->create([
+                'type' => TransactionType::Expense,
+                'user_id' => $user->id,
+                'account_id' => $account->id,
+            ]);
     }
 
     private function createUser(): User
