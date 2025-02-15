@@ -151,11 +151,39 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
     );
 }
 
-export default function AppLayout({ children }: PropsWithChildren) {
-    const user = usePage().props.auth.user;
-
+function MobileFooter({ showSetup }: { showSetup: boolean }) {
     const { showMobileNavigation, setShowMobileNavigation } =
         useMobileNavigationContext();
+
+    return (
+        <div className="flex justify-evenly border-t border-gray-700 bg-gray-900 p-2 md:hidden">
+            <Link
+                className={`px-4 py-2 ${route().current('dashboard') ? 'bg-gray-800' : ''}`}
+                href={route('dashboard')}
+            >
+                Dashboard
+            </Link>
+            <button
+                className={`cursor-pointer px-4 py-2 ${showMobileNavigation ? 'bg-gray-800' : ''}`}
+                onClick={() =>
+                    setShowMobileNavigation((prevState) => !prevState)
+                }
+            >
+                Menu
+            </button>
+            <Link
+                className={`px-4 py-2 ${route().current('transactions.*') ? 'bg-gray-800' : ''}`}
+                href={route('transactions.index')}
+            >
+                Transactions
+            </Link>
+        </div>
+    );
+}
+
+export default function AppLayout({ children }: PropsWithChildren) {
+    const user = usePage().props.auth.user;
+    const showSetup = user.accounts?.length === 0;
 
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
@@ -243,35 +271,14 @@ export default function AppLayout({ children }: PropsWithChildren) {
             }`}
         >
             <div className="relative flex grow overflow-y-scroll">
-                <Sidebar showSetup={user.accounts?.length === 0} />
+                <Sidebar showSetup={showSetup} />
 
                 <div className="grow overflow-y-scroll p-4 xl:p-8">
                     {children}
                 </div>
             </div>
 
-            <div className="flex justify-evenly border-t border-gray-700 bg-gray-900 p-2 md:hidden">
-                <Link
-                    className={`px-4 py-2 ${route().current('dashboard') ? 'bg-gray-800' : ''}`}
-                    href={route('dashboard')}
-                >
-                    Dashboard
-                </Link>
-                <button
-                    className={`cursor-pointer px-4 py-2 ${showMobileNavigation ? 'bg-gray-800' : ''}`}
-                    onClick={() =>
-                        setShowMobileNavigation((prevState) => !prevState)
-                    }
-                >
-                    Menu
-                </button>
-                <Link
-                    className={`px-4 py-2 ${route().current('transactions.*') ? 'bg-gray-800' : ''}`}
-                    href={route('transactions.index')}
-                >
-                    Transactions
-                </Link>
-            </div>
+            <MobileFooter showSetup={showSetup} />
         </div>
     );
 }
