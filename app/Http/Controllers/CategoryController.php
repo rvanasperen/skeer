@@ -49,6 +49,8 @@ class CategoryController
             'user_id' => auth()->id(),
         ]);
 
+        notify('Category created!');
+
         return to_route('categories.index');
     }
 
@@ -73,6 +75,8 @@ class CategoryController
 
         $category->update($validated);
 
+        notify('Category updated!');
+
         return to_route('categories.index');
     }
 
@@ -88,8 +92,15 @@ class CategoryController
             return true;
         });
 
-        return to_route('categories.index', [
-            'success' => (bool) $passed,
-        ]);
+        if ($passed) {
+            notify('Category deleted!');
+        }
+
+        if (!$passed) {
+            notify('Category deletion failed!', 'error');
+        }
+
+
+        return back();
     }
 }

@@ -17,7 +17,7 @@ export default function IconButton({
 }) {
     return (
         <Button className={className} {...props} theme={theme}>
-            <FontAwesomeIcon icon={iconName} size={iconSize} className="mr-2" />
+            <FontAwesomeIcon icon={iconName} size={iconSize} className="me-2" />
             {children}
         </Button>
     );

@@ -28,21 +28,9 @@ export default function CategoryForm({
         e.preventDefault();
 
         if (category) {
-            put(route('categories.update', category.id), {
-                onSuccess: () =>
-                    showNotification({
-                        message: 'Account updated!',
-                        type: 'success',
-                    }),
-            });
+            put(route('categories.update', category.id));
         } else {
-            post(route('categories.store'), {
-                onSuccess: () =>
-                    showNotification({
-                        message: 'Account created!',
-                        type: 'success',
-                    }),
-            });
+            post(route('categories.store'));
         }
     };
 

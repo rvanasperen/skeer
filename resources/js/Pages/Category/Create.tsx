@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/react';
 
 export default function Create({ categories }: { categories: CategoryData[] }) {
     return (
-        <AppLayout>
+        <>
             <Head title="Create category" />
 
             <div className="max-w-xl space-y-8">
@@ -13,6 +13,6 @@ export default function Create({ categories }: { categories: CategoryData[] }) {
 
                 <CategoryForm categories={categories} />
             </div>
-        </AppLayout>
+        </>
     );
 }

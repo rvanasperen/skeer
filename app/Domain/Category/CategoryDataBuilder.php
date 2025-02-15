@@ -13,6 +13,7 @@ class CategoryDataBuilder
         $data = $user->categories()
             ->leftJoin('transactions', 'categories.id', '=', 'transactions.category_id')
             ->select([
+                'categories.id',
                 'categories.id AS category_id',
                 'categories.name AS category_name',
                 'categories.parent_id AS category_parent_id',
@@ -60,7 +61,7 @@ class CategoryDataBuilder
             'name' => $category->category_name,
             'spent' => round($category->spent, 2),
             'children' => [],
-            'transaction_count' => Category::find($category->category_id)->transactions()->count(),
+            'transaction_count' => $category->transactions()->count(),
         ];
 
         foreach ($data as $child) {
