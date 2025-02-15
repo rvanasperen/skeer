@@ -5,12 +5,15 @@ namespace App\Models;
 use App\Enums\GroupBy;
 use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 use LogicException;
 
 class Transaction extends Model
 {
+    use HasFactory;
+
     #region Eloquent Relationships
 
     public function account(): BelongsTo
