@@ -14,12 +14,25 @@ class TaskGenerator
     {
         $tasks = [];
 
+        $this->checkNoAccounts($tasks, $user);
         $this->checkImportedAccountNames($tasks, $user);
         $this->checkMissingOrStaleOpeningBalance($tasks, $user);
         $this->checkStaleImportedTransactions($tasks, $user);
         $this->checkUncategorizedTransactions($tasks, $user);
 
         return $tasks;
+    }
+
+    private function checkNoAccounts(array &$tasks, User $user): void
+    {
+        if ($user->accounts->count() === 0) {
+            $tasks[] = new TaskData(
+                'create_account',
+                'Create Account',
+                'You have no accounts. Create an account to get started.',
+                route('accounts.create'),
+            );
+        }
     }
 
     private function checkImportedAccountNames(array &$tasks, User $user): void
