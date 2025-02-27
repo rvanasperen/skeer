@@ -67,18 +67,21 @@ class TaskGenerator
     {
         $threshold = 2;
 
-        $lastImportedTransactionDate = $user->transactions()
-            ->orderBy('transaction_date', 'desc')
-            ->first()
-            ->transaction_date;
+        $lastImportedTransaction = $user->transactions()
+            ->orderBy('transactions.created_at', 'desc')
+            ->first();
 
-        if ($lastImportedTransactionDate < now()->subDays($threshold)) {
+        if ($lastImportedTransaction === null) {
+            return;
+        }
+
+        if ($lastImportedTransaction->transaction_date < now()->subDays($threshold)) {
             $tasks[] = new TaskData(
                 'import_transactions',
                 'Import Transactions',
                 sprintf(
                     'Your imported transactions are stale. Import new ones starting from %s.',
-                    $lastImportedTransactionDate->format('Y-m-d')
+                    $lastImportedTransaction->transaction_date->format('Y-m-d')
                 ),
                 route('transactions.import'),
             );
