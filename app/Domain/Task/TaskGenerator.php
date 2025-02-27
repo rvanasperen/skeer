@@ -41,7 +41,6 @@ class TaskGenerator
                 route('accounts.index'),
             );
         }
-
     }
 
     private function checkMissingOrStaleOpeningBalance(array &$tasks, User $user): void
