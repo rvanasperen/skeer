@@ -15,9 +15,6 @@ return new class () extends Migration {
             $table->foreignId('user_id')->constrained();
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->string('name');
-            $table->string('type');
-//            $table->decimal('budgeted', 10, 2)->nullable();
-//            $table->string('budget_frequency')->nullable(); // week, month, quarter, year
             $table->timestamps();
         });
     }
