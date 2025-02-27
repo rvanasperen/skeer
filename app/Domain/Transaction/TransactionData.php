@@ -14,6 +14,5 @@ final readonly class TransactionData
         public string $counterparty,
         public string $description,
         public Carbon $transactionDate,
-    ) {
-    }
+    ) {}
 }

@@ -17,8 +17,7 @@ class DashboardController
         private readonly BalanceCalculator $balanceCalculator,
         private readonly CategoryDataBuilder $categoryDataBuilder,
         private readonly TaskGenerator $taskGenerator,
-    ) {
-    }
+    ) {}
 
     public function __invoke(Request $request): Response|RedirectResponse
     {

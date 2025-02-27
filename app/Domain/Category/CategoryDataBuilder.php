@@ -18,7 +18,7 @@ class CategoryDataBuilder
                 'categories.name AS category_name',
                 'categories.parent_id AS category_parent_id',
             ])
-            ->selectRaw("COALESCE(SUM(CASE WHEN transactions.type = ? THEN amount WHEN transactions.type = ? THEN -amount WHEN transactions.type = ? THEN 0 END), 0) AS spent",
+            ->selectRaw('COALESCE(SUM(CASE WHEN transactions.type = ? THEN amount WHEN transactions.type = ? THEN -amount WHEN transactions.type = ? THEN 0 END), 0) AS spent',
                 [
                     TransactionType::Income->value,
                     TransactionType::Expense->value,

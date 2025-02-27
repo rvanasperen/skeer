@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Enums\AccountType;
 use App\Domain\Transaction\OpeningBalanceService;
+use App\Enums\AccountType;
 use App\Enums\CategoryType;
 use App\Enums\TransactionType;
 use App\Models\Account;
@@ -26,7 +26,7 @@ class TestDataSeeder extends Seeder
     {
         return Account::factory()->create([
             'user_id' => $user->id,
-            'type' => AccountType::Checking
+            'type' => AccountType::Checking,
         ]);
     }
 

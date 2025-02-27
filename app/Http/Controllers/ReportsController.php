@@ -15,8 +15,7 @@ class ReportsController
     public function __construct(
         private readonly BalanceCalculator $balanceCalculator,
         private readonly TransactionCalculator $transactionCalculator,
-    ) {
-    }
+    ) {}
 
     public function __invoke(Request $request): Response
     {

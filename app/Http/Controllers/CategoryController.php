@@ -15,8 +15,7 @@ class CategoryController
 {
     public function __construct(
         private readonly CategoryDataBuilder $builder,
-    ) {
-    }
+    ) {}
 
     public function index(Request $request): Response
     {
@@ -96,10 +95,9 @@ class CategoryController
             notify('Category deleted!');
         }
 
-        if (!$passed) {
+        if (! $passed) {
             notify('Category deletion failed!', 'error');
         }
-
 
         return back();
     }

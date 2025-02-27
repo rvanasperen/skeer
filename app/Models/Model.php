@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 abstract class Model extends EloquentModel
 {
-    #region Eloquent Properties
+    // region Eloquent Properties
 
     protected $guarded = [
         'id',
@@ -14,5 +14,5 @@ abstract class Model extends EloquentModel
         'updated_at',
     ];
 
-    #endregion
+    // endregion
 }

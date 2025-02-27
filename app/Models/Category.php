@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    #region Eloquent Relationships
+    // region Eloquent Relationships
 
     public function transactions(): HasMany
     {
@@ -20,7 +20,7 @@ class Category extends Model
         return $this->belongsTo(User::class);
     }
 
-    #endregion
+    // endregion
 
     protected function casts(): array
     {

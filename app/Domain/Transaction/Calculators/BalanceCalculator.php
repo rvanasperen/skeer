@@ -31,9 +31,9 @@ class BalanceCalculator
 
     public function getBalanceOverTime(
         User|Account $model,
-        Carbon       $startDate,
-        Carbon       $endDate,
-        GroupBy      $groupBy,
+        Carbon $startDate,
+        Carbon $endDate,
+        GroupBy $groupBy,
     ): array {
         return collect(
             $model->transactions()

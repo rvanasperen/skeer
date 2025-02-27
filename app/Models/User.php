@@ -13,9 +13,10 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
+
     use Notifiable;
 
-    #region Eloquent Properties
+    // region Eloquent Properties
 
     protected $guarded = [
         'id',
@@ -28,9 +29,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    #endregion
+    // endregion
 
-    #region Eloquent Relationships
+    // region Eloquent Relationships
 
     public function accounts(): HasMany
     {
@@ -47,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Transaction::class);
     }
 
-    #endregion
+    // endregion
 
     protected function casts(): array
     {

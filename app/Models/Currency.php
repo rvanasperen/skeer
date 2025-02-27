@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Currency extends Model
 {
-    #region Eloquent Relationships
+    // region Eloquent Relationships
 
     public function accounts(): HasMany
     {
         return $this->hasMany(Account::class);
     }
 
-    #endregion
+    // endregion
 }

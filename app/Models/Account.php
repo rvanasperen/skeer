@@ -12,15 +12,15 @@ class Account extends Model
 {
     use HasFactory;
 
-    #region Eloquent Properties
+    // region Eloquent Properties
 
     protected $appends = [
         'balance',
     ];
 
-    #endregion
+    // endregion
 
-    #region Eloquent Relationships
+    // region Eloquent Relationships
 
     public function bank(): BelongsTo
     {
@@ -42,7 +42,7 @@ class Account extends Model
         return $this->belongsTo(User::class);
     }
 
-    #endregion
+    // endregion
 
     protected function casts(): array
     {
@@ -51,7 +51,7 @@ class Account extends Model
         ];
     }
 
-    #region Accessors
+    // region Accessors
 
     public function getBalanceAttribute(): float
     {
@@ -59,5 +59,5 @@ class Account extends Model
             ->getBalance($this);
     }
 
-    #endregion
+    // endregion
 }

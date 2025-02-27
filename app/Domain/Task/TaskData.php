@@ -9,6 +9,5 @@ final readonly class TaskData
         public string $name,
         public string $description,
         public string $route,
-    ) {
-    }
+    ) {}
 }

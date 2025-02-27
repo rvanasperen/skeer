@@ -14,7 +14,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    #region Eloquent Relationships
+    // region Eloquent Relationships
 
     public function account(): BelongsTo
     {
@@ -31,9 +31,9 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    #endregion
+    // endregion
 
-    #region Eloquent Scopes
+    // region Eloquent Scopes
 
     public function scopeSelectNormalizedAmount(Builder $query, string $alias = 'amount'): void
     {
@@ -71,7 +71,7 @@ class Transaction extends Model
         }
     }
 
-    #endregion
+    // endregion
 
     protected function casts(): array
     {

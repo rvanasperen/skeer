@@ -36,7 +36,7 @@ class SNSBNL2ATransformer implements Transformer
             'unused_17',
             'description',
             'unused_19',
-            'assigned_category'
+            'assigned_category',
         ];
     }
 

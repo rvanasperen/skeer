@@ -10,8 +10,7 @@ if (! function_exists('notify')) {
         string $message,
         #[ExpectedValues(['success', 'error'])]
         string $type = 'success',
-    ): void
-    {
+    ): void {
         session()?->flash('notification', [
             'message' => $message,
             'type' => $type,

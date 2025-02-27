@@ -13,6 +13,7 @@ use LogicException;
 class OpeningBalanceService
 {
     public const string OPENING_BALANCE_CATEGORY_NAME = 'Opening Balance';
+
     public const string OPENING_BALANCE_TRANSACTION_NAME = 'Opening Balance';
 
     public function hasValidOpeningBalanceTransaction(Account $account): bool
@@ -24,9 +25,9 @@ class OpeningBalanceService
             ->first();
 
         return ! ($firstTransaction === null || (
-                $firstTransaction->category_id !== $openingBalanceCategory->id &&
-                $firstTransaction->name !== static::OPENING_BALANCE_TRANSACTION_NAME
-            ));
+            $firstTransaction->category_id !== $openingBalanceCategory->id &&
+            $firstTransaction->name !== static::OPENING_BALANCE_TRANSACTION_NAME
+        ));
     }
 
     public function updateOpeningBalance(Account $account, float $currentBalance): void
