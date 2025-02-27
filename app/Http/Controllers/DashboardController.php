@@ -29,10 +29,6 @@ class DashboardController
             ->orderBy('name')
             ->get();
 
-        if ($accounts->isEmpty()) {
-            return to_route('setup');
-        }
-
         $balanceOverTimeData = $this->balanceCalculator->getBalanceOverTime(
             $user,
             now()->subDays(14)->startOfDay(),

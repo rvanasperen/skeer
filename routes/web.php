@@ -8,10 +8,6 @@ Route::get('/', Controllers\IndexController::class)
     ->name('index');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('setup', [Controllers\SetupController::class, 'showForm'])
-        ->name('setup');
-    Route::post('setup', [Controllers\SetupController::class, 'processForm']);
-
     Route::get('dashboard', Controllers\DashboardController::class)
         ->name('dashboard');
 

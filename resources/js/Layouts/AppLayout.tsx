@@ -57,7 +57,7 @@ function NavItem({
     );
 }
 
-function Sidebar({ showSetup }: { showSetup: boolean }) {
+function Sidebar() {
     const { showMobileNavigation } = useMobileNavigationContext();
 
     return (
@@ -77,56 +77,44 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
             </div>
 
             <div className="space-y-2">
-                {showSetup && (
-                    <NavItem
-                        href={route('setup')}
-                        isActive={route().current('setup')}
-                        label="Setup"
-                    />
-                )}
+                <NavItem
+                    href={route('dashboard')}
+                    isActive={route().current('dashboard')}
+                    keySequence={['g', 'd']}
+                    label="Dashboard"
+                />
 
-                {!showSetup && (
-                    <>
-                        <NavItem
-                            href={route('dashboard')}
-                            isActive={route().current('dashboard')}
-                            keySequence={['g', 'd']}
-                            label="Dashboard"
-                        />
+                <NavItem
+                    href={route('reports')}
+                    isActive={route().current('reports')}
+                    keySequence={['g', 'r']}
+                    label="Reports"
+                />
 
-                        <NavItem
-                            href={route('reports')}
-                            isActive={route().current('reports')}
-                            keySequence={['g', 'r']}
-                            label="Reports"
-                        />
+                <div>
+                    <hr className="my-4 border-gray-700" />
+                </div>
 
-                        <div>
-                            <hr className="my-4 border-gray-700" />
-                        </div>
+                <NavItem
+                    href={route('accounts.index')}
+                    isActive={route().current('accounts.*')}
+                    keySequence={['g', 'a']}
+                    label="Accounts"
+                />
 
-                        <NavItem
-                            href={route('accounts.index')}
-                            isActive={route().current('accounts.*')}
-                            keySequence={['g', 'a']}
-                            label="Accounts"
-                        />
+                <NavItem
+                    href={route('categories.index')}
+                    isActive={route().current('categories.*')}
+                    keySequence={['g', 'c']}
+                    label="Categories"
+                />
 
-                        <NavItem
-                            href={route('categories.index')}
-                            isActive={route().current('categories.*')}
-                            keySequence={['g', 'c']}
-                            label="Categories"
-                        />
-
-                        <NavItem
-                            href={route('transactions.index')}
-                            isActive={route().current('transactions.*')}
-                            keySequence={['g', 't']}
-                            label="Transactions"
-                        />
-                    </>
-                )}
+                <NavItem
+                    href={route('transactions.index')}
+                    isActive={route().current('transactions.*')}
+                    keySequence={['g', 't']}
+                    label="Transactions"
+                />
 
                 <div>
                     <hr className="my-4 border-gray-700" />
@@ -151,7 +139,7 @@ function Sidebar({ showSetup }: { showSetup: boolean }) {
     );
 }
 
-function MobileFooter({ showSetup }: { showSetup: boolean }) {
+function MobileFooter() {
     const { showMobileNavigation, setShowMobileNavigation } =
         useMobileNavigationContext();
 
@@ -183,7 +171,6 @@ function MobileFooter({ showSetup }: { showSetup: boolean }) {
 
 export default function AppLayout({ children }: PropsWithChildren) {
     const user = usePage().props.auth.user;
-    const showSetup = user.accounts?.length === 0;
 
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
@@ -271,14 +258,14 @@ export default function AppLayout({ children }: PropsWithChildren) {
             }`}
         >
             <div className="relative flex grow overflow-y-scroll">
-                <Sidebar showSetup={showSetup} />
+                <Sidebar />
 
                 <div className="grow overflow-y-scroll p-4 xl:p-8">
                     {children}
                 </div>
             </div>
 
-            <MobileFooter showSetup={showSetup} />
+            <MobileFooter />
         </div>
     );
 }
