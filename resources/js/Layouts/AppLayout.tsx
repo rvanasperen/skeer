@@ -170,18 +170,16 @@ function MobileFooter() {
 }
 
 export default function AppLayout({ children }: PropsWithChildren) {
-    const user = usePage().props.auth.user;
+    const { flash } = usePage().props;
 
     const { registerKeyboardShortcut, unregisterKeyboardShortcut } =
         useKeyboardShortcutsContext();
     const { showNotification } = useNotificationsContext();
 
-    const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
-
-    const { flash } = usePage().props;
     const [displayedFlashMessage, setDisplayedFlashMessage] = useState<
         string | null
     >(null);
+    const [easterEggDogMode, setEasterEggDogMode] = useState<boolean>(false);
 
     useEffect(() => {
         if (!flash.notification) {
