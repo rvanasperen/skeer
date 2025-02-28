@@ -6,7 +6,6 @@ use App\Domain\Category\CategoryDataBuilder;
 use App\Domain\Task\TaskGenerator;
 use App\Domain\Transaction\Calculators\BalanceCalculator;
 use App\Enums\GroupBy;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,7 +18,7 @@ class DashboardController
         private readonly TaskGenerator $taskGenerator,
     ) {}
 
-    public function __invoke(Request $request): Response|RedirectResponse
+    public function __invoke(Request $request): Response
     {
         $user = $request->user();
 
