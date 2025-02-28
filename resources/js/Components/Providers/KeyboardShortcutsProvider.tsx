@@ -26,7 +26,7 @@ export function useKeyboardShortcutsContext() {
 
     if (!context) {
         throw new Error(
-            'useShortcutsContext must be used within a ShortcutsProvider',
+            'useKeyboardShortcutsContext must be used within a ShortcutsProvider',
         );
     }
 
