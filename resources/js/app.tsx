@@ -12,6 +12,7 @@ import { createRoot } from 'react-dom/client';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+// noinspection JSIgnoredPromiseFromCall
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: async (name) => {
@@ -49,6 +50,4 @@ createInertiaApp({
     progress: {
         color: '#4B5563',
     },
-}).then(() => {
-    // console.log('Inertia app ready');
 });
